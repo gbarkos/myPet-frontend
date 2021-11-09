@@ -44,7 +44,7 @@ object UserAuthRepository {
         val dataSource = ServiceGenerator
 
         Log.i(TAG, "registerUser: Call is started")
-        val body = UserRegisterPostRequest(username, password, confirmPassword, name, surname, email, phoneNumber, address)
+        val body = UserRegisterPostRequest(username, name, surname, email, phoneNumber, address, password, confirmPassword)
         dataSource.getMyPetApi()
             .registerUser(body)
             .enqueue(object : Callback<UserLoginRegisterPostResponse> {
@@ -73,7 +73,7 @@ object UserAuthRepository {
             })
     }
 
-    fun requestToLogin(username: String,password: String, callback: () ->Unit) {
+     fun requestToLogin(username: String,password: String, callback: () ->Unit) {
         val dataSource = ServiceGenerator
 
         Log.i(TAG, "Login user: Call started")

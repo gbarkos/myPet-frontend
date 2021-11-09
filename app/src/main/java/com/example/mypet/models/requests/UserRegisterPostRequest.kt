@@ -5,8 +5,8 @@ data class UserRegisterPostRequest(
     val name : String,
     val surname : String,
     val email : String,
-    val password: String,
-    val confirmPassword: String,
     val phoneNumber : String,
-    val address : String
+    val address : String,
+    val password: String,
+    val confirmPassword: String
 )

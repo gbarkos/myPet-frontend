@@ -2,7 +2,7 @@ package com.example.mypet.utils
 
 class Constants {
     companion object {
-        private const val BASE_URL = "http://127.0.0.1:3000/";
+        private const val BASE_URL = "http://192.168.1.3:8000/";
         private const val ACCESS_TOKEN = "ACCESS_TOKEN";
     }
 

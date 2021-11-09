@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">myPet</string>
+
+    <string name="field_required">This filed is required</string>
+    <string name="username_not_valid_error">Username is not valid</string>
+    <string name="email_not_valid_error">Email is not valid</string>
+    <string name="phone_number_not_valid_error">Phone Number is not valid</string>
+    <string name="password_length_error">Password must be at least 8 characters</string>
+    <string name="password_not_match_error">Passwords do not match</string>
+
+
+    <string name="title_activity_bottom_navigation">BottomNavigationActivity</string>
 </resources>

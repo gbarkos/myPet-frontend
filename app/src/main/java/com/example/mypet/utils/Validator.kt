@@ -3,16 +3,16 @@ package com.example.mypet.utils
 import android.util.Patterns
 import java.util.regex.Matcher
 
-//class HealthIdValidator {
-//    companion object {
-//        fun isValid(healthid: String): Boolean {
-//            if (healthid.toString().length != 11) {
-//                return false
-//            }
-//            return true
-//        }
-//    }
-//}
+class UsernameValidator {
+    companion object {
+        fun isValid(username: String): Boolean {
+            if (username.toString().length < 6) {
+                return false
+            }
+            return true
+        }
+    }
+}
 
 class EmailValidator{
     companion object{

@@ -4,6 +4,8 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Thesis/frontend/app/src/main/res/layout/activity_main.xml" value="0.19655797101449277" />
+        <entry key="..\:/Thesis/frontend/app/src/main/res/layout/fragment_login_user.xml" value="0.33" />
+        <entry key="..\:/Thesis/frontend/app/src/main/res/layout/fragment_register_user.xml" value="0.33" />
       </map>
     </option>
   </component>
