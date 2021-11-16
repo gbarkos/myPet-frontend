@@ -5,8 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import com.example.mypet.api.ServiceGenerator
 import com.example.mypet.models.responses.PetGetResponse
 import com.example.mypet.models.responses.PetsGetResponse
-import com.example.mypet.models.responses.UserLoginRegisterPostResponse
-import com.example.mypet.utils.SingleLiveEvent
 import com.google.gson.Gson
 import retrofit2.Call
 import retrofit2.Callback
