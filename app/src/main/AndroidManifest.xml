@@ -16,7 +16,7 @@
 <!--            android:required="false" />-->
 
         <activity
-            android:name=".fragments.MainActivity"
+            android:name=".activities.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

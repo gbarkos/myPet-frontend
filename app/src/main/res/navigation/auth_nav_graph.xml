@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/userLoginFragment"
-        android:name="com.example.mypet.fragments.UserLoginFragment"
+        android:name="com.example.mypet.activities.UserLoginFragment"
         android:label="UserLoginFragment" >
         <action
             android:id="@+id/action_userLoginFragment_to_userRegisterFragment"
@@ -14,7 +14,7 @@
     </fragment>
     <fragment
         android:id="@+id/userRegisterFragment"
-        android:name="com.example.mypet.fragments.UserRegisterFragment"
+        android:name="com.example.mypet.activities.UserRegisterFragment"
         android:label="UserRegisterFragment" >
         <action
             android:id="@+id/action_userRegisterFragment_to_userLoginFragment"
