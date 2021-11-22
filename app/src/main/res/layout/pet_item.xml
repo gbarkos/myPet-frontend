@@ -4,8 +4,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
     <data>
         <variable
-            name="petItem"
-            type="com.example.mypet.models.responses.PetGetResponse" />
+            name="pets"
+            type="com.example.mypet.models.responses.PetsGetResponse" />
     </data>
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -21,10 +21,8 @@
                 android:id="@+id/petProfilePic"
                 android:layout_width="180dp"
                 android:layout_height="180dp"
-                android:rotation="90"
                 android:scaleType="fitXY"
                 android:adjustViewBounds="true"
-
 
                 android:maxHeight="180dp"
                 android:maxWidth="180dp"

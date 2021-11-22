@@ -2,17 +2,26 @@ package com.example.mypet.api
 
 import com.example.mypet.utils.Constants
 import com.example.mypet.utils.HeaderInterceptor
-import okhttp3.OkHttpClient
+import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object ServiceGenerator {
 
+    private val TAG: String = "ServiceGenerator"
+    private val HEADER_CACHE_CONTROL: String = "Cache-control"
+    private val HEADER_PRAGMA: String = "Pragma"
+    private val cacheSize: Long = 10 * 1024 *1024 //10MB
+
     private var interceptor = HttpLoggingInterceptor()
     private var headerInterceptor = HeaderInterceptor()
 
-    val client = OkHttpClient.Builder().addInterceptor(interceptor.setLevel(HttpLoggingInterceptor.Level.BODY)).addInterceptor(headerInterceptor).build()
+    val client = OkHttpClient.Builder()
+            .addInterceptor(interceptor.setLevel(HttpLoggingInterceptor.Level.BODY)) //log the body
+            //.addInterceptor(interceptor.setLevel(HttpLoggingInterceptor.Level.HEADERS)) //log the headers
+            .addInterceptor(headerInterceptor) //add Authorization header
+            .build()
 
     private val retrofitBuilder = Retrofit.Builder()
         .baseUrl(Constants().getBaseUrl())
@@ -25,5 +34,4 @@ object ServiceGenerator {
     fun getMyPetApi() : MyPetApi{
         return petApi
     }
-
 }

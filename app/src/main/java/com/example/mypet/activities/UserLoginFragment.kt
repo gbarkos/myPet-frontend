@@ -1,6 +1,7 @@
 package com.example.mypet.activities
 
 import android.app.Activity
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
@@ -44,7 +45,6 @@ class UserLoginFragment: Fragment(R.layout.fragment_login_user), AuthFunctions {
         binding.textViewError.visibility = View.INVISIBLE
         Log.d("Login fragment", "Logging in...")
         Toast.makeText(context, "Login", Toast.LENGTH_LONG).show()
-
     }
 
     override fun OnSuccess() {
@@ -52,8 +52,8 @@ class UserLoginFragment: Fragment(R.layout.fragment_login_user), AuthFunctions {
 
         viewmodel.getUserLoginDataFromRepo().observe(requireActivity(), {
             SharedPreferencesUtil.saveAccessToken(it?.token.toString())
-            //val intent = Intent(activity, BottomNavigationActivity::class.java) //TODO("Not yet implemented")
-            //startActivity(intent)
+            val intent = Intent(activity, MainContentActivity::class.java)
+            startActivity(intent)
             Toast.makeText(context, "Success...", Toast.LENGTH_LONG).show()
         })
     }

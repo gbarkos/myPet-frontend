@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/bottom_navigation_nav_graph"
+    app:startDestination="@id/petInfoFragment">
+
+    <fragment
+        android:id="@+id/petInfoFragment"
+        android:name="com.example.mypet.activities.PetInfoFragment"
+        android:label="PetInfoFragment" />
+</navigation>

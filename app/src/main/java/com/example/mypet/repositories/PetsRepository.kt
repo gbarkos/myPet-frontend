@@ -3,6 +3,7 @@ package com.example.mypet.repositories
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.example.mypet.api.ServiceGenerator
+import com.example.mypet.models.Vaccination
 import com.example.mypet.models.responses.PetGetResponse
 import com.example.mypet.models.responses.PetsGetResponse
 import com.google.gson.Gson
@@ -39,13 +40,11 @@ object PetsRepository {
                     if (response.isSuccessful && response.body() != null) {
                         Log.i(PetsRepository.TAG, "onResponse: Response Successful")
                         petsGetResponse.postValue(response.body())
-
                     }
                 }
                 override fun onFailure(call: Call<PetsGetResponse>, t: Throwable) {
                     Log.i(PetsRepository.TAG, "onFailure: " + t.message)
                 }
-
             })
     }
 
@@ -62,7 +61,6 @@ object PetsRepository {
                     if (response.isSuccessful && response.body() != null) {
                         Log.i(PetsRepository.TAG, "onResponse: Response Successful")
                         petGetResponse.postValue(response.body())
-
                     }
                 }
                 override fun onFailure(call: Call<PetGetResponse>, t: Throwable) {

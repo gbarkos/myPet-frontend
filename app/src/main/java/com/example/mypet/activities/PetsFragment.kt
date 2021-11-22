@@ -3,6 +3,7 @@ package com.example.mypet.activities
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -25,25 +26,22 @@ class PetsFragment : Fragment(R.layout.fragment_pets) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?){
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentPetsBinding.bind(view)
-        viewmodel = ViewModelProvider(requireActivity()).get(PetsViewModel::class.java)
-
+        viewmodel = ViewModelProvider(requireActivity())[PetsViewModel::class.java]
+        binding.petsviewmodel = viewmodel
         viewmodel.requestPets()
         viewmodel.getPetsDataFromRepo().observe(viewLifecycleOwner, {
             Log.d("Pets!!!",it.pets.toString())
-            petsList = it.pets;
-            initRecyclerView()
-            val adapter = PetsAdapter(petsList, lifecycleScope)
-            adapter.onClick.onEach {
-                val bundle = bundleOf("petID" to it._id)
-                //findNavController().navigate(R.id......., bundle) //TODO
-            }.launchIn(lifecycleScope)
-        });
-    }
+            petsList = it.pets
 
-    private fun initRecyclerView(){
-        binding.recyclerViewPets.apply {
-            layoutManager = LinearLayoutManager(activity)
-            adapter = PetsAdapter(petsList,lifecycleScope)
-        }
+            binding.recyclerViewPets.apply {
+                layoutManager = LinearLayoutManager(activity)
+                adapter = PetsAdapter(petsList,lifecycleScope)
+            }
+            (binding.recyclerViewPets.adapter as PetsAdapter).onClick.onEach {
+                val bundle = bundleOf("petID" to it._id)
+                Log.d("OnItemClick",it._id)
+                findNavController().navigate(R.id.action_petsFragment_to_petDetailsFragment, bundle)
+            }.launchIn(lifecycleScope)
+        })
     }
 }
