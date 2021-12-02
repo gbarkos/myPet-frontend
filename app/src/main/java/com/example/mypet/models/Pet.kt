@@ -5,7 +5,7 @@ import java.util.*
 data class Pet(
     val id : String,
     val name : String,
-    val birthdate : Date,
+    val birthdate : String,
     val colour : String,
     val distinguishingMarks : String,
     val breed : String,

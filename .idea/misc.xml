@@ -12,8 +12,8 @@
         <entry key="..\:/Thesis/frontend/app/src/main/res/layout/activity_main.xml" value="0.19655797101449277" />
         <entry key="..\:/Thesis/frontend/app/src/main/res/layout/activity_main_content.xml" value="0.22864583333333333" />
         <entry key="..\:/Thesis/frontend/app/src/main/res/layout/fragment_login_user.xml" value="0.33" />
-        <entry key="..\:/Thesis/frontend/app/src/main/res/layout/fragment_pet_details.xml" value="0.36666666666666664" />
-        <entry key="..\:/Thesis/frontend/app/src/main/res/layout/fragment_pet_info.xml" value="0.36666666666666664" />
+        <entry key="..\:/Thesis/frontend/app/src/main/res/layout/fragment_pet_details.xml" value="0.25" />
+        <entry key="..\:/Thesis/frontend/app/src/main/res/layout/fragment_pet_info.xml" value="0.13427561837455831" />
         <entry key="..\:/Thesis/frontend/app/src/main/res/layout/fragment_pets.xml" value="0.36666666666666664" />
         <entry key="..\:/Thesis/frontend/app/src/main/res/layout/fragment_register_user.xml" value="0.1" />
         <entry key="..\:/Thesis/frontend/app/src/main/res/layout/pet_item.xml" value="0.33" />
@@ -29,5 +29,12 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.36666666666666664" />
+      </ProjectState>
+    </option>
   </component>
 </project>

@@ -16,7 +16,7 @@ class PetsViewModel : ViewModel() {
 
     var id : String? = null
     var name : String? = null
-    var birthdate : Date? = null
+    var birthdate : String? = null
     var colour : String? = null
     var distinguishingMarks : String? = null
     var breed : String? = null
