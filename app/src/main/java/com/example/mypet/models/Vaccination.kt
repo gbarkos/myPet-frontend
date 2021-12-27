@@ -4,11 +4,11 @@ import java.util.*
 
 data class Vaccination(
     val batchNumber: String,
-    val manufaccturer: String,
+    val manufacturer: String,
     val name: String,
-    val expirationDate: Date,
-    val vaccinationDate: Date,
-    val validUntil: Date,
+    val expirationDate: String,
+    val vaccinationDate: String,
+    val validUntil: String,
     val veterinarian: Vet,
     val _id: String
 )

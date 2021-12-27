@@ -2,11 +2,7 @@
 <layout xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android">
-    <data>
-        <variable
-            name="pets"
-            type="com.example.mypet.models.responses.PetsGetResponse" />
-    </data>
+
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -19,43 +15,39 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/petProfilePic"
-                android:layout_width="180dp"
-                android:layout_height="180dp"
-                android:scaleType="fitXY"
-                android:adjustViewBounds="true"
-
-                android:maxHeight="180dp"
-                android:maxWidth="180dp"
-
-                android:src="@drawable/dummy_pet_profile_pic"
+                android:id="@+id/vermifugationPic"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginLeft="15dp"
+                android:src="@drawable/ic_vermifugation"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
             </ImageView>
 
             <TextView
-                android:id="@+id/petName"
-                app:layout_constraintStart_toEndOf="@+id/petProfilePic"
+                android:id="@+id/vermifugationName"
+                app:layout_constraintStart_toEndOf="@+id/vermifugationPic"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Pet name goes here"
                 android:textSize="18dp"
 
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="5dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
             </TextView>
 
             <TextView
-                android:id="@+id/petGender"
+                android:id="@+id/vermifugationDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Pet gender goes here"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/petProfilePic"
-                app:layout_constraintTop_toBottomOf="@+id/petName" />
+                app:layout_constraintStart_toEndOf="@+id/vermifugationPic"
+                app:layout_constraintTop_toBottomOf="@+id/vermifugationName" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

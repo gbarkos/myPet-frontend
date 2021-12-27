@@ -1,5 +1,6 @@
 package com.example.mypet.activities
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -38,9 +39,12 @@ class PetsFragment : Fragment(R.layout.fragment_pets) {
                 adapter = PetsAdapter(petsList,lifecycleScope)
             }
             (binding.recyclerViewPets.adapter as PetsAdapter).onClick.onEach {
-                val bundle = bundleOf("petID" to it._id)
+                val bundle = bundleOf("petID" to it._id) //set _id to viewmodel so it is accesible by everyone
                 Log.d("OnItemClick",it._id)
-                findNavController().navigate(R.id.action_petsFragment_to_petDetailsFragment, bundle)
+                val intent = Intent (getActivity(), PetDetailsActivity::class.java)
+                intent.putExtras(bundle)
+                activity?.startActivity(intent)
+                //findNavController().navigate(R.id.action_petsFragment_to_petDetailsFragment, bundle)
             }.launchIn(lifecycleScope)
         })
     }

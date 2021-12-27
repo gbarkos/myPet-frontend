@@ -14,6 +14,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        SharedPreferencesUtil.clearPreferences()
+        //SharedPreferencesUtil.clearPreferences()
     }
 }

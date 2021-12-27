@@ -8,17 +8,5 @@
     <fragment
         android:id="@+id/petsFragment"
         android:name="com.example.mypet.activities.PetsFragment"
-        android:label="PetsFragment" >
-        <action
-            android:id="@+id/action_petsFragment_to_petDetailsFragment"
-            app:destination="@id/petDetailsFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/petDetailsFragment"
-        android:name="com.example.mypet.activities.PetDetailsFragment"
-        android:label="PetDetailsFragment" >
-        <action
-            android:id="@+id/action_petDetailsFragment_to_petsFragment"
-            app:destination="@id/petsFragment" />
-    </fragment>
+        android:label="PetsFragment" />
 </navigation>

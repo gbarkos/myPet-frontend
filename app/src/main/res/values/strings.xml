@@ -8,12 +8,13 @@
     <string name="password_length_error">Password must be at least 8 characters</string>
     <string name="password_not_match_error">Passwords do not match</string>
 
-    <string name="title_petprofile">Pet Profile</string>
-    <string name="title_vaccinations">Vaccinations</string>
-    <string name="title_vermifugations">Vermifugations</string>
-    <string name="title_treatments">Treatments</string>
-    <string name="title_surgeries">Surgeries</string>
-    <string name="title_diagnosticTests">Diagnostic Tests</string>
+    <string name="title_petprofile">Στοιχεία</string>
+    <string name="title_vaccinations">Εμβολιασμοί</string>
+    <string name="title_vermifugations">Θεραπείες</string>
+    <string name="title_treatments">Άλλες Θεραπείες</string>
+    <string name="title_surgeries">Επεμβάσεις</string>
+    <string name="title_diagnosticTests">Διαγνωστικά</string>
+    <string name="title_more">Περισσσότερα</string>
 
 
     <string name="title_activity_bottom_navigation">BottomNavigationActivity</string>

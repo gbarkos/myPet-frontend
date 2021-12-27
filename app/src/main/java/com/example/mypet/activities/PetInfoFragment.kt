@@ -44,8 +44,6 @@ class PetInfoFragment: Fragment(R.layout.fragment_pet_info) {
             populateViews(it);
         })
 
-        //navController = findNavController()
-        //binding.bottomNavigationView.setupWithNavController(navController)
     }
 
     fun populateViews(it: PetGetResponse){
