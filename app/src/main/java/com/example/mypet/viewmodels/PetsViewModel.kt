@@ -7,6 +7,7 @@ import com.example.mypet.models.MedicalRecord
 import com.example.mypet.models.Vaccination
 import com.example.mypet.models.responses.PetGetResponse
 import com.example.mypet.models.responses.PetsGetResponse
+import com.example.mypet.models.responses.PetsLimitedGetResponse
 import com.example.mypet.models.responses.UserLoginRegisterPostResponse
 import com.example.mypet.repositories.PetsRepository
 import com.example.mypet.utils.SingleLiveEvent
@@ -29,7 +30,7 @@ class PetsViewModel : ViewModel() {
 
     private val petsRepository: PetsRepository = PetsRepository
 
-    fun getPetsDataFromRepo(): MutableLiveData<PetsGetResponse> {
+    fun getPetsDataFromRepo(): MutableLiveData<PetsLimitedGetResponse> {
         return PetsRepository.getPetsResponse()
     }
 

@@ -6,6 +6,7 @@ import com.example.mypet.api.ServiceGenerator
 import com.example.mypet.models.Vaccination
 import com.example.mypet.models.responses.PetGetResponse
 import com.example.mypet.models.responses.PetsGetResponse
+import com.example.mypet.models.responses.PetsLimitedGetResponse
 import com.google.gson.Gson
 import retrofit2.Call
 import retrofit2.Callback
@@ -17,8 +18,8 @@ object PetsRepository {
     val gson = Gson()
     private var statusFromGetPets: String = ""
 
-    private val petsGetResponse : MutableLiveData<PetsGetResponse> = MutableLiveData()
-    fun getPetsResponse() : MutableLiveData<PetsGetResponse> {
+    private val petsGetResponse : MutableLiveData<PetsLimitedGetResponse> = MutableLiveData()
+    fun getPetsResponse() : MutableLiveData<PetsLimitedGetResponse> {
         return petsGetResponse;
     }
 
@@ -32,17 +33,17 @@ object PetsRepository {
         Log.i(TAG, "Pets response: Call is started")
         dataSource.getMyPetApi()
             .getPets()
-            .enqueue(object : Callback<PetsGetResponse> {
+            .enqueue(object : Callback<PetsLimitedGetResponse> {
                 override fun onResponse(
-                    call: Call<PetsGetResponse>,
-                    response: Response<PetsGetResponse>
+                    call: Call<PetsLimitedGetResponse>,
+                    response: Response<PetsLimitedGetResponse>
                 ) {
                     if (response.isSuccessful && response.body() != null) {
                         Log.i(PetsRepository.TAG, "onResponse: Response Successful")
                         petsGetResponse.postValue(response.body())
                     }
                 }
-                override fun onFailure(call: Call<PetsGetResponse>, t: Throwable) {
+                override fun onFailure(call: Call<PetsLimitedGetResponse>, t: Throwable) {
                     Log.i(PetsRepository.TAG, "onFailure: " + t.message)
                 }
             })

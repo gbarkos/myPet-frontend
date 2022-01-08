@@ -29,7 +29,7 @@ interface MyPetApi {
 
     //Pet
     @GET("pets")
-    fun getPets(): Call<PetsGetResponse>
+    fun getPets(): Call<PetsLimitedGetResponse>
 
     @GET("pets/{id}")
     fun getPet(@Path("id") id: String): Call<PetGetResponse>

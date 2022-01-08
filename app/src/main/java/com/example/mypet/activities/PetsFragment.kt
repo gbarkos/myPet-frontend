@@ -15,6 +15,8 @@ import com.example.mypet.R
 import com.example.mypet.adapters.PetsAdapter
 import com.example.mypet.databinding.FragmentPetsBinding
 import com.example.mypet.models.Pet
+import com.example.mypet.models.PetLimited
+import com.example.mypet.models.responses.PetsLimitedGetResponse
 import com.example.mypet.viewmodels.PetsViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -22,7 +24,7 @@ import kotlinx.coroutines.flow.onEach
 class PetsFragment : Fragment(R.layout.fragment_pets) {
     private lateinit var viewmodel: PetsViewModel
     private lateinit var binding: FragmentPetsBinding
-    private lateinit var petsList: List<Pet>
+    private lateinit var petsList: List<PetLimited>
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?){
         super.onViewCreated(view, savedInstanceState)

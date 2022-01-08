@@ -55,7 +55,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:hint="Όνομα"
-                    android:fontFamily="@font/amiko_semibold"
+
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
@@ -66,7 +66,7 @@
                         android:minWidth="100dp"
                         android:enabled="false"
                         android:textColor="@color/black"
-                        android:fontFamily="@font/amiko_semibold"
+
                         android:text="Name Goes Here"
                         android:textSize="15dp" />
 
@@ -209,22 +209,12 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/petAddVaccination"
+                    android:id="@+id/petAddVaccinationNotification"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
                     android:contentDescription="προσθήκη Εμβολιασμού"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:srcCompat="@drawable/ic_baseline_add_24" />
-
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/floating_action_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="16dp"
-                    android:contentDescription="προσθήκη Υπενθύμισης"
-                    app:layout_constraintBottom_toTopOf="@+id/petAddVaccination"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:srcCompat="@drawable/ic_baseline_notifications_24" />
 

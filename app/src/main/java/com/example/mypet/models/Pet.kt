@@ -14,5 +14,6 @@ data class Pet(
     val weight : Double,
     val height : Double,
     val medicalRecord : MedicalRecord,
+    val owner: String,
     val _id: String
 )

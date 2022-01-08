@@ -22,7 +22,7 @@ import kotlinx.coroutines.flow.onEach
 class VermifugationsFragment: Fragment(R.layout.fragment_vermifugations){
     private lateinit var viewmodel: PetsViewModel
     private lateinit var binding: FragmentVermifugationsBinding
-    private val vaccinationInfoFragment = VaccinationInfoFragment()
+    private val vermifugationInfoFragment = VermifugationInfoFragment()
 
     private lateinit var vermifugationsList: List<Vermifugation>
 
@@ -42,11 +42,11 @@ class VermifugationsFragment: Fragment(R.layout.fragment_vermifugations){
 
             (binding.recyclerViewVermifugations.adapter as VermifugationsAdapter).onClick.onEach {
                 Log.d("OnItemClick",it._id)
-                vaccinationInfoFragment.arguments = bundleOf("vaccinationID" to it._id)
+                vermifugationInfoFragment.arguments = bundleOf("vermifugationID" to it._id)
                 val transaction = requireActivity().supportFragmentManager.beginTransaction()
-                transaction.replace(this.id, vaccinationInfoFragment)
+                transaction.replace(this.id, vermifugationInfoFragment)
                 //transaction.addToBackStack("null")
-                transaction.commit()////////////FIXXXXXXXXXX for vermifugation
+                transaction.commit()
 
             }.launchIn(lifecycleScope)
         })
