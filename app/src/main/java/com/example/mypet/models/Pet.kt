@@ -1,7 +1,5 @@
 package com.example.mypet.models
 
-import java.util.*
-
 data class Pet(
     val id : String,
     val name : String,
@@ -11,8 +9,8 @@ data class Pet(
     val breed : String,
     val sex : String,
     val photo : String,
-    val weight : Double,
-    val height : Double,
+    val weight : String,
+    val height : String,
     val medicalRecord : MedicalRecord,
     val owner: String,
     val _id: String

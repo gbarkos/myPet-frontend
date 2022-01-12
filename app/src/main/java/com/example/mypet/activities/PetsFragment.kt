@@ -25,6 +25,7 @@ class PetsFragment : Fragment(R.layout.fragment_pets) {
     private lateinit var viewmodel: PetsViewModel
     private lateinit var binding: FragmentPetsBinding
     private lateinit var petsList: List<PetLimited>
+    private val newPetFragment = NewPetFragment()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?){
         super.onViewCreated(view, savedInstanceState)
@@ -41,13 +42,16 @@ class PetsFragment : Fragment(R.layout.fragment_pets) {
                 adapter = PetsAdapter(petsList,lifecycleScope)
             }
             (binding.recyclerViewPets.adapter as PetsAdapter).onClick.onEach {
-                val bundle = bundleOf("petID" to it._id) //set _id to viewmodel so it is accesible by everyone
+                val bundle = bundleOf("petID" to it._id)
                 Log.d("OnItemClick",it._id)
                 val intent = Intent (getActivity(), PetDetailsActivity::class.java)
                 intent.putExtras(bundle)
                 activity?.startActivity(intent)
-                //findNavController().navigate(R.id.action_petsFragment_to_petDetailsFragment, bundle)
             }.launchIn(lifecycleScope)
         })
+
+        binding.addNewPetButton.setOnClickListener{
+            findNavController().navigate(R.id.action_petsFragment_to_newPetFragment)
+        }
     }
 }

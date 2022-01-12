@@ -31,6 +31,7 @@ class PetDetailsActivity: AppCompatActivity() {
     private val petInfoFragment = PetInfoFragment()
     private val vaccinationsFragment = VaccinationsFragment()
     private val vermifugationsFragment = VermifugationsFragment()
+    private val moreMenuFragment = MoreMenuFragment()
     private lateinit var bottomNavigationView: BottomNavigationView
 
     override fun onCreate(savedInstanceState: Bundle?){
@@ -64,7 +65,7 @@ class PetDetailsActivity: AppCompatActivity() {
                 }
                 R.id.navigation_menu_more-> {
                     Log.d("Pet!!!","option4")
-                    //replaceFragment(vaccinationsFragment)
+                    replaceFragment(moreMenuFragment)
                     return@setOnItemSelectedListener true
                 }
             }
