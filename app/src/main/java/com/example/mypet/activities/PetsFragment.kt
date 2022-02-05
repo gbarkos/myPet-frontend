@@ -17,6 +17,8 @@ import com.example.mypet.databinding.FragmentPetsBinding
 import com.example.mypet.models.Pet
 import com.example.mypet.models.PetLimited
 import com.example.mypet.models.responses.PetsLimitedGetResponse
+import com.example.mypet.utils.EventObserver
+import com.example.mypet.utils.NetworkLoadingState
 import com.example.mypet.viewmodels.PetsViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -25,7 +27,6 @@ class PetsFragment : Fragment(R.layout.fragment_pets) {
     private lateinit var viewmodel: PetsViewModel
     private lateinit var binding: FragmentPetsBinding
     private lateinit var petsList: List<PetLimited>
-    private val newPetFragment = NewPetFragment()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?){
         super.onViewCreated(view, savedInstanceState)
@@ -33,8 +34,9 @@ class PetsFragment : Fragment(R.layout.fragment_pets) {
         viewmodel = ViewModelProvider(requireActivity())[PetsViewModel::class.java]
         binding.petsviewmodel = viewmodel
         viewmodel.requestPets()
+
         viewmodel.getPetsDataFromRepo().observe(viewLifecycleOwner, {
-            Log.d("Pets!!!",it.pets.toString())
+            Log.d("PetsFragment",it.pets.toString())
             petsList = it.pets
 
             binding.recyclerViewPets.apply {
@@ -44,6 +46,7 @@ class PetsFragment : Fragment(R.layout.fragment_pets) {
             (binding.recyclerViewPets.adapter as PetsAdapter).onClick.onEach {
                 val bundle = bundleOf("petID" to it._id)
                 Log.d("OnItemClick",it._id)
+                viewmodel._id = it._id;
                 val intent = Intent (getActivity(), PetDetailsActivity::class.java)
                 intent.putExtras(bundle)
                 activity?.startActivity(intent)
@@ -51,7 +54,7 @@ class PetsFragment : Fragment(R.layout.fragment_pets) {
         })
 
         binding.addNewPetButton.setOnClickListener{
-            findNavController().navigate(R.id.action_petsFragment_to_newPetFragment)
+            findNavController().navigate(R.id.action_petsFragment_to_testFragment)
         }
     }
 }

@@ -12,64 +12,149 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <EditText
-            android:id="@+id/username"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/logo"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Username"
-            android:paddingStart="10dp"
-            android:paddingTop="10dp"
-            android:paddingEnd="10dp"
-            android:paddingBottom="10dp"
-            android:text="@={userloginviewmodel.username}"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_height="0dp"
+            app:layout_constraintHeight_percent="0.50"
+            android:background="@drawable/rounded_corners"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
 
-        <EditText
-            android:id="@+id/password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Password"
-            android:paddingStart="10dp"
-            android:paddingTop="10dp"
-            android:paddingEnd="10dp"
-            android:paddingBottom="10dp"
-            android:text="@={userloginviewmodel.password}"
-            android:inputType="textPassword"
-            app:layout_constraintTop_toBottomOf="@+id/username"
-            tools:layout_editor_absoluteX="16dp" />
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="265dp"
+                android:layout_height="176dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.214"
+                app:srcCompat="@drawable/ic_logo3" />
 
-        <Button
-            android:id="@+id/button"
-            android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="myPet"
+                android:textColor="@color/white"
+                android:textSize="42dp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView3"
+                app:layout_constraintVertical_bias="0.0" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/loginTitle"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Log in"
+            android:text="Σύνδεση"
+            android:textColor="@color/black"
+            android:textSize="28dp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/logo"
+            app:layout_constraintWidth_percent="0.70"></TextView>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/usernameInput"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:hint="Όνομα Χρήστη"
+            app:boxBackgroundColor="@color/white"
+            app:boxStrokeColor="@color/black"
+            app:boxStrokeWidth="1dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/loginTitle"
+            app:layout_constraintWidth_percent="0.70"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/username"
+                android:text="@={userloginviewmodel.username}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minWidth="100dp"
+                android:textColor="@color/black"
+                android:textSize="15dp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/passwordInput"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Κωδικός Πρόσβασης"
+            app:boxBackgroundColor="@color/white"
+            app:boxStrokeColor="@color/black"
+            app:boxStrokeWidth="1dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/usernameInput"
+            app:layout_constraintWidth_percent="0.70"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/password"
+                android:text="@={userloginviewmodel.password}"
+                android:inputType="textPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minWidth="100dp"
+                android:textColor="@color/black"
+                android:textSize="15dp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/loginButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Συνδεση"
+            android:backgroundTint="#135e52"
+            app:cornerRadius="20dp"
+            android:padding="12dp"
             android:onClick="@{userloginviewmodel::onLoginButtonClick}"
+            app:layout_constraintWidth_percent="0.70"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/password" />
+            app:layout_constraintTop_toBottomOf="@+id/passwordInput"
+            app:layout_constraintVertical_bias="0.348" />
 
         <TextView
             android:id="@+id/textViewGoToRegister"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Don't have an account? Register now!"
+            android:text="Δεν έχετε λογαριασμό; Εγγραφείτε τώρα!"
+            android:textColor="#135e52"
+            android:textSize="15dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button" />
+            app:layout_constraintTop_toBottomOf="@+id/loginButton" />
 
         <TextView
             android:id="@+id/textViewError"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView"
+            android:text=""
+            android:textSize="15dp"
+            android:textColor="#FF0000"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/loginButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/password" />
+            app:layout_constraintTop_toBottomOf="@+id/passwordInput" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

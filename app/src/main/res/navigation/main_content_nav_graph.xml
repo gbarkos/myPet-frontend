@@ -12,6 +12,9 @@
         <action
             android:id="@+id/action_petsFragment_to_newPetFragment"
             app:destination="@id/newPetFragment" />
+        <action
+            android:id="@+id/action_petsFragment_to_testFragment"
+            app:destination="@id/testFragment" />
     </fragment>
     <fragment
         android:id="@+id/newPetFragment"
@@ -19,6 +22,14 @@
         android:label="NewPetFragment" >
         <action
             android:id="@+id/action_newPetFragment_to_petsFragment"
+            app:destination="@id/petsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/testFragment"
+        android:name="com.example.mypet.activities.testFragment"
+        android:label="testFragment" >
+        <action
+            android:id="@+id/action_testFragment_to_petsFragment"
             app:destination="@id/petsFragment" />
     </fragment>
 </navigation>

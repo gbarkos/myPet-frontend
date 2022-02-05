@@ -10,9 +10,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 object ServiceGenerator {
 
     private val TAG: String = "ServiceGenerator"
-    private val HEADER_CACHE_CONTROL: String = "Cache-control"
-    private val HEADER_PRAGMA: String = "Pragma"
-    private val cacheSize: Long = 10 * 1024 *1024 //10MB
 
     private var interceptor = HttpLoggingInterceptor()
     private var headerInterceptor = HeaderInterceptor()

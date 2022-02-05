@@ -1,6 +1,5 @@
 package com.example.mypet.repositories
 
-import android.content.ContentValues.TAG
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.example.mypet.api.ServiceGenerator

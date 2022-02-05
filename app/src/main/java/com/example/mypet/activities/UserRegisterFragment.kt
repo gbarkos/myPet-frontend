@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -27,6 +28,32 @@ class UserRegisterFragment: Fragment(R.layout.fragment_register_user), AuthFunct
         binding.textViewGoToLogin.setOnClickListener {
             navRegister()
         }
+
+        //errors
+        binding.registerUsername.doOnTextChanged { text, start, before, count ->
+            if(!text.isNullOrEmpty())binding.usernameInput.error = null
+        }
+        binding.registerEmail.doOnTextChanged { text, start, before, count ->
+            if(!text.isNullOrEmpty())binding.emailInput.error = null
+        }
+        binding.registerName.doOnTextChanged { text, start, before, count ->
+            if(!text.isNullOrEmpty())binding.nameInput.error = null
+        }
+        binding.registerSurname.doOnTextChanged { text, start, before, count ->
+            if(!text.isNullOrEmpty())binding.surnameInput.error = null
+        }
+        binding.registerPhone.doOnTextChanged { text, start, before, count ->
+            if(!text.isNullOrEmpty())binding.phoneInput.error = null
+        }
+        binding.registerAddress.doOnTextChanged { text, start, before, count ->
+            if(!text.isNullOrEmpty())binding.addressInput.error = null
+        }
+        binding.registerPassword.doOnTextChanged { text, start, before, count ->
+            if(!text.isNullOrEmpty())binding.passwordInput.error = null
+        }
+        binding.registerConfirmPassword.doOnTextChanged { text, start, before, count ->
+            if(!text.isNullOrEmpty())binding.confirmPasswordInput.error = null
+        }
     }
 
     private fun navRegister() {
@@ -36,19 +63,11 @@ class UserRegisterFragment: Fragment(R.layout.fragment_register_user), AuthFunct
     override fun OnStarted() {
         Toast.makeText(requireContext(),"Registering...", Toast.LENGTH_LONG).show()
         binding.registerButton.setEnabled(false)
-        binding.textViewUsernameError.visibility = View.INVISIBLE
-        binding.textViewEmailError.visibility = View.INVISIBLE
-        binding.textViewPhoneNumberError.visibility = View.INVISIBLE
-        binding.textViewNameError.visibility = View.INVISIBLE
-        binding.textViewSurnameError.visibility = View.INVISIBLE
-        binding.textViewPasswordError.visibility = View.INVISIBLE
-        binding.textViewConfirmPasswordError.visibility = View.INVISIBLE
-        binding.textViewAddressError.visibility = View.INVISIBLE
         Log.d("register fragment", "Signing up...")
     }
 
     override fun OnSuccess() {
-        Log.d("RegisterFragment", "Succeed..")
+        Log.d("RegisterFragment", "Succeeded..")
 
         viewmodel.getUserRegisterDataFromRepo().observe(requireActivity(), {
             Log.i("VIEWMODEL", "OnSuccess: ${it?.token}")
@@ -65,48 +84,37 @@ class UserRegisterFragment: Fragment(R.layout.fragment_register_user), AuthFunct
         binding.registerButton.setEnabled(true)
         for(error in errorCodes) {
             if (error == 910) {
-                binding.textViewUsernameError.visibility = View.VISIBLE
-                binding.textViewUsernameError.text = getString(R.string.username_not_valid_error)
+                binding.usernameInput.error = getString(R.string.username_not_valid_error)
             }
             if (error == 911){
-                binding.textViewUsernameError.visibility = View.VISIBLE
-                binding.textViewUsernameError.text = getString(R.string.field_required)
+                binding.usernameInput.error = getString(R.string.field_required)
             }
             if (error == 920){
-                binding.textViewEmailError.visibility = View.VISIBLE
-                binding.textViewEmailError.text = getString(R.string.email_not_valid_error)
+                binding.emailInput.error = getString(R.string.email_not_valid_error)
             }
             if (error == 921){
-                binding.textViewEmailError.visibility = View.VISIBLE
-                binding.textViewEmailError.text = getString(R.string.field_required)
+                binding.emailInput.error = getString(R.string.field_required)
             }
             if (error == 930){
-                binding.textViewPhoneNumberError.visibility = View.VISIBLE
-                binding.textViewPhoneNumberError.text = getString(R.string.phone_number_not_valid_error)
+                binding.phoneInput.error = getString(R.string.phone_number_not_valid_error)
             }
             if (error == 931){
-                binding.textViewPhoneNumberError.visibility = View.VISIBLE
-                binding.textViewPhoneNumberError.text = getString(R.string.field_required)
+                binding.phoneInput.error = getString(R.string.field_required)
             }
             if (error == 940){
-                binding.textViewNameError.visibility = View.VISIBLE
-                binding.textViewNameError.text = getString(R.string.field_required)
+                binding.nameInput.error = getString(R.string.field_required)
             }
             if (error == 950){
-                binding.textViewSurnameError.visibility = View.VISIBLE
-                binding.textViewSurnameError.text = getString(R.string.field_required)
+                binding.surnameInput.error = getString(R.string.field_required)
             }
             if (error == 960){
-                binding.textViewPasswordError.visibility = View.VISIBLE
-                binding.textViewPasswordError.text = getString(R.string.password_length_error)
+                binding.passwordInput.error = getString(R.string.password_length_error)
             }
             if (error == 961){
-                binding.textViewConfirmPasswordError.visibility = View.VISIBLE
-                binding.textViewConfirmPasswordError.text = getString(R.string.password_not_match_error)
+                binding.passwordInput.error = getString(R.string.password_not_match_error)
             }
             if (error == 70){
-                binding.textViewAddressError.visibility = View.VISIBLE
-                binding.textViewAddressError.text = getString(R.string.field_required)
+                binding.addressInput.error = getString(R.string.field_required)
             }
         }
     }

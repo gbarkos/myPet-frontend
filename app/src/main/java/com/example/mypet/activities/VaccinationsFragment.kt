@@ -24,6 +24,7 @@ class VaccinationsFragment : Fragment(R.layout.fragment_vaccinations){
     private lateinit var viewmodel: PetsViewModel
     private lateinit var binding: FragmentVaccinationsBinding
     private val vaccinationInfoFragment = VaccinationInfoFragment()
+    private lateinit var newVaccinationFragment : NewVaccinationFragment
 
     private lateinit var vaccinationsList: List<Vaccination>
 
@@ -33,8 +34,17 @@ class VaccinationsFragment : Fragment(R.layout.fragment_vaccinations){
         viewmodel = ViewModelProvider(requireActivity())[PetsViewModel::class.java]
         binding.petsviewmodel = viewmodel
 
+        val petID = viewmodel._id
+        val recordId = viewmodel.recordId
+        val receivedBundle = arguments?.getBoolean("recordHasBeenUpdated")
+        if(receivedBundle == true) { // if there's an update on the medical record, re-fetch the data
+            if(petID != null){
+                viewmodel.requestPet(petID)
+            }
+        }
+
         viewmodel.getPetDataFromRepo().observe(viewLifecycleOwner, {
-            Log.d("Pets!!!",it.pet.toString())
+            Log.d("Pet!!!",it.pet.toString())
             vaccinationsList = it.pet.medicalRecord.vaccinations
             binding.recyclerViewVaccinations.apply {
                 layoutManager = LinearLayoutManager(activity)
@@ -51,5 +61,16 @@ class VaccinationsFragment : Fragment(R.layout.fragment_vaccinations){
 
             }.launchIn(lifecycleScope)
         })
+
+        // send the pet id so that the addVaccination request knows what to update
+        binding.addNewVaccinationButton.setOnClickListener {
+            val bundle = bundleOf("recordId" to recordId)
+            newVaccinationFragment = NewVaccinationFragment()
+            newVaccinationFragment.arguments = bundle
+            val transaction = activity?.supportFragmentManager?.beginTransaction()
+            transaction?.replace(R.id.navigationFragmentContainer, newVaccinationFragment)
+            transaction?.disallowAddToBackStack()
+            transaction?.commit()
+        }
     }
 }

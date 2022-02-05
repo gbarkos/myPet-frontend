@@ -41,8 +41,8 @@ class PetsAdapter(private val pets: List<PetLimited>, private val coroutineScope
         val binding: PetItemBinding = PetItemBinding.bind(itemView);
 
         fun bind(pet: PetLimited){
-            binding.petName.setText(pet.name)
-            binding.petGender.setText(pet.sex)
+            binding.petName.text = pet.name
+            binding.petGender.text = (pet.sex)
             Picasso.get().load(pet.photo).into(binding.petProfilePic)
 
             itemView.setOnClickListener{

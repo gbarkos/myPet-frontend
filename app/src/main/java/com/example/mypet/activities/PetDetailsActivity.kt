@@ -39,7 +39,7 @@ class PetDetailsActivity: AppCompatActivity() {
         setContentView(R.layout.activity_pet_details)
 
         binding = ActivityPetDetailsBinding.inflate(layoutInflater)
-        viewmodel = ViewModelProvider(this).get(PetsViewModel::class.java)
+        viewmodel = ViewModelProvider(this)[PetsViewModel::class.java]
         binding.petsviewmodelDetails = viewmodel
         viewmodel._id = this.intent.extras?.getString("petID") //pass the id to the viewmodel, so that we can call requestPet(:id)
 

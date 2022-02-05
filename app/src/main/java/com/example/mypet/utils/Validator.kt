@@ -1,6 +1,7 @@
 package com.example.mypet.utils
 
 import android.util.Patterns
+import java.util.*
 import java.util.regex.Matcher
 
 class UsernameValidator {
@@ -59,4 +60,14 @@ class PasswordConfirmValidator{
             return false
         }
     }
+}
+
+fun getShortDate(ts:Long?):String{
+    if(ts == null) return ""
+    //Get instance of calendar
+    val calendar = Calendar.getInstance(Locale.getDefault())
+    //get current date from ts
+    calendar.timeInMillis = ts
+    //return formatted date
+    return android.text.format.DateFormat.format("yyyy-MM-dd", calendar).toString()
 }

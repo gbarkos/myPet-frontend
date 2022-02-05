@@ -44,7 +44,7 @@ class UserLoginFragment: Fragment(R.layout.fragment_login_user), AuthFunctions {
     override fun OnStarted() {
         binding.textViewError.visibility = View.INVISIBLE
         Log.d("Login fragment", "Logging in...")
-        Toast.makeText(context, "Login", Toast.LENGTH_LONG).show()
+        //Toast.makeText(context, "Login", Toast.LENGTH_LONG).show()
     }
 
     override fun OnSuccess() {
@@ -61,8 +61,8 @@ class UserLoginFragment: Fragment(R.layout.fragment_login_user), AuthFunctions {
     override fun OnFailure(errorCode: MutableList<Int>) {
         Log.d("Login fragment", "Wrong username or password")
         binding.textViewError.visibility = View.VISIBLE
-        binding.textViewError.setText("Wrong username or password.")
-        Toast.makeText(context, "Wrong username or password...", Toast.LENGTH_LONG).show()
+        binding.textViewError.setText("Λάθος όνομα χρήστη ή κωδικός πρόσβασης")
+        //Toast.makeText(context, "Wrong username or password...", Toast.LENGTH_LONG).show()
     }
 
 }

@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/govblue">
+
+        <TextView
+            android:id="@+id/newPetTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/amiko_semibold"
+            android:text="Προσθήκη Εμβολιασμού"
+            android:textColor="@color/white"
+            android:textSize="30dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="15dp"
+            app:cardCornerRadius="15dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="15dp">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/newVaccinationBatchNumberHint"
+                    app:boxBackgroundColor="@color/white"
+                    app:boxStrokeColor="@color/black"
+                    app:boxStrokeWidth="1dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Αριθμός Παρτίδας"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:errorEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/newVaccinationBatchNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minWidth="100dp"
+                    android:textColor="@color/black"
+                    android:textSize="15dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/newVaccinationManufacturerHint"
+                    app:boxBackgroundColor="@color/white"
+                    app:boxStrokeColor="@color/black"
+                    app:boxStrokeWidth="1dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Κατασκευαστής*"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/newVaccinationBatchNumberHint"
+                    app:errorEnabled="true">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/newVaccinationManufacturer"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:minWidth="100dp"
+                        android:textColor="@color/black"
+                        android:textSize="15dp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/newVaccinationNameHint"
+                    app:boxBackgroundColor="@color/white"
+                    app:boxStrokeColor="@color/black"
+                    app:boxStrokeWidth="1dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Ονομασία Εμβολίου*"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/newVaccinationManufacturerHint"
+                    app:errorEnabled="true">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/newVaccinationName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:minWidth="100dp"
+                        android:textColor="@color/black"
+                        android:textSize="15dp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/newVaccinationVaccinationDateHint"
+                    app:boxBackgroundColor="@color/white"
+                    app:boxStrokeWidth="1dp"
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:hint="Ημερομηνία Εμβολιασμού*"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/newVaccinationNameHint"
+                    app:errorEnabled="true">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/newVaccinationVaccinationDate"
+                        android:layout_width="250dp"
+                        android:layout_height="wrap_content"
+                        android:enabled="false"
+                        android:textColor="@color/black"
+                        android:textSize="15dp" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/newVaccinationValidUntilHint"
+                    app:boxBackgroundColor="@color/white"
+                    app:boxStrokeWidth="1dp"
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:hint="Λήξη Ισχύος Εμβολιασμού*"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/newVaccinationVaccinationDateHint"
+                    app:errorEnabled="true">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/newVaccinationValidUntil"
+                        android:layout_width="250dp"
+                        android:layout_height="wrap_content"
+                        android:enabled="false"
+                        android:textColor="@color/black"
+                        android:textSize="15dp" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/newVaccinationExpirationDateHint"
+                    app:boxBackgroundColor="@color/white"
+                    app:boxStrokeWidth="1dp"
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:hint="Ημερομηνία Λήξης Σκευάσματος"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/newVaccinationValidUntilHint"
+                    app:errorEnabled="true">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/newVaccinationExpirationDate"
+                        android:layout_width="250dp"
+                        android:layout_height="wrap_content"
+                        android:enabled="false"
+                        android:textColor="@color/black"
+                        android:textSize="15dp" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+
+                <Button
+                    android:id="@+id/newVaccinationVaccinationDateButton"
+                    android:layout_width="55dp"
+                    android:layout_height="50dp"
+                    android:drawableTop="@drawable/ic_baseline_calendar_today_24"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/newVaccinationVaccinationDateHint"
+                    app:layout_constraintTop_toBottomOf="@+id/newVaccinationNameHint" />
+
+                <Button
+                    android:id="@+id/newVaccinationValidButton"
+                    android:layout_width="55dp"
+                    android:layout_height="50dp"
+                    android:drawableTop="@drawable/ic_baseline_calendar_today_24"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/newVaccinationValidUntilHint"
+                    app:layout_constraintTop_toBottomOf="@+id/newVaccinationVaccinationDateHint" />
+
+                <Button
+                    android:id="@+id/newVaccinationExpirationDateButton"
+                    android:layout_width="55dp"
+                    android:layout_height="50dp"
+                    android:drawableTop="@drawable/ic_baseline_calendar_today_24"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/newVaccinationExpirationDateHint"
+                    app:layout_constraintTop_toBottomOf="@+id/newVaccinationValidUntilHint" />
+
+                <Button
+                    android:id="@+id/newVaccinationSubmit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="ΥΠΟΒΟΛΗ"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/newVaccinationExpirationDateHint" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

@@ -35,7 +35,7 @@ interface MyPetApi {
     fun getPet(@Path("id") id: String): Call<PetGetResponse>
 
     @POST("pets")
-    fun newPet(@Body body: PetPostRequest): Call<PetPostRequest>
+    fun newPet(@Body body: PetPostRequest): Call<PetGetResponse>
 
     @PATCH("pets/{id}")
     fun updatePet(@Query("height") height: Double,
@@ -44,7 +44,7 @@ interface MyPetApi {
     //Medical Record
     @PATCH("records/{id}")
     fun addVaccination(@Body body: VaccinationPostRequest,
-                       @Path("id") id: String,
+                       @Path("id") id: String?,
                        @Query("option") option: String = "vaccination"): Call<MedicalRecordPatchResponse>
 
     @PATCH("records/{id}")

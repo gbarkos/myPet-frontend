@@ -1,105 +1,138 @@
 package com.example.mypet.activities
-
+import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
 import android.util.Log
 import android.view.View
-import android.widget.Toast
+import android.widget.ArrayAdapter
+import androidx.core.os.bundleOf
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mypet.R
-import com.example.mypet.databinding.FragmentAddPetBinding
-import com.example.mypet.utils.AuthFunctions
+import com.example.mypet.adapters.PetsAdapter
+import com.example.mypet.databinding.FragmentNewPetBinding
+import com.example.mypet.utils.EventObserver
+import com.example.mypet.utils.NetworkLoadingState
+import com.example.mypet.utils.getShortDate
 import com.example.mypet.viewmodels.PetsViewModel
+import com.google.android.material.datepicker.MaterialDatePicker
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
+import java.util.*
+import java.util.regex.Pattern
 
-class NewPetFragment : Fragment(R.layout.fragment_add_pet), AuthFunctions {
-
-    private lateinit var binding: FragmentAddPetBinding;
+class NewPetFragment : Fragment(R.layout.fragment_new_pet) {
     private lateinit var viewmodel: PetsViewModel
+    private lateinit var binding: FragmentNewPetBinding
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?){
-        super.onViewCreated(view, savedInstanceState);
-        binding = FragmentAddPetBinding.bind(view); //viewbinding
-        viewmodel = ViewModelProvider(this)[PetsViewModel::class.java];
-        binding.newPetViewmodel = viewmodel //databinding
-        viewmodel.authListener = this   //assign authlistener
-    }
+        super.onViewCreated(view, savedInstanceState)
+        binding = FragmentNewPetBinding.bind(view)
+        viewmodel = ViewModelProvider(requireActivity())[PetsViewModel::class.java]
+        //binding.petsviewmodel = viewmodel
+
+        //Date Picker
+        val datePicker =
+            MaterialDatePicker.Builder.datePicker()
+                .setTitleText("Select date")
+                .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
+                .build()
+
+        datePicker.addOnPositiveButtonClickListener () {
+            getShortDate(datePicker.selection)
+            binding.newPetBirthdate.text = getShortDate(datePicker.selection).trim().toEditable()
+        }
+
+        // calendar button
+        binding.newPetCalendar.setOnClickListener(){
+            datePicker.show(childFragmentManager , "a")
+        }
+
+        //Sex selection
+        val adapter = ArrayAdapter(
+            requireContext(), android.R.layout.simple_spinner_dropdown_item, listOf("Αρσενικό", "Θηλυκό")
+        )
+        binding.newPetSex.setAdapter(adapter)
+        // error listeners
+        binding.newPetBirthdate.doOnTextChanged { text, start, before, count ->
+            if(!text.isNullOrEmpty()) binding.newPetBirthdateHint.error = null
+        }
+
+        binding.newPetSex.doOnTextChanged { text, start, before, count ->
+            if(!text.isNullOrEmpty()) binding.newPetSexHint.error = null
+        }
+
+        binding.newPetBreed.doOnTextChanged { text, start, before, count ->
+            if(!text.isNullOrEmpty()) binding.newPetBreedHint.error = null
+        }
+
+        binding.newPetColor.doOnTextChanged { text, start, before, count ->
+            if(!text.isNullOrEmpty()) binding.newPetColorHint.error = null
+        }
+
+        binding.newPetName.doOnTextChanged { text, start, before, count ->
+            if(!text.isNullOrEmpty()) binding.newPetNameHint.error = null
+        }
+
+        // Submit button
+        binding.submitNewPet.setOnClickListener(){
+            var errorCounter = 0;
+
+            if(binding.newPetName.text.isNullOrEmpty()){
+                binding.newPetNameHint.error = "Παρακαλώ εισάγετε όνομα"
+                errorCounter++
+            }
+            if(binding.newPetBirthdate.text.isNullOrEmpty()){
+                binding.newPetBirthdateHint.error = "Παρακαλώ εισάγετε ημερομηνία γέννησης"
+                errorCounter++
+            }
+            if(binding.newPetBreed.text.isNullOrEmpty()){
+                binding.newPetBreedHint.error = "Παρακαλώ εισάγετε φυλή (ράτσα)"
+                errorCounter++
+            }
+            if(binding.newPetColor.text.isNullOrEmpty()){
+                binding.newPetColorHint.error = "Παρακαλώ εισάγετε χρώμα"
+                errorCounter++
+            }
+            if(binding.newPetSex.text.isNullOrEmpty()){
+                binding.newPetSexHint.error = "Παρακαλώ επιλέξτε φύλο"
+                errorCounter++
+            }
+
+            if(errorCounter == 0){
+                var name = binding.newPetName.text.toString();
+                var birthdate = binding.newPetBirthdate.text.toString();
+                var sex = binding.newPetSex.text.toString();
+                var breed = binding.newPetBreed.text.toString();
+
+                var id = binding.newPetID.text.toString()
+                var color = binding.newPetColor.text.toString();
+                var height = binding.newPetHeight.text.toString();
+                var weight = binding.newPetWeight.text.toString();
+                var marks = binding.newPetDistinguishingMarks.text.toString();
 
 
-    override fun OnStarted() {
-        /*Toast.makeText(requireContext(),"Registering...", Toast.LENGTH_LONG).show()
-        binding.registerButton.setEnabled(false)
-        binding.textViewUsernameError.visibility = View.INVISIBLE
-        binding.textViewEmailError.visibility = View.INVISIBLE
-        binding.textViewPhoneNumberError.visibility = View.INVISIBLE
-        binding.textViewNameError.visibility = View.INVISIBLE
-        binding.textViewSurnameError.visibility = View.INVISIBLE
-        binding.textViewPasswordError.visibility = View.INVISIBLE
-        binding.textViewConfirmPasswordError.visibility = View.INVISIBLE
-        binding.textViewAddressError.visibility = View.INVISIBLE
-        Log.d("register fragment", "Signing up...")*/
-    }
-
-    override fun OnSuccess() {
-        Log.d("RegisterFragment", "Succeed..")
-
-        /*viewmodel.getUserRegisterDataFromRepo().observe(requireActivity(), {
-            Log.i("VIEWMODEL", "OnSuccess: ${it?.token}")
-            Toast.makeText(requireContext(),"Signed up!", Toast.LENGTH_LONG).show()
-            navRegister()
-        })
-        viewmodel.getFailureMessageFromRegister().observe(requireActivity(), {
-            Toast.makeText(requireContext(), it.toString(), Toast.LENGTH_LONG).show()
-        })
-        binding.registerButton.setEnabled(true)*/
-    }
-
-    override fun OnFailure(errorCodes: MutableList<Int>) {
-        /*binding.registerButton.setEnabled(true)
-        for(error in errorCodes) {
-            if (error == 910) {
-                binding.textViewUsernameError.visibility = View.VISIBLE
-                binding.textViewUsernameError.text = getString(R.string.username_not_valid_error)
+                viewmodel.addPet(id, name, birthdate, color, marks, breed, sex, weight, height)
+                viewmodel.getLoadStateFromRepo().observe(viewLifecycleOwner, EventObserver {
+                    when (it) {
+                        is NetworkLoadingState.OnLoading -> println("You can show loading indicator here or whatever to inform user that data is being loaded")
+                        is NetworkLoadingState.OnSuccess -> findNavController().navigate(R.id.action_newPetFragment_to_petsFragment)
+                        is NetworkLoadingState.OnError -> println(it.message)
+                    }})
             }
-            if (error == 911){
-                binding.textViewUsernameError.visibility = View.VISIBLE
-                binding.textViewUsernameError.text = getString(R.string.field_required)
-            }
-            if (error == 920){
-                binding.textViewEmailError.visibility = View.VISIBLE
-                binding.textViewEmailError.text = getString(R.string.email_not_valid_error)
-            }
-            if (error == 921){
-                binding.textViewEmailError.visibility = View.VISIBLE
-                binding.textViewEmailError.text = getString(R.string.field_required)
-            }
-            if (error == 930){
-                binding.textViewPhoneNumberError.visibility = View.VISIBLE
-                binding.textViewPhoneNumberError.text = getString(R.string.phone_number_not_valid_error)
-            }
-            if (error == 931){
-                binding.textViewPhoneNumberError.visibility = View.VISIBLE
-                binding.textViewPhoneNumberError.text = getString(R.string.field_required)
-            }
-            if (error == 940){
-                binding.textViewNameError.visibility = View.VISIBLE
-                binding.textViewNameError.text = getString(R.string.field_required)
-            }
-            if (error == 950){
-                binding.textViewSurnameError.visibility = View.VISIBLE
-                binding.textViewSurnameError.text = getString(R.string.field_required)
-            }
-            if (error == 960){
-                binding.textViewPasswordError.visibility = View.VISIBLE
-                binding.textViewPasswordError.text = getString(R.string.password_length_error)
-            }
-            if (error == 961){
-                binding.textViewConfirmPasswordError.visibility = View.VISIBLE
-                binding.textViewConfirmPasswordError.text = getString(R.string.password_not_match_error)
-            }
-            if (error == 70){
-                binding.textViewAddressError.visibility = View.VISIBLE
-                binding.textViewAddressError.text = getString(R.string.field_required)
-            }
-        }*/
+        }
     }
 }
+
+
+
+private fun String?.toEditable(): Editable? {
+    return Editable.Factory.getInstance().newEditable(this)
+}
+
+
+

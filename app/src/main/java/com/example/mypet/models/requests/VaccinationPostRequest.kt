@@ -4,11 +4,11 @@ import com.example.mypet.models.Vet
 import java.util.*
 
 data class VaccinationPostRequest(
-    val batchNumber: String,
-    val manufaccturer: String,
+    val batchNumber: String?,
+    val manufacturer: String,
     val name: String,
-    val expirationDate: Date,
-    val vaccinationDate: Date,
-    val validUntil: Date,
-    val veterinarian: Vet
+    val expirationDate: String?,
+    val vaccinationDate: String,
+    val validUntil: String,
+    val veterinarian: Vet?
 )

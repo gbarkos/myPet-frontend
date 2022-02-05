@@ -46,13 +46,17 @@ class VaccinationInfoFragment : Fragment(R.layout.fragment_pet_vaccination){
     fun populateViews(it: Vaccination){
         binding.apply{
             petVaccinationName.text = it.name.toEditable()
-            petVaccinationExpirationDate.text = MongoDateAdapter(it.expirationDate).getDate().toEditable()
+            petVaccinationExpirationDate.text =
+                if(it.expirationDate != null) MongoDateAdapter(it.expirationDate).getDate().toEditable()
+                else "-".toEditable()
             //petVaccinationManufacturer.text = it.manufacturer.toEditable()
-            petVaccinationManufacturer.text = it.manufacturer?.toEditable()
-            petVaccinationBatchNumber.text = it.batchNumber.toEditable()
+            petVaccinationManufacturer.text = it.manufacturer.toEditable()
+            petVaccinationBatchNumber.text = it.batchNumber?.toEditable()
             petVaccinationDate.text = MongoDateAdapter(it.vaccinationDate).getDate().toEditable()
             petVaccinationValidUntil.text = MongoDateAdapter(it.validUntil).getDate().toEditable()
-            petVaccinationVeterinarian.text = (it.veterinarian.surname+" "+it.veterinarian.name).toEditable()
+            petVaccinationVeterinarian.text =
+                if(it.veterinarian != null) (it.veterinarian?.surname+" "+it.veterinarian?.name).toEditable()
+                else "-".toEditable()
         }
     }
 }
