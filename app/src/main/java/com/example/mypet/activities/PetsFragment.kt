@@ -54,7 +54,7 @@ class PetsFragment : Fragment(R.layout.fragment_pets) {
         })
 
         binding.addNewPetButton.setOnClickListener{
-            findNavController().navigate(R.id.action_petsFragment_to_testFragment)
+            findNavController().navigate(R.id.action_petsFragment_to_newPetFragment)
         }
     }
 }

@@ -10,7 +10,11 @@
         android:label="UserLoginFragment" >
         <action
             android:id="@+id/action_userLoginFragment_to_userRegisterFragment"
-            app:destination="@id/userRegisterFragment" />
+            app:destination="@id/userRegisterFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/userRegisterFragment"
@@ -18,6 +22,10 @@
         android:label="UserRegisterFragment" >
         <action
             android:id="@+id/action_userRegisterFragment_to_userLoginFragment"
-            app:destination="@id/userLoginFragment" />
+            app:destination="@id/userLoginFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_out_right"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 </navigation>

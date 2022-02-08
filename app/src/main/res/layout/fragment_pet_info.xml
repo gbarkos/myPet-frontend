@@ -9,277 +9,323 @@
             type="com.example.mypet.viewmodels.PetsViewModel"/>
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/govblue" >
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/petInfoTitle"
-            android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/topAppBarLayout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
+            app:layout_constraintTop_toTopOf="parent">
 
-            android:layout_marginTop="5dp"
-            android:fontFamily="@font/amiko_semibold"
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/topAppBar"
+                style="@style/Widget.MaterialComponents.Toolbar.Primary"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:title="Στοιχεία Κατοικιδίου" />
 
-            android:text="Στοιχεία Κατοικιδίου"
-            android:textColor="@color/white"
-            android:textSize="30dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        </com.google.android.material.appbar.AppBarLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="13"
+        android:background="@drawable/generic_background">
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="50dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="15dp"
+            android:layout_margin="15dp"
             app:cardCornerRadius="15dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:padding="15dp">
+                android:orientation="vertical">
 
-                <ImageView
-                    android:id="@+id/petInfoProfilePic"
-                    android:layout_width="130dp"
-                    android:layout_height="130dp"
-                    android:adjustViewBounds="true"
-                    android:scaleType="fitXY"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:src="@drawable/dummy_pet_profile_pic" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraintLayout2"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:padding="15dp"
+                    android:background="#135e52">
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/petInfoNameHint"
-                    app:boxBackgroundColor="@color/white"
-                    app:boxStrokeColor="@color/black"
-                    app:boxStrokeWidth="0dp"
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="160dp"
+                        android:layout_height="160dp"
+                        app:cardElevation="0dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:strokeColor="#12b89f"
+                        app:strokeWidth="3dp">
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
 
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:hint="Name"
-                    android:fontFamily="@font/amiko_semibold"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/petInfoName"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:minWidth="100dp"
-                        android:enabled="false"
-                        android:textColor="@color/black"
-
-                        android:text="Name goes here"
-                        android:textSize="15dp" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-<!--                <TextView-->
-<!--                    android:id="@+id/petInfoNameHint"-->
-<!--                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:inputType="none"-->
-<!--                    android:hint="Name"-->
-<!--                    app:layout_constraintStart_toStartOf="parent"-->
-<!--                    app:layout_constraintTop_toTopOf="parent"-->
-<!--                    android:text="Pet name goes here"-->
-<!--                    android:textSize="15dp"/>-->
+                        <ImageView
+                            android:id="@+id/petInfoProfilePic"
+                            android:layout_width="160dp"
+                            android:layout_height="160dp"
+                            android:adjustViewBounds="true"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/dummy_pet_profile_pic"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </com.google.android.material.card.MaterialCardView>
 
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/petInfoBirthdateHint"
-                    app:boxBackgroundColor="@color/white"
-                    app:boxStrokeWidth="0dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:minWidth="130dp"
-                    android:hint="Date of Birth"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/petInfoNameHint">
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/petInfoBirthdate"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:enabled="false"
-                        android:textColor="@color/black"
-                        android:text="Pet Birthdate goes here"
-                        android:textSize="15dp" />
+                <ScrollView
+                    android:id="@+id/detailsScrollView"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="2">
 
-                </com.google.android.material.textfield.TextInputLayout>
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/constraintLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="15dp">
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/petInfoSexHint"
-                    app:boxBackgroundColor="@color/white"
-                    app:boxStrokeColor="@color/black"
-                    app:boxStrokeWidth="0dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:minWidth="130dp"
-                    android:hint="Sex"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/petInfoBirthdateHint">
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/petInfoNameHint"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Όνομα"
+                            app:boxBackgroundColor="@color/white"
+                            app:boxStrokeColor="@color/black"
+                            app:boxStrokeWidth="0dp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/petInfoSex"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:enabled="false"
-                        android:textColor="@color/black"
-                        android:text="Pet Sex goes here"
-                        android:textSize="15dp" />
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/petInfoName"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:enabled="false"
+                                android:minWidth="100dp"
 
-                </com.google.android.material.textfield.TextInputLayout>
+                                android:text="Name goes here"
+                                android:textColor="@color/black"
+                                android:textSize="20dp" />
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/petInfoBreedHint"
-                    app:boxBackgroundColor="@color/white"
-                    app:boxStrokeColor="@color/black"
-                    app:boxStrokeWidth="0dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:minWidth="130dp"
-                    android:hint="Breed"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/petInfoSexHint">
+                        </com.google.android.material.textfield.TextInputLayout>
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/petInfoBreed"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:enabled="false"
-                        android:textColor="@color/black"
-                        android:text="Pet Breed goes here"
-                        android:textSize="15dp" />
 
-                </com.google.android.material.textfield.TextInputLayout>
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/petInfoBirthdateHint"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Ημερομηνία Γέννησης"
+                            android:minWidth="130dp"
+                            app:boxBackgroundColor="@color/white"
+                            app:boxStrokeWidth="0dp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/petInfoNameHint">
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/petInfoIDHint"
-                    app:boxBackgroundColor="@color/white"
-                    app:boxStrokeWidth="0dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:minWidth="130dp"
-                    android:hint="ID"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/petInfoBreedHint">
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/petInfoBirthdate"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:enabled="false"
+                                android:text="Pet Birthdate goes here"
+                                android:textColor="@color/black"
+                                android:textSize="20dp" />
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/petInfoID"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:minWidth="130dp"
-                        android:enabled="false"
-                        android:textColor="@color/black"
-                        android:text="Pet ID goes here"
-                        android:textSize="15dp" />
+                        </com.google.android.material.textfield.TextInputLayout>
 
-                </com.google.android.material.textfield.TextInputLayout>
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/petInfoSexHint"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Φύλο"
+                            android:minWidth="130dp"
+                            app:boxBackgroundColor="@color/white"
+                            app:boxStrokeColor="@color/black"
+                            app:boxStrokeWidth="0dp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/petInfoBirthdateHint">
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/petInfoColorHint"
-                    app:boxBackgroundColor="@color/white"
-                    app:boxStrokeColor="@color/black"
-                    app:boxStrokeWidth="0dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:minWidth="130dp"
-                    android:hint="Color"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/petInfoIDHint">
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/petInfoSex"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:enabled="false"
+                                android:text="Pet Sex goes here"
+                                android:textColor="@color/black"
+                                android:textSize="20dp" />
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/petInfoColor"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:enabled="false"
-                        android:textColor="@color/black"
-                        android:text="Pet Color goes here"
-                        android:textSize="15dp" />
+                        </com.google.android.material.textfield.TextInputLayout>
 
-                </com.google.android.material.textfield.TextInputLayout>
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/petInfoBreedHint"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Φυλή/ Ράτσα"
+                            android:minWidth="130dp"
+                            app:boxBackgroundColor="@color/white"
+                            app:boxStrokeColor="@color/black"
+                            app:boxStrokeWidth="0dp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/petInfoSexHint">
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/petInfoHeightHint"
-                    app:boxBackgroundColor="@color/white"
-                    app:boxStrokeWidth="0dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:minWidth="130dp"
-                    android:hint="Height"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/petInfoColorHint">
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/petInfoBreed"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:enabled="false"
+                                android:text="Pet Breed goes here"
+                                android:textColor="@color/black"
+                                android:textSize="20dp" />
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/petInfoHeight"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:enabled="false"
-                        android:textColor="@color/black"
-                        android:text="Pet Height goes here"
-                        android:textSize="15dp" />
+                        </com.google.android.material.textfield.TextInputLayout>
 
-                </com.google.android.material.textfield.TextInputLayout>
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/petInfoIDHint"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Αριθμός Ταυτότητας"
+                            android:minWidth="130dp"
+                            app:boxBackgroundColor="@color/white"
+                            app:boxStrokeWidth="0dp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/petInfoBreedHint">
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/petInfoWeightHint"
-                    app:boxBackgroundColor="@color/white"
-                    app:boxStrokeWidth="0dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:minWidth="130dp"
-                    android:hint="Weight"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/petInfoHeightHint">
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/petInfoID"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:enabled="false"
+                                android:minWidth="130dp"
+                                android:text="Δεν έχει καταχωρηθεί στο μητρώο"
+                                android:textColor="@color/black"
+                                android:textSize="20dp" />
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/petInfoWeight"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:enabled="false"
-                        android:textColor="@color/black"
-                        android:text="Pet Weight goes here"
-                        android:textSize="15dp" />
+                        </com.google.android.material.textfield.TextInputLayout>
 
-                </com.google.android.material.textfield.TextInputLayout>
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/petInfoColorHint"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Χρώμα"
+                            android:minWidth="130dp"
+                            app:boxBackgroundColor="@color/white"
+                            app:boxStrokeColor="@color/black"
+                            app:boxStrokeWidth="0dp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/petInfoIDHint">
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/petInfoDistinguishingMarksHint"
-                    app:boxBackgroundColor="@color/white"
-                    app:boxStrokeWidth="0dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:minWidth="250dp"
-                    android:hint="Distinguishing Marks"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/petInfoWeightHint">
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/petInfoColor"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:enabled="false"
+                                android:text="Pet Color goes here"
+                                android:textColor="@color/black"
+                                android:textSize="20dp" />
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/petInfoDistinguishingMarks"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:enabled="false"
-                        android:textColor="@color/black"
-                        android:text="Pet Distinguishing Marks go here"
-                        android:textSize="15dp" />
+                        </com.google.android.material.textfield.TextInputLayout>
 
-                </com.google.android.material.textfield.TextInputLayout>
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/petInfoHeightHint"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Ύψος"
+                            android:minWidth="130dp"
+                            app:boxBackgroundColor="@color/white"
+                            app:boxStrokeWidth="0dp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/petInfoColorHint">
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/petInfoHeight"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:enabled="false"
+                                android:text="Pet Height goes here"
+                                android:textColor="@color/black"
+                                android:textSize="20dp" />
 
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/petInfoWeightHint"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Βάρος"
+                            android:minWidth="130dp"
+                            app:boxBackgroundColor="@color/white"
+                            app:boxStrokeWidth="0dp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/petInfoHeightHint">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/petInfoWeight"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:enabled="false"
+                                android:text="Pet Weight goes here"
+                                android:textColor="@color/black"
+                                android:textSize="20dp" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/petInfoDistinguishingMarksHint"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Ιδιαίτερα Χαρακτηριστικά"
+                            android:minWidth="250dp"
+                            app:boxBackgroundColor="@color/white"
+                            app:boxStrokeWidth="0dp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/petInfoWeightHint">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/petInfoDistinguishingMarks"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:enabled="false"
+                                android:text="Pet Distinguishing Marks go here"
+                                android:textColor="@color/black"
+                                android:textSize="20dp" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </ScrollView>
+            </LinearLayout>
         </androidx.cardview.widget.CardView>
 
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/addNewPetButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="30dp"
+            android:contentDescription="Προσθήκη Κατοικιδίου"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@drawable/ic_qr_code" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 
 </layout>

@@ -41,8 +41,22 @@ class PetsAdapter(private val pets: List<PetLimited>, private val coroutineScope
         val binding: PetItemBinding = PetItemBinding.bind(itemView);
 
         fun bind(pet: PetLimited){
-            binding.petName.text = pet.name
-            binding.petGender.text = (pet.sex)
+            binding.petName.text = pet.name.trim()
+            binding.petBreed.text = pet.breed.trim()
+            val age = pet.age
+            binding.petAge.text = if(age>1){
+                age.toString()+" χρόνων"
+            }else{
+                age.toString()+" χρόνου"
+            }
+
+
+            if(pet.sex.equals("Αρσενικό") || pet.sex.equals("Male")){
+                    Picasso.get().load(R.drawable.ic_male).into(binding.petGender)
+            }else{
+                Picasso.get().load(R.drawable.ic_female).into(binding.petGender)
+            }
+
             Picasso.get().load(pet.photo).into(binding.petProfilePic)
 
             itemView.setOnClickListener{

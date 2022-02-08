@@ -34,6 +34,23 @@
         <entry key="..\:/Thesis/frontend/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.19576719576719576" />
         <entry key="..\:/Thesis/frontend/app/src/main/res/mipmap-anydpi-v26/ic_petprofile.xml" value="0.3828125" />
         <entry key="..\:/Thesis/frontend/app/src/main/res/mipmap-anydpi-v26/ic_petprofile_round.xml" value="0.3828125" />
+        <entry key="app/src/main/res/drawable/bar.xml" value="0.3235" />
+        <entry key="app/src/main/res/drawable/generic_background.xml" value="0.18" />
+        <entry key="app/src/main/res/drawable/ic_female_icon_background.xml" value="0.3235" />
+        <entry key="app/src/main/res/drawable/register_background.xml" value="0.1815" />
+        <entry key="app/src/main/res/drawable/rounded_corners.xml" value="0.3235" />
+        <entry key="app/src/main/res/layout/activity_pet_details.xml" value="0.32083333333333336" />
+        <entry key="app/src/main/res/layout/fragment_login_user.xml" value="0.21" />
+        <entry key="app/src/main/res/layout/fragment_new_pet.xml" value="0.3029891304347826" />
+        <entry key="app/src/main/res/layout/fragment_new_vaccination.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/fragment_pet_info.xml" value="0.3203125" />
+        <entry key="app/src/main/res/layout/fragment_pet_vermifugation.xml" value="0.15577507598784193" />
+        <entry key="app/src/main/res/layout/fragment_pets.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/fragment_register_user.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_vaccinations.xml" value="0.15577507598784193" />
+        <entry key="app/src/main/res/layout/fragment_vermifugations.xml" value="0.296195652173913" />
+        <entry key="app/src/main/res/layout/pet_item.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/test_layout.xml" value="0.22" />
       </map>
     </option>
   </component>

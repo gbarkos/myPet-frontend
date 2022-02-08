@@ -53,7 +53,7 @@ class PetInfoFragment: Fragment(R.layout.fragment_pet_info) {
             petInfoBirthdate.text = MongoDateAdapter(it.pet.birthdate).getDate().toEditable()
             petInfoSex.text = it.pet.sex.toEditable()
             petInfoBreed.text = it.pet.breed.toEditable()
-            petInfoID.text = it.pet.id?.toEditable()
+            petInfoID.text = it.pet.id?.toEditable() ?: "Δεν έχει καταχωρηθεί στο μητρώο".toEditable();
             petInfoColor.text = it.pet.colour.toEditable()
             petInfoHeight.text = it.pet.height?.toEditable()
             petInfoWeight.text = it.pet.weight?.toEditable()
