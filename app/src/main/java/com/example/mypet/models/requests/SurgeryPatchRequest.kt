@@ -5,6 +5,6 @@ import java.util.*
 
 data class SurgeryPatchRequest(
     val name: String,
-    val date: Date,
-    val veterinarian: Vet
+    val date: String,
+    val veterinarian: Vet?
 )

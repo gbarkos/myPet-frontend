@@ -10,6 +10,8 @@ class MoreMenuFragment : Fragment(R.layout.fragment_more_menu) {
 
     private lateinit var binding: FragmentMoreMenuBinding
     private lateinit var treatmentsFragment: TreatmentsFragment
+    private lateinit var surgeriesFragment: SurgeriesFragment
+    private lateinit var diagnosticTestsFragment: DiagnosticTestsFragment
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -19,6 +21,22 @@ class MoreMenuFragment : Fragment(R.layout.fragment_more_menu) {
             treatmentsFragment = TreatmentsFragment()
             val transaction = activity?.supportFragmentManager?.beginTransaction()
             transaction?.replace(R.id.navigationFragmentContainer, treatmentsFragment)
+            transaction?.disallowAddToBackStack()
+            transaction?.commit()
+        }
+
+        binding.surgeriesCard.setOnClickListener{
+            surgeriesFragment = SurgeriesFragment()
+            val transaction = activity?.supportFragmentManager?.beginTransaction()
+            transaction?.replace(R.id.navigationFragmentContainer, surgeriesFragment)
+            transaction?.disallowAddToBackStack()
+            transaction?.commit()
+        }
+
+        binding.testsCard.setOnClickListener{
+            diagnosticTestsFragment = DiagnosticTestsFragment()
+            val transaction = activity?.supportFragmentManager?.beginTransaction()
+            transaction?.replace(R.id.navigationFragmentContainer, diagnosticTestsFragment)
             transaction?.disallowAddToBackStack()
             transaction?.commit()
         }

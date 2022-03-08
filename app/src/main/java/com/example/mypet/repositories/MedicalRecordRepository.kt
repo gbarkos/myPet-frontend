@@ -4,9 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.mypet.api.ServiceGenerator
 import com.example.mypet.models.Vet
-import com.example.mypet.models.requests.TreatmentPatchRequest
-import com.example.mypet.models.requests.VaccinationPostRequest
-import com.example.mypet.models.requests.VermifugationPatchRequest
+import com.example.mypet.models.requests.*
 import com.example.mypet.models.responses.MedicalRecordPatchResponse
 import com.example.mypet.utils.Event
 import com.example.mypet.utils.NetworkLoadingState
@@ -75,6 +73,46 @@ object MedicalRecordRepository {
         val dataSource = ServiceGenerator
         dataSource.getMyPetApi()
             .addTreatment(TreatmentPatchRequest(medicine, disease, startOfTreatment, endOfTreatment, frequency, vet), medicalRecordId)
+            .enqueue(object : Callback<MedicalRecordPatchResponse> {
+                override fun onResponse(
+                    call : Call<MedicalRecordPatchResponse>,
+                    response: Response<MedicalRecordPatchResponse>
+                ){
+                    if (response.isSuccessful && response.body() != null){
+                        medicalRecordUpdateResponse.postValue(response.body())
+                        _loadState.value = Event(NetworkLoadingState.OnSuccess)
+                    }
+                }
+                override fun onFailure(call: Call<MedicalRecordPatchResponse>, t: Throwable){
+                    _loadState.value = Event(NetworkLoadingState.OnError(t.message.toString()))
+                }
+            })
+    }
+
+    fun addSurgery(medicalRecordId : String?, name : String, date : String, vet : Vet? = null) {
+        val dataSource = ServiceGenerator
+        dataSource.getMyPetApi()
+            .addSurgery(SurgeryPatchRequest(name, date, vet), medicalRecordId)
+            .enqueue(object : Callback<MedicalRecordPatchResponse> {
+                override fun onResponse(
+                    call : Call<MedicalRecordPatchResponse>,
+                    response: Response<MedicalRecordPatchResponse>
+                ){
+                    if (response.isSuccessful && response.body() != null){
+                        medicalRecordUpdateResponse.postValue(response.body())
+                        _loadState.value = Event(NetworkLoadingState.OnSuccess)
+                    }
+                }
+                override fun onFailure(call: Call<MedicalRecordPatchResponse>, t: Throwable){
+                    _loadState.value = Event(NetworkLoadingState.OnError(t.message.toString()))
+                }
+            })
+    }
+
+    fun addDiagnosticTest(medicalRecordId : String?, name : String, date : String, result: String, vet : Vet? = null) {
+        val dataSource = ServiceGenerator
+        dataSource.getMyPetApi()
+            .addDiagnosticTest(DiagnosticTestPatchRequest(name, date, result, vet), medicalRecordId)
             .enqueue(object : Callback<MedicalRecordPatchResponse> {
                 override fun onResponse(
                     call : Call<MedicalRecordPatchResponse>,

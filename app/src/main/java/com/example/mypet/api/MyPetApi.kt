@@ -59,12 +59,12 @@ interface MyPetApi {
 
     @PATCH("records/{id}")
     fun addSurgery(@Body body: SurgeryPatchRequest,
-                   @Path("id") id: String,
+                   @Path("id") id: String?,
                    @Query("option") option: String = "surgery"): Call<MedicalRecordPatchResponse>
 
     @PATCH("records/{id}")
     fun addDiagnosticTest(@Body body: DiagnosticTestPatchRequest,
-                          @Path("id") id: String,
+                          @Path("id") id: String?,
                           @Query("option") option: String = "test"): Call<MedicalRecordPatchResponse>
 
 }

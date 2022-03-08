@@ -42,4 +42,12 @@ class MedicalRecordViewModel : ViewModel() {
                      endOfTreatment : String, frequency : String, vet : Vet? = null) {
         medicalRecordRepository.addTreatment(medicalRecordId, medicine, disease, startOfTreatment, endOfTreatment, frequency, vet)
     }
+
+    fun addSurgery(medicalRecordId : String?, name : String, date : String, vet : Vet? = null) {
+        medicalRecordRepository.addSurgery(medicalRecordId, name, date, vet)
+    }
+
+    fun addDiagnosticTest(medicalRecordId : String?, name : String, date : String, result: String, vet : Vet? = null) {
+        medicalRecordRepository.addDiagnosticTest(medicalRecordId, name, date, result, vet)
+    }
 }
