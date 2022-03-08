@@ -21,6 +21,7 @@ import com.google.android.material.datepicker.MaterialDatePicker
 import java.util.*
 
 class NewVaccinationFragment : Fragment(R.layout.fragment_new_vaccination) {
+
     private lateinit var viewmodel: MedicalRecordViewModel
     private lateinit var binding: FragmentNewVaccinationBinding
     private val vaccinationsFragment = VaccinationsFragment()
@@ -42,7 +43,7 @@ class NewVaccinationFragment : Fragment(R.layout.fragment_new_vaccination) {
             binding.newVaccinationVaccinationDate.text = getShortDate(vaccinationDatePicker.selection).trim().toEditable()
         }
 
-        binding.newVaccinationVaccinationDateButton.setOnClickListener(){
+        binding.newVaccinationVaccinationDate.setOnClickListener(){
             vaccinationDatePicker.show(childFragmentManager , "a")
         }
 
@@ -58,7 +59,7 @@ class NewVaccinationFragment : Fragment(R.layout.fragment_new_vaccination) {
             binding.newVaccinationValidUntil.text = getShortDate(validUntilPicker.selection).trim().toEditable()
         }
 
-        binding.newVaccinationValidButton.setOnClickListener(){
+        binding.newVaccinationValidUntil.setOnClickListener(){
             validUntilPicker.show(childFragmentManager , "a")
         }
 
@@ -74,7 +75,7 @@ class NewVaccinationFragment : Fragment(R.layout.fragment_new_vaccination) {
             binding.newVaccinationExpirationDate.text = getShortDate(expirationDatePicker.selection).trim().toEditable()
         }
 
-        binding.newVaccinationExpirationDateButton.setOnClickListener(){
+        binding.newVaccinationExpirationDate.setOnClickListener(){
             expirationDatePicker.show(childFragmentManager , "a")
         }
 

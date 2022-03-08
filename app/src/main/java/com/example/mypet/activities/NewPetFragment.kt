@@ -48,7 +48,7 @@ class NewPetFragment : Fragment(R.layout.fragment_new_pet) {
         }
 
         // calendar button
-        binding.newPetCalendar.setOnClickListener(){
+        binding.newPetBirthdate.setOnClickListener(){
             datePicker.show(childFragmentManager , "a")
         }
 

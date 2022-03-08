@@ -9,27 +9,27 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mypet.R
-import com.example.mypet.adapters.VaccinationsAdapter
+import com.example.mypet.adapters.TreatmentsAdapter
 import com.example.mypet.adapters.VermifugationsAdapter
-import com.example.mypet.databinding.FragmentVaccinationsBinding
+import com.example.mypet.databinding.FragmentTreatmentsBinding
 import com.example.mypet.databinding.FragmentVermifugationsBinding
-import com.example.mypet.models.Vaccination
+import com.example.mypet.models.Treatment
 import com.example.mypet.models.Vermifugation
 import com.example.mypet.viewmodels.PetsViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
-class VermifugationsFragment: Fragment(R.layout.fragment_vermifugations){
+class TreatmentsFragment : Fragment(R.layout.fragment_treatments){
     private lateinit var viewmodel: PetsViewModel
-    private lateinit var binding: FragmentVermifugationsBinding
-    private val vermifugationInfoFragment = VermifugationInfoFragment()
-    private lateinit var newVermifugationFragment : NewVermifugationFragment
+    private lateinit var binding: FragmentTreatmentsBinding
+    private val treatmentInfoFragment = TreatmentInfoFragment() //TODO
+    private lateinit var newTreatmentFragment : NewTreatmentFragment //TODO
 
-    private lateinit var vermifugationsList: List<Vermifugation>
+    private lateinit var treatmentsList: List<Treatment>
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?){
         super.onViewCreated(view, savedInstanceState)
-        binding = FragmentVermifugationsBinding.bind(view)
+        binding = FragmentTreatmentsBinding.bind(view)
         viewmodel = ViewModelProvider(requireActivity())[PetsViewModel::class.java]
         binding.petsviewmodel = viewmodel
 
@@ -44,17 +44,17 @@ class VermifugationsFragment: Fragment(R.layout.fragment_vermifugations){
 
         viewmodel.getPetDataFromRepo().observe(viewLifecycleOwner, {
             Log.d("Pets!!!",it.pet.toString())
-            vermifugationsList = it.pet.medicalRecord.vermifugations
-            binding.recyclerViewVermifugations.apply {
+            treatmentsList = it.pet.medicalRecord.treatments
+            binding.recyclerViewTreatments.apply {
                 layoutManager = LinearLayoutManager(activity)
-                adapter = VermifugationsAdapter(vermifugationsList,lifecycleScope)
+                adapter = TreatmentsAdapter(treatmentsList,lifecycleScope)
             }
 
-            (binding.recyclerViewVermifugations.adapter as VermifugationsAdapter).onClick.onEach {
+            (binding.recyclerViewTreatments.adapter as TreatmentsAdapter).onClick.onEach {
                 Log.d("OnItemClick",it._id)
-                vermifugationInfoFragment.arguments = bundleOf("vermifugationID" to it._id)
+                treatmentInfoFragment.arguments = bundleOf("treatmentID" to it._id) //TODO
                 val transaction = requireActivity().supportFragmentManager.beginTransaction()
-                transaction.replace(this.id, vermifugationInfoFragment)
+                transaction.replace(this.id, treatmentInfoFragment) //TODO
                 //transaction.addToBackStack("null")
                 transaction.commit()
 
@@ -62,12 +62,12 @@ class VermifugationsFragment: Fragment(R.layout.fragment_vermifugations){
         })
 
         // send the pet id so that the addVaccination request knows what to update
-        binding.addNewVermifugationButton.setOnClickListener {
+        binding.addNewTreatmentButton.setOnClickListener {
             val bundle = bundleOf("recordId" to recordId)
-            newVermifugationFragment = NewVermifugationFragment()
-            newVermifugationFragment.arguments = bundle
+            newTreatmentFragment = NewTreatmentFragment() //TODO
+            newTreatmentFragment.arguments = bundle //TODO
             val transaction = activity?.supportFragmentManager?.beginTransaction()
-            transaction?.replace(R.id.navigationFragmentContainer, newVermifugationFragment)
+            transaction?.replace(R.id.navigationFragmentContainer, newTreatmentFragment) //TODO
             transaction?.disallowAddToBackStack()
             transaction?.commit()
         }

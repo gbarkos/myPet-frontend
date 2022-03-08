@@ -32,4 +32,14 @@ class MedicalRecordViewModel : ViewModel() {
     vaccinationDate : String, validUntil : String, vet : Vet? = null) {
         medicalRecordRepository.addVaccination(medicalRecordId, batchNumber, manufacturer, name, expirationDate, vaccinationDate, validUntil, vet)
     }
+
+    fun addVermifugation (medicalRecordId : String?, manufacturer : String, name : String, expirationDate : String?,
+                        vermifugationDate : String, validUntil : String, vet : Vet? = null) {
+        medicalRecordRepository.addVermifugation(medicalRecordId, manufacturer, name, expirationDate, vermifugationDate, validUntil, vet)
+    }
+
+    fun addTreatment(medicalRecordId : String?, medicine : String, disease : String, startOfTreatment : String,
+                     endOfTreatment : String, frequency : String, vet : Vet? = null) {
+        medicalRecordRepository.addTreatment(medicalRecordId, medicine, disease, startOfTreatment, endOfTreatment, frequency, vet)
+    }
 }

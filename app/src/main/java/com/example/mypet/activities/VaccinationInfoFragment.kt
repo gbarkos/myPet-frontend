@@ -49,9 +49,11 @@ class VaccinationInfoFragment : Fragment(R.layout.fragment_pet_vaccination){
             petVaccinationExpirationDate.text =
                 if(it.expirationDate != null) MongoDateAdapter(it.expirationDate).getDate().toEditable()
                 else "-".toEditable()
-            //petVaccinationManufacturer.text = it.manufacturer.toEditable()
+
             petVaccinationManufacturer.text = it.manufacturer.toEditable()
-            petVaccinationBatchNumber.text = it.batchNumber?.toEditable()
+            petVaccinationBatchNumber.text =
+                if(it.batchNumber!=null && it.batchNumber!="") it.batchNumber.toEditable()
+                else "-".toEditable();
             petVaccinationDate.text = MongoDateAdapter(it.vaccinationDate).getDate().toEditable()
             petVaccinationValidUntil.text = MongoDateAdapter(it.validUntil).getDate().toEditable()
             petVaccinationVeterinarian.text =

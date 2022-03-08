@@ -6,8 +6,8 @@ import java.util.*
 data class TreatmentPatchRequest(
     val medicine: String,
     val disease: String,
-    val sartOfTreatment: Date,
-    val endOfTreatment: Date,
-    val frequency: Int,
-    val veterinarian: Vet
+    val startOfTreatment: String,
+    val endOfTreatment: String,
+    val frequency: String,
+    val veterinarian: Vet?
 )

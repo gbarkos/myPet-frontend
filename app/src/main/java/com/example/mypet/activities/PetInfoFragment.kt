@@ -55,9 +55,9 @@ class PetInfoFragment: Fragment(R.layout.fragment_pet_info) {
             petInfoBreed.text = it.pet.breed.toEditable()
             petInfoID.text = it.pet.id?.toEditable() ?: "Δεν έχει καταχωρηθεί στο μητρώο".toEditable();
             petInfoColor.text = it.pet.colour.toEditable()
-            petInfoHeight.text = it.pet.height?.toEditable()
-            petInfoWeight.text = it.pet.weight?.toEditable()
-            petInfoDistinguishingMarks.text = it.pet.distinguishingMarks?.toEditable()
+            petInfoHeight.text = it.pet.height?.toEditable() ?: "-".toEditable()
+            petInfoWeight.text = it.pet.weight?.toEditable() ?: "-".toEditable()
+            petInfoDistinguishingMarks.text = it.pet.distinguishingMarks?.toEditable() ?: "-".toEditable()
         }
     }
 }

@@ -16,11 +16,11 @@
             android:padding="15dp">
 
             <ImageView
-                android:id="@+id/vermifugationPic"
+                android:id="@+id/treatmentPic"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_marginLeft="15dp"
-                android:src="@drawable/ic_vermifugation"
+                android:src="@drawable/ic_treatment"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -28,11 +28,11 @@
             </ImageView>
 
             <TextView
-                android:id="@+id/vermifugationName"
-                app:layout_constraintStart_toEndOf="@+id/vermifugationPic"
+                android:id="@+id/treatmentDisease"
+                app:layout_constraintStart_toEndOf="@+id/treatmentPic"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Pet name goes here"
+                android:text="Treatment disease goes here"
                 android:textSize="22dp"
                 android:textStyle="bold"
                 android:layout_marginTop="5dp"
@@ -41,15 +41,15 @@
             </TextView>
 
             <TextView
-                android:id="@+id/vermifugationDate"
+                android:id="@+id/treatmentStartDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Pet gender goes here"
+                android:text="Treatment start date goes here"
                 android:textSize="18dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/vermifugationPic"
-                app:layout_constraintTop_toBottomOf="@+id/vermifugationName" />
+                app:layout_constraintStart_toEndOf="@+id/treatmentPic"
+                app:layout_constraintTop_toBottomOf="@+id/treatmentDisease" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

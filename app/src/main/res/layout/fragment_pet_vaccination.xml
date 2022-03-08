@@ -9,219 +9,242 @@
             type="com.example.mypet.viewmodels.PetsViewModel"/>
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/govblue" >
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/petInfoTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-
-            android:layout_marginTop="5dp"
-            android:fontFamily="@font/amiko_semibold"
-
-            android:text="Στοιχεία Εμβολιασμού"
-            android:textColor="@color/white"
-            android:textSize="30dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <androidx.cardview.widget.CardView
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="50dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="15dp"
-            app:cardCornerRadius="15dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_height="0dp"
+            android:layout_weight="1">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <com.google.android.material.appbar.AppBarLayout
+                android:id="@+id/topAppBarLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.google.android.material.appbar.MaterialToolbar
+                    android:id="@+id/topAppBar"
+                    style="@style/Widget.MaterialComponents.Toolbar.Primary"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    app:title="Στοιχεία Εμβολιασμού" />
+
+            </com.google.android.material.appbar.AppBarLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="13"
+            android:background="@drawable/generic_background">
+
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:padding="15dp">
+                android:layout_margin="15dp"
+                app:cardCornerRadius="15dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/petVaccinationNameHint"
-                    app:boxBackgroundColor="@color/white"
-                    app:boxStrokeColor="@color/black"
-                    app:boxStrokeWidth="0dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:hint="Όνομα"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    <ScrollView
+                        android:id="@+id/detailsScrollView"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="2">
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/petVaccinationName"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:minWidth="100dp"
-                        android:enabled="false"
-                        android:textColor="@color/black"
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/constraintLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:padding="15dp">
 
-                        android:text="Name Goes Here"
-                        android:textSize="15dp" />
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/petVaccinationNameHint"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Όνομα"
+                                app:boxBackgroundColor="@color/white"
+                                app:boxStrokeColor="@color/black"
+                                app:boxStrokeWidth="0dp"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent">
 
-                </com.google.android.material.textfield.TextInputLayout>
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/petVaccinationName"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:enabled="false"
+                                    android:minWidth="100dp"
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/petVaccinationManufacturerHint"
-                    app:boxBackgroundColor="@color/white"
-                    app:boxStrokeWidth="0dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:minWidth="130dp"
-                    android:hint="Κατασκευαστής"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/petVaccinationNameHint">
+                                    android:text="Name goes here"
+                                    android:textColor="@color/black"
+                                    android:textSize="20dp" />
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/petVaccinationManufacturer"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:enabled="false"
-                        android:textColor="@color/black"
-                        android:text="Manufacturer goes here"
-                        android:textSize="15dp" />
+                            </com.google.android.material.textfield.TextInputLayout>
 
-                </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/petVaccinationBatchNumberHint"
-                    app:boxBackgroundColor="@color/white"
-                    app:boxStrokeColor="@color/black"
-                    app:boxStrokeWidth="0dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:minWidth="200dp"
-                    android:hint="Αριθμός Παρτίδας"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/petVaccinationManufacturerHint">
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/petVaccinationManufacturerHint"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Κατασκευαστής"
+                                android:minWidth="130dp"
+                                app:boxBackgroundColor="@color/white"
+                                app:boxStrokeWidth="0dp"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/petVaccinationNameHint">
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/petVaccinationBatchNumber"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:enabled="false"
-                        android:textColor="@color/black"
-                        android:text="Batch number goes here"
-                        android:textSize="15dp" />
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/petVaccinationManufacturer"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:enabled="false"
+                                    android:text="Vaccination Manufacturer"
+                                    android:textColor="@color/black"
+                                    android:textSize="20dp" />
 
-                </com.google.android.material.textfield.TextInputLayout>
+                            </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/petVaccinationExpirationDateHint"
-                    app:boxBackgroundColor="@color/white"
-                    app:boxStrokeColor="@color/black"
-                    app:boxStrokeWidth="0dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:minWidth="250dp"
-                    android:hint="Ημερομηνία Λήξης Εμβολίου"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/petVaccinationBatchNumberHint">
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/petVaccinationBatchNumberHint"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Αριθμός Παρτίδας"
+                                android:minWidth="130dp"
+                                app:boxBackgroundColor="@color/white"
+                                app:boxStrokeColor="@color/black"
+                                app:boxStrokeWidth="0dp"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/petVaccinationManufacturerHint">
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/petVaccinationExpirationDate"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:enabled="false"
-                        android:textColor="@color/black"
-                        android:text="Expiration Date goes here"
-                        android:textSize="15dp" />
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/petVaccinationBatchNumber"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:enabled="false"
+                                    android:text="Batch Number goes here"
+                                    android:textColor="@color/black"
+                                    android:textSize="20dp" />
 
-                </com.google.android.material.textfield.TextInputLayout>
+                            </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/petVaccinationDateInfo"
-                    app:boxBackgroundColor="@color/white"
-                    app:boxStrokeWidth="0dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:minWidth="250dp"
-                    android:hint="Ημεομηνία Εμβολιασμού"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/petVaccinationExpirationDateHint">
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/petVaccinationExpirationDateHint"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Ημερομηνία Λήξης Σκευάσματος"
+                                android:minWidth="130dp"
+                                app:boxBackgroundColor="@color/white"
+                                app:boxStrokeColor="@color/black"
+                                app:boxStrokeWidth="0dp"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/petVaccinationBatchNumberHint">
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/petVaccinationDate"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:minWidth="130dp"
-                        android:enabled="false"
-                        android:textColor="@color/black"
-                        android:text="Pet Vaccination Date goes hre"
-                        android:textSize="15dp" />
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/petVaccinationExpirationDate"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:enabled="false"
+                                    android:text="Expiration Date goes here"
+                                    android:textColor="@color/black"
+                                    android:textSize="20dp" />
 
-                </com.google.android.material.textfield.TextInputLayout>
+                            </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/petVaccinationValidUntilInfo"
-                    app:boxBackgroundColor="@color/white"
-                    app:boxStrokeColor="@color/black"
-                    app:boxStrokeWidth="0dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:minWidth="130dp"
-                    android:hint="Λήξη Ισχύος"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/petVaccinationDateInfo">
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/petVaccinationDateInfo"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Ημερομηνία Εμβολιασμού"
+                                android:minWidth="130dp"
+                                app:boxBackgroundColor="@color/white"
+                                app:boxStrokeWidth="0dp"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/petVaccinationExpirationDateHint">
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/petVaccinationValidUntil"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:enabled="false"
-                        android:textColor="@color/black"
-                        android:text="Pet Valid until goes here"
-                        android:textSize="15dp" />
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/petVaccinationDate"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:enabled="false"
+                                    android:minWidth="130dp"
+                                    android:text="Vacciantion Date"
+                                    android:textColor="@color/black"
+                                    android:textSize="20dp" />
 
-                </com.google.android.material.textfield.TextInputLayout>
+                            </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/petVaccinationVeterinarianInfo"
-                    app:boxBackgroundColor="@color/white"
-                    app:boxStrokeWidth="0dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:minWidth="130dp"
-                    android:hint="Κτηνίατρος"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/petVaccinationValidUntilInfo">
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/petVaccinationValidUntilInfo"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Λήξη Ισχύος"
+                                android:minWidth="130dp"
+                                app:boxBackgroundColor="@color/white"
+                                app:boxStrokeColor="@color/black"
+                                app:boxStrokeWidth="0dp"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/petVaccinationDateInfo">
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/petVaccinationVeterinarian"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:enabled="false"
-                        android:textColor="@color/black"
-                        android:text="Pet Vet goes here"
-                        android:textSize="15dp" />
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/petVaccinationValidUntil"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:enabled="false"
+                                    android:text="Valid until goes here"
+                                    android:textColor="@color/black"
+                                    android:textSize="20dp" />
 
-                </com.google.android.material.textfield.TextInputLayout>
+                            </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/petAddVaccinationNotification"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="16dp"
-                    android:contentDescription="προσθήκη Εμβολιασμού"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:srcCompat="@drawable/ic_baseline_notifications_24" />
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/petVaccinationVeterinarianInfo"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Κτηνίατρος"
+                                android:minWidth="130dp"
+                                app:boxBackgroundColor="@color/white"
+                                app:boxStrokeWidth="0dp"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/petVaccinationValidUntilInfo">
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/petVaccinationVeterinarian"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:enabled="false"
+                                    android:text="Vet goes here"
+                                    android:textColor="@color/black"
+                                    android:textSize="20dp" />
 
-        </androidx.cardview.widget.CardView>
+                            </com.google.android.material.textfield.TextInputLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </ScrollView>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/petAddVaccinationNotification"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="30dp"
+                android:contentDescription="Προσθήκη Εμβολιασμού"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:srcCompat="@drawable/ic_baseline_notifications_24" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 
 </layout>

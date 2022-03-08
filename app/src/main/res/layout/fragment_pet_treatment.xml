@@ -1,10 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_gravity="center">
     <data>
         <variable
-            name="petsViewmodelVermifugation"
+            name="petsViewmodelTreatment"
             type="com.example.mypet.viewmodels.PetsViewModel"/>
     </data>
 
@@ -29,7 +30,7 @@
                     style="@style/Widget.MaterialComponents.Toolbar.Primary"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
-                    app:title="Στοιχεία Εμβολιασμού" />
+                    app:title="Στοιχεία θεραπείας" />
 
             </com.google.android.material.appbar.AppBarLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -68,10 +69,10 @@
                             android:padding="15dp">
 
                             <com.google.android.material.textfield.TextInputLayout
-                                android:id="@+id/petVermifugationNameHint"
+                                android:id="@+id/petTreatmentDiseaseHint"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:hint="Όνομα"
+                                android:hint="Ασθένεια"
                                 app:boxBackgroundColor="@color/white"
                                 app:boxStrokeColor="@color/black"
                                 app:boxStrokeWidth="0dp"
@@ -79,13 +80,13 @@
                                 app:layout_constraintTop_toTopOf="parent">
 
                                 <com.google.android.material.textfield.TextInputEditText
-                                    android:id="@+id/petVermifugationName"
+                                    android:id="@+id/petTreatmentDisease"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:enabled="false"
                                     android:minWidth="100dp"
 
-                                    android:text="Name goes here"
+                                    android:text="Disease goes here"
                                     android:textColor="@color/black"
                                     android:textSize="20dp" />
 
@@ -93,110 +94,132 @@
 
 
                             <com.google.android.material.textfield.TextInputLayout
-                                android:id="@+id/petVermifugationManufacturerHint"
+                                android:id="@+id/petTreatmentMedicineHint"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:hint="Κατασκευαστής"
+                                android:hint="Φάρμακο"
                                 android:minWidth="130dp"
                                 app:boxBackgroundColor="@color/white"
                                 app:boxStrokeWidth="0dp"
                                 app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@+id/petVermifugationNameHint">
+                                app:layout_constraintTop_toBottomOf="@+id/petTreatmentDiseaseHint">
 
                                 <com.google.android.material.textfield.TextInputEditText
-                                    android:id="@+id/petVermifugationManufacturer"
+                                    android:id="@+id/petTreatmentMedicine"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:enabled="false"
-                                    android:text="Vermifugation Manufacturer"
+                                    android:text="Medicine"
                                     android:textColor="@color/black"
                                     android:textSize="20dp" />
 
                             </com.google.android.material.textfield.TextInputLayout>
 
                             <com.google.android.material.textfield.TextInputLayout
-                                android:id="@+id/petVermifugationExpirationDateHint"
+                                android:id="@+id/petTreatmentStartDateHint"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:hint="Ημερομηνία Λήξης"
+                                android:hint="Ημερομηνία Έναρξης Θεραπείας"
                                 android:minWidth="130dp"
                                 app:boxBackgroundColor="@color/white"
                                 app:boxStrokeColor="@color/black"
                                 app:boxStrokeWidth="0dp"
                                 app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@+id/petVermifugationManufacturerHint">
+                                app:layout_constraintTop_toBottomOf="@+id/petTreatmentMedicineHint">
 
                                 <com.google.android.material.textfield.TextInputEditText
-                                    android:id="@+id/petVermifugationExpirationDate"
+                                    android:id="@+id/petTreatmentStartDate"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:enabled="false"
-                                    android:text="Expiration date"
+                                    android:text="Start Date"
                                     android:textColor="@color/black"
                                     android:textSize="20dp" />
 
                             </com.google.android.material.textfield.TextInputLayout>
 
                             <com.google.android.material.textfield.TextInputLayout
-                                android:id="@+id/petVermifugationDateInfo"
+                                android:id="@+id/petTreatmentEndDateHint"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:hint="Ημερομηνία Χορήγησης Θεραπείας"
+                                android:hint="Ημερομηνία Λήξης Θεραπείας"
                                 android:minWidth="130dp"
                                 app:boxBackgroundColor="@color/white"
                                 app:boxStrokeColor="@color/black"
                                 app:boxStrokeWidth="0dp"
                                 app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@+id/petVermifugationExpirationDateHint">
+                                app:layout_constraintTop_toBottomOf="@+id/petTreatmentStartDateHint">
 
                                 <com.google.android.material.textfield.TextInputEditText
-                                    android:id="@+id/petVermifugationDate"
+                                    android:id="@+id/petTreatmentEndDate"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:enabled="false"
-                                    android:text="vermifugation Date goes here"
+                                    android:text="End Date goes here"
                                     android:textColor="@color/black"
                                     android:textSize="20dp" />
 
                             </com.google.android.material.textfield.TextInputLayout>
 
                             <com.google.android.material.textfield.TextInputLayout
-                                android:id="@+id/petVermifugationValidUntilInfo"
+                                android:id="@+id/petTreatmentFrequencyHint"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:hint="Λήξη Ισχύος"
+                                android:hint="Συχνότητα Αγωγής"
                                 android:minWidth="130dp"
                                 app:boxBackgroundColor="@color/white"
                                 app:boxStrokeWidth="0dp"
                                 app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@+id/petVermifugationDateInfo">
+                                app:layout_constraintTop_toBottomOf="@+id/petTreatmentEndDateHint">
 
                                 <com.google.android.material.textfield.TextInputEditText
-                                    android:id="@+id/petVermifugationValidUntil"
+                                    android:id="@+id/petTreatmentFrequency"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:enabled="false"
                                     android:minWidth="130dp"
-                                    android:text="Valid until"
+                                    android:text="Frequency"
                                     android:textColor="@color/black"
                                     android:textSize="20dp" />
 
                             </com.google.android.material.textfield.TextInputLayout>
 
                             <com.google.android.material.textfield.TextInputLayout
-                                android:id="@+id/petVermifugationVeterinarianInfo"
+                                android:id="@+id/petTreatmentDurationHint"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Διάρκεια Θεραπέιας (ημέρες)"
+                                android:minWidth="130dp"
+                                app:boxBackgroundColor="@color/white"
+                                app:boxStrokeColor="@color/black"
+                                app:boxStrokeWidth="0dp"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/petTreatmentFrequencyHint">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/petTreatmentDuration"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:enabled="false"
+                                    android:text="Duration goes here"
+                                    android:textColor="@color/black"
+                                    android:textSize="20dp" />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/petTreatmentVeterinarianInfo"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:hint="Κτηνίατρος"
                                 android:minWidth="130dp"
                                 app:boxBackgroundColor="@color/white"
-                                app:boxStrokeColor="@color/black"
                                 app:boxStrokeWidth="0dp"
                                 app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@+id/petVermifugationValidUntilInfo">
+                                app:layout_constraintTop_toBottomOf="@+id/petTreatmentDurationHint">
 
                                 <com.google.android.material.textfield.TextInputEditText
-                                    android:id="@+id/petVermifugationVeterinarian"
+                                    android:id="@+id/petTreatmentVeterinarian"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:enabled="false"
@@ -212,11 +235,11 @@
             </androidx.cardview.widget.CardView>
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/petAddVermifugationNotification"
+                android:id="@+id/petAddVaccinationNotification"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="30dp"
-                android:contentDescription="Προσθήκη Αντιπαρασιτικής Θεραπείας"
+                android:contentDescription="Προσθήκη Εμβολιασμού"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:srcCompat="@drawable/ic_baseline_notifications_24" />

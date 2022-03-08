@@ -7,51 +7,50 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.mypet.R
-import com.example.mypet.databinding.FragmentPetVaccinationBinding
+import com.example.mypet.databinding.FragmentPetTreatmentBinding
 import com.example.mypet.databinding.FragmentPetVermifugationBinding
-import com.example.mypet.models.Vaccination
+import com.example.mypet.models.Treatment
 import com.example.mypet.models.Vermifugation
 import com.example.mypet.utils.MongoDateAdapter
 import com.example.mypet.viewmodels.PetsViewModel
 
-class VermifugationInfoFragment : Fragment(R.layout.fragment_pet_vermifugation){
+class TreatmentInfoFragment  : Fragment(R.layout.fragment_pet_treatment){
     private lateinit var viewmodel: PetsViewModel
-    private lateinit var binding: FragmentPetVermifugationBinding
-    private lateinit var vermifugation: Vermifugation
+    private lateinit var binding: FragmentPetTreatmentBinding
+    private lateinit var treatment: Treatment
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?){
         super.onViewCreated(view, savedInstanceState)
 
-        binding = FragmentPetVermifugationBinding.bind(view)
+        binding = FragmentPetTreatmentBinding.bind(view)
         viewmodel = ViewModelProvider(requireActivity())[PetsViewModel::class.java]
-        binding.petsViewmodelVermifugation = viewmodel
-        val id = arguments?.getString("vermifugationID")
+        binding.petsViewmodelTreatment = viewmodel
+        val id = arguments?.getString("treatmentID")
 
         //val petID = viewmodel._id;
         //Toast.makeText(context, "$petID", Toast.LENGTH_LONG).show()
 
         viewmodel.getPetDataFromRepo().observe(viewLifecycleOwner, {
             Log.d("Pet!!!",it.pet.toString())
-            for(item in it.pet.medicalRecord.vermifugations){
+            for(item in it.pet.medicalRecord.treatments){
                 if(item._id.equals(id)){
-                    vermifugation = item
+                    treatment = item
                     break;
                 }
             }
-            populateViews(vermifugation)
+            populateViews(treatment)
         })
     }
 
-    fun populateViews(it: Vermifugation){
+    fun populateViews(it: Treatment){
         binding.apply{
-            petVermifugationName.text = it.name.toEditable()
-            petVermifugationExpirationDate.text =
-                if(it.expirationDate != null) MongoDateAdapter(it.expirationDate).getDate().toEditable()
-                else "-".toEditable()
-            petVermifugationManufacturer.text = it.manufacturer.toEditable()
-            petVermifugationDate.text = MongoDateAdapter(it.vermifugationDate).getDate().toEditable()
-            petVermifugationValidUntil.text = MongoDateAdapter(it.validUntil).getDate().toEditable()
-            petVermifugationVeterinarian.text =
+            petTreatmentDisease.text = it.disease.toEditable()
+            petTreatmentStartDate.text = MongoDateAdapter(it.startOfTreatment).getDate().toEditable()
+            petTreatmentEndDate.text = MongoDateAdapter(it.endOfTreatment).getDate().toEditable()
+            petTreatmentMedicine.text = it.medicine.toEditable()
+            petTreatmentFrequency.text = it.frequency.toString().toEditable()
+            petTreatmentDuration.text = it.duration.toString().toEditable()
+            petTreatmentVeterinarian.text =
                 if(it.veterinarian != null) (it.veterinarian.surname+" "+it.veterinarian.name).toEditable()
                 else "-".toEditable()
         }

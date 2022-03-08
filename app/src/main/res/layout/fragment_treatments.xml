@@ -29,7 +29,7 @@
                     style="@style/Widget.MaterialComponents.Toolbar.Primary"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
-                    app:title="Αντιπαρασιτικές Θεραπείες" />
+                    app:title="Θεραπείες" />
 
             </com.google.android.material.appbar.AppBarLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -44,16 +44,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerViewVermifugations"
+                    android:id="@+id/recyclerViewTreatments"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingBottom="15dp"
                     app:layout_constraintTop_toBottomOf="@+id/topAppBarLayout"
-                    tools:listitem="@layout/vermifugation_item" />
+                    tools:listitem="@layout/treatment_item" />
             </ScrollView>
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/addNewVermifugationButton"
+                android:id="@+id/addNewTreatmentButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
