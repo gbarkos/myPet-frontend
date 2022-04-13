@@ -11,42 +11,35 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.mypet.R
-import com.example.mypet.databinding.FragmentLoginUserBinding
+import com.example.mypet.databinding.FragmentLoginVetBinding
 import com.example.mypet.utils.AuthFunctions
 import com.example.mypet.utils.SharedPreferencesUtil
 import com.example.mypet.viewmodels.UserAuthViewModel
+import com.example.mypet.viewmodels.VetViewModel
 
-class UserLoginFragment: Fragment(R.layout.fragment_login_user), AuthFunctions {
-    private lateinit var binding: FragmentLoginUserBinding;
-    private lateinit var viewmodel: UserAuthViewModel
+class VetLoginFragment: Fragment(R.layout.fragment_login_vet), AuthFunctions {
+    private lateinit var binding: FragmentLoginVetBinding;
+    private lateinit var viewmodel: VetViewModel
     private lateinit var sharedPreferences: SharedPreferences
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?){
         super.onViewCreated(view, savedInstanceState);
-        binding = FragmentLoginUserBinding.bind(view); //viewbinding
-        viewmodel = ViewModelProvider(this)[UserAuthViewModel::class.java];
+        binding = FragmentLoginVetBinding.bind(view); //viewbinding
+        viewmodel = ViewModelProvider(this)[VetViewModel::class.java];
         sharedPreferences = requireActivity().getSharedPreferences(
             requireActivity().packageName,
             Activity.MODE_PRIVATE
         )
-        binding.userloginviewmodel = viewmodel //databinding
+        binding.vetloginviewmodel = viewmodel //databinding
         viewmodel.authListener = this   //assign authlistener
 
-        binding.textViewGoToRegister.setOnClickListener() {
+        binding.textViewGoToUserLogin.setOnClickListener() {
             navRegister()
-        }
-
-        binding.textViewGoToVetLogin.setOnClickListener() {
-            navVetLogin()
         }
     }
 
     private fun navRegister() {
-        findNavController().navigate(R.id.action_userLoginFragment_to_userRegisterFragment)
-    }
-
-    private fun navVetLogin(){
-        findNavController().navigate(R.id.action_userLoginFragment_to_vetLoginFragment)
+        findNavController().navigate(R.id.action_vetLoginFragment_to_userLoginFragment)
     }
 
     override fun OnStarted() {
@@ -58,9 +51,9 @@ class UserLoginFragment: Fragment(R.layout.fragment_login_user), AuthFunctions {
     override fun OnSuccess() {
         Log.d("Login fragment", "Succeed")
 
-        viewmodel.getUserLoginDataFromRepo().observe(requireActivity(), {
+        viewmodel.getVetLoginDataFromRepo().observe(requireActivity(), {
             SharedPreferencesUtil.saveAccessToken(it?.token.toString())
-            val intent = Intent(activity, MainContentActivity::class.java)
+            val intent = Intent(activity, MainContentVetActivity::class.java)
             startActivity(intent)
             Toast.makeText(context, "Success...", Toast.LENGTH_LONG).show()
         })

@@ -4,8 +4,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
     <data>
         <variable
-            name="userloginviewmodel"
-            type="com.example.mypet.viewmodels.UserAuthViewModel"/>
+            name="vetloginviewmodel"
+            type="com.example.mypet.viewmodels.VetViewModel"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintHeight_percent="0.50"
-            android:background="@drawable/rounded_corners"
+            android:background="@drawable/rounded_corners_vet"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -81,7 +81,7 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/username"
-                android:text="@={userloginviewmodel.username}"
+                android:text="@={vetloginviewmodel.username}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minWidth="100dp"
@@ -105,7 +105,7 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/password"
-                android:text="@={userloginviewmodel.password}"
+                android:text="@={vetloginviewmodel.password}"
                 android:inputType="textPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -119,41 +119,29 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Συνδεση"
-            android:backgroundTint="#135e52"
+            android:backgroundTint="#004b66"
             app:cornerRadius="20dp"
             android:padding="12dp"
-            android:onClick="@{userloginviewmodel::onLoginButtonClick}"
+            android:onClick="@{vetloginviewmodel::onLoginButtonClick}"
             app:layout_constraintWidth_percent="0.70"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/passwordInput"
-            app:layout_constraintVertical_bias="0.1" />
+            app:layout_constraintVertical_bias="0.348" />
 
         <TextView
-            android:id="@+id/textViewGoToRegister"
+            android:id="@+id/textViewGoToUserLogin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Δεν έχετε λογαριασμό; Εγγραφείτε τώρα!"
-            android:textColor="#135e52"
-            android:textSize="15dp"
-            app:layout_constraintBottom_toTopOf="@+id/textViewGoToVetLogin"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/loginButton" />
-        <TextView
-            android:id="@+id/textViewGoToVetLogin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:text="Είστε κτηνίατρος;"
-            android:textColor="#135e52"
+            android:text="Είστε απλός χρήστης;"
+            android:textColor="#004b66"
             android:textSize="15dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewGoToRegister" />
+            app:layout_constraintTop_toBottomOf="@+id/loginButton" />
 
         <TextView
             android:id="@+id/textViewError"

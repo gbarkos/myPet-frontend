@@ -32,6 +32,10 @@
             android:exported="true">
         </activity>
         <activity
+            android:name=".activities.MainContentVetActivity"
+            android:exported="true">
+        </activity>
+        <activity
             android:name=".activities.PetDetailsActivity"
             android:exported="true">
         </activity>

@@ -18,10 +18,10 @@ interface MyPetApi {
     fun getUserInfo(): Call<UserGetResponse>
 
     //Vet
-    @POST("vet/signup")
+    @POST("vets/signup")
     fun registerVet(@Body body: VetRegisterPostRequest): Call<VetLoginRegisterPostResponse>
 
-    @POST("vet/login")
+    @POST("vets/login")
     fun loginVet(@Body body: VetLoginPostRequest): Call<VetLoginRegisterPostResponse>
 
     @GET("vets/myProfile")

@@ -15,6 +15,9 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_userLoginFragment_to_vetLoginFragment"
+            app:destination="@id/vetLoginFragment" />
     </fragment>
     <fragment
         android:id="@+id/userRegisterFragment"
@@ -27,5 +30,13 @@
             app:exitAnim="@anim/slide_out_right"
             app:popEnterAnim="@anim/slide_out_right"
             app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/vetLoginFragment"
+        android:name="com.example.mypet.activities.VetLoginFragment"
+        android:label="VetLoginFragment" >
+        <action
+            android:id="@+id/action_vetLoginFragment_to_userLoginFragment"
+            app:destination="@id/userLoginFragment" />
     </fragment>
 </navigation>
