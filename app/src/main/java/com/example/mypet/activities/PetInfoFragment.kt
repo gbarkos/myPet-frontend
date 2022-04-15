@@ -1,5 +1,6 @@
 package com.example.mypet.activities
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
@@ -38,12 +39,18 @@ class PetInfoFragment: Fragment(R.layout.fragment_pet_info) {
         val petID = viewmodel._id;
         viewmodel.requestPet(petID.toString())
 
-        viewmodel.getPetDataFromRepo().observe(viewLifecycleOwner, {
-            if(it.pet!=null) {
+        binding.generateQrCodeButton.setOnClickListener {
+            var dialog = QRCodeDialogFragment()
+            dialog.show(parentFragmentManager, "qrcode")
+        }
+
+        viewmodel.getPetDataFromRepo().observe(viewLifecycleOwner) {
+            if (it.pet != null) {
                 populateViews(it)
-                viewmodel.recordId = it.pet.medicalRecord._id // set the record id to the viewmodel so that patch requests know which pet to update
+                viewmodel.recordId =
+                    it.pet.medicalRecord._id // set the record id to the viewmodel so that patch requests know which pet to update
             }
-        })
+        }
 
     }
 

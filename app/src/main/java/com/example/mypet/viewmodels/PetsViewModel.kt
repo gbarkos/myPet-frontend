@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.map
 import com.example.mypet.api.ServiceGenerator
 import com.example.mypet.models.MedicalRecord
+import com.example.mypet.models.Pet
 import com.example.mypet.models.Vaccination
 import com.example.mypet.models.requests.PetPostRequest
 import com.example.mypet.models.responses.PetGetResponse
@@ -51,6 +52,10 @@ class PetsViewModel : ViewModel() {
 
     fun getPetDataFromRepo(): MutableLiveData<PetGetResponse> {
         return PetsRepository.getPetResponse()
+    }
+
+    fun getPetObj() : Pet? {
+        return PetsRepository.getPetResponse().value?.pet
     }
 
     fun requestPets(){

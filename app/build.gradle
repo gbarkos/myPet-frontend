@@ -75,6 +75,9 @@ dependencies {
     implementation 'com.squareup.picasso:picasso:2.71828'
     //New Material Design
     implementation 'com.google.android.material:material:1.2.0-alpha06'
-    //Android Suppport Design Library
+    //Android Support Design Library
     implementation "com.android.support:design:$design_version"
+    //QrCode Generator
+    implementation "androidmads.library.qrgenearator:QRGenearator:1.0.3"
+    implementation 'com.google.zxing:core:3.4.0'
 }
