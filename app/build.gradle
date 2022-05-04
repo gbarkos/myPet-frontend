@@ -80,4 +80,5 @@ dependencies {
     //QrCode Generator
     implementation "androidmads.library.qrgenearator:QRGenearator:1.0.3"
     implementation 'com.google.zxing:core:3.4.0'
+    implementation 'com.budiyev.android:code-scanner:2.1.0'
 }

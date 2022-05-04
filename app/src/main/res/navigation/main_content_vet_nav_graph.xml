@@ -7,5 +7,17 @@
     <fragment
         android:id="@+id/scanQrCodeFragment"
         android:name="com.example.mypet.activities.ScanQrCodeFragment"
-        android:label="ScanQrCodeFragment" />
+        android:label="ScanQrCodeFragment" >
+        <action
+            android:id="@+id/action_scanQrCodeFragment_to_qrCodeScannerFragment"
+            app:destination="@id/qrCodeScannerFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/qrCodeScannerFragment"
+        android:name="com.example.mypet.activities.QrCodeScannerFragment"
+        android:label="QrCodeScannerFragment" >
+        <action
+            android:id="@+id/action_qrCodeScannerFragment_to_scanQrCodeFragment"
+            app:destination="@id/scanQrCodeFragment" />
+    </fragment>
 </navigation>

@@ -39,9 +39,8 @@ class QRCodeDialogFragment : DialogFragment(){
         var binding: FragmentQrCodeDialogBinding = FragmentQrCodeDialogBinding.bind(rootview)
         var viewmodel: PetsViewModel = ViewModelProvider(requireActivity())[PetsViewModel::class.java]
 
-        val content = "bitcoin:3J98t1WpEZ73CNmQviecrnyiWrnqRhWNLy"
         val writer = QRCodeWriter()
-        val bitMatrix = writer.encode(Gson().toJson(viewmodel.getPetObj()), BarcodeFormat.QR_CODE, 750, 750)
+        val bitMatrix = writer.encode(viewmodel.getPetObj()?._id ?: "No valid pet", BarcodeFormat.QR_CODE, 750, 750)
         val width = bitMatrix.width
         val height = bitMatrix.height
         val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565)
