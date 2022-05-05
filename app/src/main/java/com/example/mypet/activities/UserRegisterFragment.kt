@@ -15,8 +15,9 @@ import com.example.mypet.viewmodels.UserAuthViewModel
 
 class UserRegisterFragment: Fragment(R.layout.fragment_register_user), AuthFunctions {
 
-    private lateinit var binding: FragmentRegisterUserBinding;
+    private lateinit var binding: FragmentRegisterUserBinding
     private lateinit var viewmodel: UserAuthViewModel
+    lateinit var loadingDialog : testDialog
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?){
         super.onViewCreated(view, savedInstanceState);
@@ -24,7 +25,7 @@ class UserRegisterFragment: Fragment(R.layout.fragment_register_user), AuthFunct
         viewmodel = ViewModelProvider(this)[UserAuthViewModel::class.java];
         binding.userregisterviewmodel = viewmodel //databinding
         viewmodel.authListener = this   //assign authlistener
-
+        loadingDialog = testDialog()
         binding.textViewGoToLogin.setOnClickListener {
             navRegister()
         }
@@ -61,6 +62,7 @@ class UserRegisterFragment: Fragment(R.layout.fragment_register_user), AuthFunct
     }
 
     override fun OnStarted() {
+        loadingDialog.show(parentFragmentManager, "")
         Toast.makeText(requireContext(),"Registering...", Toast.LENGTH_LONG).show()
         binding.registerButton.setEnabled(false)
         Log.d("register fragment", "Signing up...")
@@ -68,7 +70,7 @@ class UserRegisterFragment: Fragment(R.layout.fragment_register_user), AuthFunct
 
     override fun OnSuccess() {
         Log.d("RegisterFragment", "Succeeded..")
-
+        loadingDialog.dismiss()
         viewmodel.getUserRegisterDataFromRepo().observe(requireActivity(), {
             Log.i("VIEWMODEL", "OnSuccess: ${it?.token}")
             Toast.makeText(requireContext(),"Signed up!", Toast.LENGTH_LONG).show()
@@ -81,6 +83,7 @@ class UserRegisterFragment: Fragment(R.layout.fragment_register_user), AuthFunct
     }
 
     override fun OnFailure(errorCodes: MutableList<Int>) {
+        loadingDialog.dismiss()
         binding.registerButton.setEnabled(true)
         for(error in errorCodes) {
             if (error == 910) {

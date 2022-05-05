@@ -20,6 +20,7 @@ class UserLoginFragment: Fragment(R.layout.fragment_login_user), AuthFunctions {
     private lateinit var binding: FragmentLoginUserBinding;
     private lateinit var viewmodel: UserAuthViewModel
     private lateinit var sharedPreferences: SharedPreferences
+    lateinit var dialog : testDialog
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?){
         super.onViewCreated(view, savedInstanceState);
@@ -31,6 +32,7 @@ class UserLoginFragment: Fragment(R.layout.fragment_login_user), AuthFunctions {
         )
         binding.userloginviewmodel = viewmodel //databinding
         viewmodel.authListener = this   //assign authlistener
+        dialog = testDialog()
 
         binding.textViewGoToRegister.setOnClickListener() {
             navRegister()
@@ -52,16 +54,18 @@ class UserLoginFragment: Fragment(R.layout.fragment_login_user), AuthFunctions {
     override fun OnStarted() {
         binding.textViewError.visibility = View.INVISIBLE
         Log.d("Login fragment", "Logging in...")
+        dialog.show(parentFragmentManager, "")
         //Toast.makeText(context, "Login", Toast.LENGTH_LONG).show()
     }
 
     override fun OnSuccess() {
         Log.d("Login fragment", "Succeed")
-
+        dialog.dismiss()
         viewmodel.getUserLoginDataFromRepo().observe(requireActivity(), {
             SharedPreferencesUtil.saveAccessToken(it?.token.toString())
             val intent = Intent(activity, MainContentActivity::class.java)
             startActivity(intent)
+
             Toast.makeText(context, "Success...", Toast.LENGTH_LONG).show()
         })
     }
@@ -70,6 +74,7 @@ class UserLoginFragment: Fragment(R.layout.fragment_login_user), AuthFunctions {
         Log.d("Login fragment", "Wrong username or password")
         binding.textViewError.visibility = View.VISIBLE
         binding.textViewError.setText("Λάθος όνομα χρήστη ή κωδικός πρόσβασης")
+        dialog.dismiss()
         //Toast.makeText(context, "Wrong username or password...", Toast.LENGTH_LONG).show()
     }
 

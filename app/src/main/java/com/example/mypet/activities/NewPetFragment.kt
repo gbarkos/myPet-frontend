@@ -1,39 +1,32 @@
 package com.example.mypet.activities
-import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
-import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
-import androidx.core.os.bundleOf
+import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mypet.R
-import com.example.mypet.adapters.PetsAdapter
 import com.example.mypet.databinding.FragmentNewPetBinding
 import com.example.mypet.utils.EventObserver
 import com.example.mypet.utils.NetworkLoadingState
 import com.example.mypet.utils.getShortDate
 import com.example.mypet.viewmodels.PetsViewModel
 import com.google.android.material.datepicker.MaterialDatePicker
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
-import java.util.*
-import java.util.regex.Pattern
 
 class NewPetFragment : Fragment(R.layout.fragment_new_pet) {
     private lateinit var viewmodel: PetsViewModel
     private lateinit var binding: FragmentNewPetBinding
+    lateinit var dialog : LoadingDialogFragment
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?){
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentNewPetBinding.bind(view)
         viewmodel = ViewModelProvider(requireActivity())[PetsViewModel::class.java]
         //binding.petsviewmodel = viewmodel
+        dialog = LoadingDialogFragment(activity)
 
         //Date Picker
         val datePicker =
@@ -119,9 +112,19 @@ class NewPetFragment : Fragment(R.layout.fragment_new_pet) {
                 viewmodel.addPet(id, name, birthdate, color, marks, breed, sex, weight, height)
                 viewmodel.getLoadStateFromRepo().observe(viewLifecycleOwner, EventObserver {
                     when (it) {
-                        is NetworkLoadingState.OnLoading -> println("You can show loading indicator here or whatever to inform user that data is being loaded")
-                        is NetworkLoadingState.OnSuccess -> findNavController().navigate(R.id.action_newPetFragment_to_petsFragment)
-                        is NetworkLoadingState.OnError -> println(it.message)
+                        is NetworkLoadingState.OnLoading -> {
+                            println("Loading...")
+                            binding.newPetLoadingBar.visibility = View.VISIBLE
+
+                        }
+                        is NetworkLoadingState.OnSuccess -> {
+                            binding.newPetLoadingBar.visibility = View.INVISIBLE
+                            findNavController().navigate(R.id.action_newPetFragment_to_petsFragment)
+                        }
+                        is NetworkLoadingState.OnError -> {
+                            binding.newPetLoadingBar.visibility = View.INVISIBLE
+                            println(it.message)
+                        }
                     }})
             }
         }
