@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_gravity="center">
+    <data>
+        <variable
+            name="petsviewmodelInfo"
+            type="com.example.mypet.viewmodels.PetsViewModel"/>
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <com.google.android.material.appbar.AppBarLayout
+                android:id="@+id/topAppBarLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.google.android.material.appbar.MaterialToolbar
+                    android:id="@+id/topAppBar"
+                    style="@style/Widget.MaterialComponents.Toolbar.Primary"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    app:title="Επεξεργασία Στοιχείων" />
+
+            </com.google.android.material.appbar.AppBarLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="13"
+            android:background="@drawable/generic_background">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="15dp"
+                app:cardCornerRadius="15dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+
+                    <ScrollView
+                        android:id="@+id/detailsScrollView"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="2">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/constraintLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:padding="15dp">
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/editPetIDHint"
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:hint="Αριθμός Ταυτότητας"
+                                app:boxBackgroundColor="@color/white"
+                                app:boxStrokeColor="@color/black"
+                                app:boxStrokeWidth="1dp"
+                                app:errorEnabled="true"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintWidth_percent="0.95">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/editPetID"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:minWidth="100dp"
+                                    android:textColor="@color/black"
+                                    android:textSize="15dp" />
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/editPetHeightHint"
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:hint="Ύψος (cm)"
+                                app:boxBackgroundColor="@color/white"
+                                app:boxStrokeColor="@color/black"
+                                app:boxStrokeWidth="1dp"
+                                app:errorEnabled="true"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/editPetIDHint"
+                                app:layout_constraintWidth_percent="0.95">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/editPetHeight"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:minWidth="100dp"
+                                    android:textColor="@color/black"
+                                    android:textSize="15dp" />
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/editPetWeightHint"
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:hint="Βάρος (kg)"
+                                app:boxBackgroundColor="@color/white"
+                                app:boxStrokeColor="@color/black"
+                                app:boxStrokeWidth="1dp"
+                                app:errorEnabled="true"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/editPetHeightHint"
+                                app:layout_constraintWidth_percent="0.95">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/editPetWeight"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:minWidth="100dp"
+                                    android:textColor="@color/black"
+                                    android:textSize="15dp" />
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/editPetDistinguishingMarksHint"
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:hint="Ιδιαίτερα Χαρκτηρηστικά"
+                                app:boxBackgroundColor="@color/white"
+                                app:boxStrokeColor="@color/black"
+                                app:boxStrokeWidth="1dp"
+                                app:errorEnabled="true"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/editPetWeightHint"
+                                app:layout_constraintWidth_percent="0.95">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/editPetDistinguishingMarks"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:minWidth="100dp"
+                                    android:textColor="@color/black"
+                                    android:textSize="15dp" />
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <Button
+                                android:id="@+id/choosePetProfilePic"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="ΕΠΙΛΕΞΤΕ ΦΩΤΟΓΡΑΦΙΑ"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/editPetPhotoHint" />
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/editPetPhotoHint"
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:hint="Όνομα Φωτογραφίας"
+                                app:boxBackgroundColor="@color/white"
+                                app:boxStrokeColor="@color/black"
+                                app:boxStrokeWidth="1dp"
+                                app:errorEnabled="true"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/editPetDistinguishingMarksHint"
+                                app:layout_constraintWidth_percent="0.95">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/editPetPhoto"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:minWidth="100dp"
+                                    android:textColor="@color/black"
+                                    android:enabled="false"
+                                    android:textSize="15dp" />
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <Button
+                                android:id="@+id/submitEditPet"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="20dp"
+                                android:text="ΥΠΟΒΟΛΗ"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/choosePetProfilePic"></Button>
+
+                            <TextView
+                                android:id="@+id/petUpdateErrorTextView"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="13dp"
+                                android:layout_marginBottom="13dp"
+                                android:textColor="#FF0000"
+                                android:text=""
+                                app:layout_constraintBottom_toTopOf="@+id/submitEditPet"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/choosePetProfilePic" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </ScrollView>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+
+</layout>
+
+
+
+    <!--        <Button-->
+    <!--            android:id="@+id/newPetCalendar"-->
+    <!--            android:layout_width="50dp"-->
+    <!--            android:layout_height="50dp"-->
+
+    <!--            app:layout_constraintEnd_toEndOf="parent"-->
+    <!--            app:layout_constraintStart_toEndOf="@+id/newPetBirthdateHint"-->
+    <!--            app:layout_constraintTop_toBottomOf="@+id/newPetNameHint"-->
+    <!--            android:drawableTop="@drawable/ic_baseline_calendar_today_24"/>-->
+
+    <!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+    <!--    </androidx.cardview.widget.CardView>-->
+
+
+
+    <!--        &lt;!&ndash;<LinearLayout-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:orientation="vertical" />&ndash;&gt;-->
+
+    <!--</androidx.constraintlayout.widget.ConstraintLayout>-->
+    <!--    </ScrollView>-->

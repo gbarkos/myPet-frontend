@@ -2,6 +2,8 @@ package com.example.mypet.api
 
 import com.example.mypet.models.requests.*
 import com.example.mypet.models.responses.*
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -37,9 +39,18 @@ interface MyPetApi {
     @POST("pets")
     fun newPet(@Body body: PetPostRequest): Call<PetGetResponse>
 
+   /* @PATCH("pets/{id}")
+    fun updatePet(@Body body: PetPatchRequest,
+                  @Path("id") id: String?): Call<PetGetResponse>*/
+
+    @Multipart
     @PATCH("pets/{id}")
-    fun updatePet(@Query("height") height: Double,
-                  @Query("weight") weight: Double): Call<PetPatchResponse>
+    fun updatePet(@Part photo: MultipartBody.Part?,
+                  @Part("id") id: RequestBody?,
+                  @Part("distinguishingMarks") distinguishingMarks: RequestBody?,
+                  @Part("weight") weight: RequestBody?,
+                  @Part("height") height: RequestBody?,
+                  @Path("id") _id: String?): Call<PetGetResponse>
 
     //Medical Record
     @PATCH("records/{id}")

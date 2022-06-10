@@ -1,5 +1,7 @@
 package com.example.mypet.adapters
 
+import android.graphics.Bitmap
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +16,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.receiveAsFlow
+import java.io.File
 
 class PetsAdapter(private val pets: List<PetLimited>, private val coroutineScope: CoroutineScope) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -50,14 +53,21 @@ class PetsAdapter(private val pets: List<PetLimited>, private val coroutineScope
                 age.toString()+" χρόνου"
             }
 
-
             if(pet.sex.equals("Αρσενικό") || pet.sex.equals("Male")){
                     Picasso.get().load(R.drawable.ic_male).into(binding.petGender)
             }else{
                 Picasso.get().load(R.drawable.ic_female).into(binding.petGender)
             }
 
-            Picasso.get().load(pet.photo).into(binding.petProfilePic)
+            var picasso = Picasso.get()
+            picasso.isLoggingEnabled = true
+
+            picasso
+                .load("http://192.168.1.6:8005/images/pets/"+pet.photo)
+                .config(Bitmap.Config.RGB_565)
+                .resize(160, 160)
+                .error(R.drawable.dummy_pet_profile_pic)
+                .into(binding.petProfilePic)
 
             itemView.setOnClickListener{
                 onClicksChannel.trySend(pet).isSuccess

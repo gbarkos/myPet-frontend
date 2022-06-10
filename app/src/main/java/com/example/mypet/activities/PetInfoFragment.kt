@@ -2,6 +2,8 @@ package com.example.mypet.activities
 
 import android.app.AlertDialog
 import android.content.Intent
+import android.graphics.Bitmap
+import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
 import android.util.Log
@@ -22,12 +24,15 @@ import com.example.mypet.models.responses.PetGetResponse
 import com.example.mypet.utils.EventObserver
 import com.example.mypet.utils.NetworkLoadingState
 import com.example.mypet.viewmodels.PetsViewModel
+import com.squareup.picasso.Picasso
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import java.io.File
 
 class PetInfoFragment: Fragment(R.layout.fragment_pet_info) {
     private lateinit var viewmodel: PetsViewModel
     private lateinit var binding: FragmentPetInfoBinding
+    private lateinit var editPetFragment : EditPetFragment
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?){
         super.onViewCreated(view, savedInstanceState)
@@ -42,6 +47,14 @@ class PetInfoFragment: Fragment(R.layout.fragment_pet_info) {
         binding.generateQrCodeButton.setOnClickListener {
             var dialog = QRCodeDialogFragment()
             dialog.show(parentFragmentManager, "qrcode")
+        }
+
+        binding.editPetButton.setOnClickListener{
+            editPetFragment = EditPetFragment()
+            val transaction = activity?.supportFragmentManager?.beginTransaction()
+            transaction?.replace(R.id.navigationFragmentContainer, editPetFragment)
+            transaction?.disallowAddToBackStack()
+            transaction?.commit()
         }
 
         viewmodel.getPetDataFromRepo().observe(viewLifecycleOwner) {
@@ -66,6 +79,16 @@ class PetInfoFragment: Fragment(R.layout.fragment_pet_info) {
             petInfoWeight.text = it.pet.weight?.toEditable() ?: "-".toEditable()
             petInfoDistinguishingMarks.text = it.pet.distinguishingMarks?.toEditable() ?: "-".toEditable()
         }
+
+        var picasso = Picasso.get()
+        picasso.isLoggingEnabled = true
+
+        picasso
+            .load("http://192.168.1.6:8005/images/pets/"+it.pet.photo)
+            .config(Bitmap.Config.RGB_565)
+            .resize(160, 160)
+            .error(R.drawable.dummy_pet_profile_pic)
+            .into(binding.petInfoProfilePic)
     }
 }
 

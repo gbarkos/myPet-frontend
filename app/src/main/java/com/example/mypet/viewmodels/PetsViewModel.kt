@@ -1,11 +1,9 @@
 package com.example.mypet.viewmodels
 
+import android.net.Uri
 import android.util.Log
 import android.view.View
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.map
+import androidx.lifecycle.*
 import com.example.mypet.api.ServiceGenerator
 import com.example.mypet.models.MedicalRecord
 import com.example.mypet.models.Pet
@@ -17,6 +15,7 @@ import com.example.mypet.models.responses.PetsLimitedGetResponse
 import com.example.mypet.models.responses.UserLoginRegisterPostResponse
 import com.example.mypet.repositories.PetsRepository
 import com.example.mypet.utils.*
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -66,8 +65,40 @@ class PetsViewModel : ViewModel() {
         petsRepository.requestPet(_id)
     }
 
+    fun getStatusFromUpdate(): String?{
+        return PetsRepository.getStatusFromUpdate()
+    }
+
     fun addPet(id : String?, name : String, birthdate : String, colour : String, distinguishingMarks : String?,
                breed : String, sex : String, weight : String?, height : String?){
         petsRepository.addNewPet(id, name, birthdate, colour, distinguishingMarks, breed, sex, weight, height)
+    }
+
+    fun updatePet(id : String?,
+                  distinguishingMarks : String?,
+                  weight : String?,
+                  height : String?,
+                  photo: String?,
+                  _id : String?){
+        authListener?.OnStarted()
+        doUpdatePet(id, distinguishingMarks, weight, height, photo, _id)
+    }
+
+    fun doUpdatePet(id : String?,
+                    distinguishingMarks : String?,
+                    weight : String?,
+                    height : String?,
+                    photo: String?,
+                    _id : String?){
+        viewModelScope.launch{
+            petsRepository.updatePet(id, distinguishingMarks, weight, height, photo, _id, fun(){
+                if(getStatusFromUpdate().toString() == "fail"){
+                    var errors = mutableListOf<Int>()
+                    authListener?.OnFailure(errors)
+                }else{
+                    authListener?.OnSuccess()
+                }
+            })
+        }
     }
 }

@@ -85,7 +85,7 @@
                             android:layout_height="160dp"
                             android:adjustViewBounds="true"
                             android:scaleType="fitXY"
-                            android:src="@drawable/dummy_pet_profile_pic"
+
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -125,7 +125,7 @@
                                 android:enabled="false"
                                 android:minWidth="100dp"
 
-                                android:text="Name goes here"
+                                android:text=" "
                                 android:textColor="@color/black"
                                 android:textSize="20dp" />
 
@@ -148,7 +148,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:enabled="false"
-                                android:text="Pet Birthdate goes here"
+                                android:text=" "
                                 android:textColor="@color/black"
                                 android:textSize="20dp" />
 
@@ -171,7 +171,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:enabled="false"
-                                android:text="Pet Sex goes here"
+                                android:text=" "
                                 android:textColor="@color/black"
                                 android:textSize="20dp" />
 
@@ -194,7 +194,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:enabled="false"
-                                android:text="Pet Breed goes here"
+                                android:text=" "
                                 android:textColor="@color/black"
                                 android:textSize="20dp" />
 
@@ -240,7 +240,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:enabled="false"
-                                android:text="Pet Color goes here"
+                                android:text=" "
                                 android:textColor="@color/black"
                                 android:textSize="20dp" />
 
@@ -262,7 +262,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:enabled="false"
-                                android:text="Pet Height goes here"
+                                android:text=" "
                                 android:textColor="@color/black"
                                 android:textSize="20dp" />
 
@@ -284,7 +284,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:enabled="false"
-                                android:text="Pet Weight goes here"
+                                android:text=" "
                                 android:textColor="@color/black"
                                 android:textSize="20dp" />
 
@@ -306,7 +306,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:enabled="false"
-                                android:text="Pet Distinguishing Marks go here"
+                                android:text=" "
                                 android:textColor="@color/black"
                                 android:textSize="20dp" />
                         </com.google.android.material.textfield.TextInputLayout>
@@ -315,6 +315,17 @@
                 </ScrollView>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/editPetButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:layout_marginRight="30dp"
+            android:contentDescription="Προσθήκη Κατοικιδίου"
+            app:layout_constraintBottom_toTopOf="@+id/generateQrCodeButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@drawable/ic_baseline_edit_24" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/generateQrCodeButton"
