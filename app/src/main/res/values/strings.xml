@@ -16,6 +16,8 @@
     <string name="title_diagnosticTests">Διαγνωστικά</string>
     <string name="title_more">Περισσσότερα</string>
 
+    <string name="maps_api_key">AIzaSyBMKP_OxuLFCwjjQPA45MEpyjs7QEyF5QM</string>
+
 
     <string name="title_activity_bottom_navigation">BottomNavigationActivity</string>
 </resources>
