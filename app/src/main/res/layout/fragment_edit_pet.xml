@@ -91,7 +91,8 @@
                                     android:layout_height="wrap_content"
                                     android:minWidth="100dp"
                                     android:textColor="@color/black"
-                                    android:textSize="15dp" />
+                                    android:textSize="15dp"
+                                    android:text=" "/>
                             </com.google.android.material.textfield.TextInputLayout>
 
                             <com.google.android.material.textfield.TextInputLayout
@@ -115,7 +116,8 @@
                                     android:layout_height="wrap_content"
                                     android:minWidth="100dp"
                                     android:textColor="@color/black"
-                                    android:textSize="15dp" />
+                                    android:textSize="15dp"
+                                    android:text=" "/>
                             </com.google.android.material.textfield.TextInputLayout>
 
                             <com.google.android.material.textfield.TextInputLayout
@@ -139,7 +141,8 @@
                                     android:layout_height="wrap_content"
                                     android:minWidth="100dp"
                                     android:textColor="@color/black"
-                                    android:textSize="15dp" />
+                                    android:textSize="15dp"
+                                    android:text=" "/>
                             </com.google.android.material.textfield.TextInputLayout>
 
                             <com.google.android.material.textfield.TextInputLayout
@@ -163,7 +166,8 @@
                                     android:layout_height="wrap_content"
                                     android:minWidth="100dp"
                                     android:textColor="@color/black"
-                                    android:textSize="15dp" />
+                                    android:textSize="15dp"
+                                    android:text=" "/>
                             </com.google.android.material.textfield.TextInputLayout>
 
                             <Button

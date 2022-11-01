@@ -21,6 +21,7 @@ import com.example.mypet.databinding.FragmentPetInfoBinding
 import com.example.mypet.models.Pet
 import com.example.mypet.utils.MongoDateAdapter
 import com.example.mypet.models.responses.PetGetResponse
+import com.example.mypet.utils.Constants
 import com.example.mypet.utils.EventObserver
 import com.example.mypet.utils.NetworkLoadingState
 import com.example.mypet.viewmodels.PetsViewModel
@@ -84,7 +85,7 @@ class PetInfoFragment: Fragment(R.layout.fragment_pet_info) {
         picasso.isLoggingEnabled = true
 
         picasso
-            .load("http://192.168.1.6:8005/images/pets/"+it.pet.photo)
+            .load("http://192.168.1.7:8005/images/pets/"+it.pet.photo)
             .config(Bitmap.Config.RGB_565)
             .resize(160, 160)
             .error(R.drawable.dummy_pet_profile_pic)

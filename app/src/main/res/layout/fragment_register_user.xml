@@ -110,7 +110,7 @@
                             android:textSize="15dp" />
                     </com.google.android.material.textfield.TextInputLayout>
 
-                    <com.google.android.material.textfield.TextInputLayout
+                   <!-- <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/nameInput"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -212,7 +212,7 @@
                             android:minWidth="100dp"
                             android:textColor="@color/black"
                             android:textSize="15dp" />
-                    </com.google.android.material.textfield.TextInputLayout>
+                    </com.google.android.material.textfield.TextInputLayout>-->
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/passwordInput"
@@ -225,7 +225,7 @@
                         app:boxStrokeWidth="1dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/addressInput"
+                        app:layout_constraintTop_toBottomOf="@+id/emailInput"
                         app:layout_constraintWidth_percent="0.70"
                         app:errorEnabled="true"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">

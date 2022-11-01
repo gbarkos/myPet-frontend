@@ -131,7 +131,7 @@ class UserAuthViewModel: ViewModel() {
             }
         }
 
-        if(phoneNumber.isNullOrEmpty()){
+       /* if(phoneNumber.isNullOrEmpty()){
             errorCodes.add(931)
         }else{
             if(!PhoneNumberValidator.isValid(phoneNumber.toString())){
@@ -152,7 +152,7 @@ class UserAuthViewModel: ViewModel() {
 
         if(name.isNullOrEmpty()){
             errorCodes.add(950)
-        }
+        }*/
 
         if(!PasswordValidator.isValid(password.toString())){
             errorCodes.add(960)
@@ -165,7 +165,7 @@ class UserAuthViewModel: ViewModel() {
         if(errorCodes.size == 0){
             authListener?.OnSuccess()
             registerUser(username.toString(), password.toString(), confirmPassword.toString(),
-                name.toString(), surname.toString(), email.toString(), phoneNumber.toString(), address.toString())
+                "", "", email.toString(), "", "")
         }else {
             authListener?.OnFailure(errorCodes)
         }

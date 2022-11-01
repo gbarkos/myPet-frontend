@@ -37,7 +37,7 @@ class UserRegisterFragment: Fragment(R.layout.fragment_register_user), AuthFunct
         binding.registerEmail.doOnTextChanged { text, start, before, count ->
             if(!text.isNullOrEmpty())binding.emailInput.error = null
         }
-        binding.registerName.doOnTextChanged { text, start, before, count ->
+       /* binding.registerName.doOnTextChanged { text, start, before, count ->
             if(!text.isNullOrEmpty())binding.nameInput.error = null
         }
         binding.registerSurname.doOnTextChanged { text, start, before, count ->
@@ -48,7 +48,7 @@ class UserRegisterFragment: Fragment(R.layout.fragment_register_user), AuthFunct
         }
         binding.registerAddress.doOnTextChanged { text, start, before, count ->
             if(!text.isNullOrEmpty())binding.addressInput.error = null
-        }
+        }*/
         binding.registerPassword.doOnTextChanged { text, start, before, count ->
             if(!text.isNullOrEmpty())binding.passwordInput.error = null
         }
@@ -98,7 +98,7 @@ class UserRegisterFragment: Fragment(R.layout.fragment_register_user), AuthFunct
             if (error == 921){
                 binding.emailInput.error = getString(R.string.field_required)
             }
-            if (error == 930){
+           /* if (error == 930){
                 binding.phoneInput.error = getString(R.string.phone_number_not_valid_error)
             }
             if (error == 931){
@@ -109,16 +109,16 @@ class UserRegisterFragment: Fragment(R.layout.fragment_register_user), AuthFunct
             }
             if (error == 950){
                 binding.surnameInput.error = getString(R.string.field_required)
-            }
+            }*/
             if (error == 960){
                 binding.passwordInput.error = getString(R.string.password_length_error)
             }
             if (error == 961){
                 binding.passwordInput.error = getString(R.string.password_not_match_error)
             }
-            if (error == 70){
+           /* if (error == 70){
                 binding.addressInput.error = getString(R.string.field_required)
-            }
+            }*/
         }
     }
 }

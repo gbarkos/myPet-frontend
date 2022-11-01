@@ -63,7 +63,7 @@ class PetsAdapter(private val pets: List<PetLimited>, private val coroutineScope
             picasso.isLoggingEnabled = true
 
             picasso
-                .load("http://192.168.1.6:8005/images/pets/"+pet.photo)
+                .load("http://192.168.1.7:8005/images/pets/"+pet.photo)
                 .config(Bitmap.Config.RGB_565)
                 .resize(160, 160)
                 .error(R.drawable.dummy_pet_profile_pic)
