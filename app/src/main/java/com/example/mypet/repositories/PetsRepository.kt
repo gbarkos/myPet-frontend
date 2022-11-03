@@ -111,7 +111,7 @@ object PetsRepository {
         val dataSource = ServiceGenerator
         //Log.i(PetsRepository.TAG, "Pet response: Call started")
         dataSource.getMyPetApi()
-            .newPet(PetPostRequest(id, name, birthdate, colour, distinguishingMarks, breed, sex, weight, height ))
+            .newPet(PetPostRequest(id, name, birthdate, colour, distinguishingMarks, breed, sex, weight, height, false ))
             .enqueue(object : Callback<PetGetResponse> {
                 override fun onResponse(
                     call: Call<PetGetResponse>,

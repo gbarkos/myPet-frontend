@@ -33,6 +33,16 @@
                 app:title="Στοιχεία Κατοικιδίου" />
 
         </com.google.android.material.appbar.AppBarLayout>
+
+        <ImageView
+            android:id="@+id/missing_pet"
+            android:layout_width="64dp"
+            android:layout_height="56dp"
+            android:elevation="10dp"
+            android:src="@drawable/ic_missing_pet_foreground"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/topAppBarLayout"
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -74,10 +84,6 @@
                         app:layout_constraintTop_toTopOf="parent"
                         app:strokeColor="#12b89f"
                         app:strokeWidth="3dp">
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
 
                         <ImageView
                             android:id="@+id/petInfoProfilePic"

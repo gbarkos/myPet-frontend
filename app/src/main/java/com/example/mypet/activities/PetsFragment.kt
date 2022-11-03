@@ -4,9 +4,8 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
@@ -59,5 +58,31 @@ class PetsFragment : Fragment(R.layout.fragment_pets) {
         binding.addNewPetButton.setOnClickListener{
             findNavController().navigate(R.id.action_petsFragment_to_newPetFragment)
         }
+
+        binding.petsScreenMenu.setOnClickListener{
+            showPopup(binding.petsScreenMenu)
+        }
     }
+
+    fun showPopup(v: View) {
+        val popup = PopupMenu(this.context, v)
+        val inflater: MenuInflater = popup.menuInflater
+        inflater.inflate(R.menu.pets_screen_menu, popup.menu)
+        popup.setOnMenuItemClickListener { menuItem: MenuItem ->
+            when(menuItem.itemId){
+                R.id.nearby_vets -> {
+                    println("NEARBY VETS")
+                    return@setOnMenuItemClickListener true
+                }
+                R.id.help -> {
+                    println("HELP")
+                    return@setOnMenuItemClickListener true
+                }
+            }
+            return@setOnMenuItemClickListener true
+        }
+        popup.show()
+    }
+
+
 }

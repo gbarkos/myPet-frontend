@@ -13,5 +13,6 @@ data class Pet(
     val height : String?,
     val medicalRecord : MedicalRecord,
     val owner: String,
-    val _id: String
+    val _id: String,
+    val isMissing : Boolean
 )

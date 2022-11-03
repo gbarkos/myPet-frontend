@@ -33,7 +33,19 @@
                     android:layout_height="?attr/actionBarSize"
                     app:title="Τα Κατοικίδιά Μου" />
 
+
             </com.google.android.material.appbar.AppBarLayout>
+
+            <ImageView
+                android:id="@+id/pets_screen_menu"
+                android:layout_width="64dp"
+                android:layout_height="56dp"
+                android:elevation="10dp"
+                android:src="@drawable/ic_more_menu_vertical_white_foreground"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/topAppBarLayout"
+                app:layout_constraintTop_toTopOf="parent" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout

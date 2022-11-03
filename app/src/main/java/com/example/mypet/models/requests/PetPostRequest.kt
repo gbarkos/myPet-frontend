@@ -11,5 +11,6 @@ data class PetPostRequest (
     val breed : String,
     val sex : String,
     val weight : String?,
-    val height : String?
+    val height : String?,
+    val isMissing : Boolean = false,
 )

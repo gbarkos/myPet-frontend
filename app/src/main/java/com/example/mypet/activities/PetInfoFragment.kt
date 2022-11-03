@@ -66,6 +66,11 @@ class PetInfoFragment: Fragment(R.layout.fragment_pet_info) {
             }
         }
 
+        binding.missingPet.setOnClickListener{
+            var dialog : MissingPetDialog = MissingPetDialog()
+            dialog.show(this.parentFragmentManager, "Missing pet")
+        }
+
     }
 
     private fun populateViews(it: PetGetResponse){
