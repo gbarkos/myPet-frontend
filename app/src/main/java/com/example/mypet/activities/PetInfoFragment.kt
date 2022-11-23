@@ -90,7 +90,7 @@ class PetInfoFragment: Fragment(R.layout.fragment_pet_info) {
         picasso.isLoggingEnabled = true
 
         picasso
-            .load("http://192.168.1.7:8005/images/pets/"+it.pet.photo)
+            .load("https://drive.google.com/uc?export=download&id="+it.pet.photo)
             .config(Bitmap.Config.RGB_565)
             .resize(160, 160)
             .error(R.drawable.dummy_pet_profile_pic)
