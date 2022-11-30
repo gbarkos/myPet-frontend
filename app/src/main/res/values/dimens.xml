@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- General Text Sizes -->
+    <dimen name="text_tiny_4sp">4sp</dimen>
+    <dimen name="text_micro_8sp">8sp</dimen>
+    <dimen name="text_mini_10sp">10sp</dimen>
+    <dimen name="text_small_12sp">12sp</dimen>
+    <dimen name="text_default_14sp">14sp</dimen>
+    <dimen name="text_normal_16sp">16sp</dimen>
+    <dimen name="text_medium_18sp">18sp</dimen>
+    <dimen name="text_medium_larger_20sp">20sp</dimen>
+    <dimen name="text_large_22sp">22sp</dimen>
+    <dimen name="text_xlarge_26sp">26sp</dimen>
+    <dimen name="text_xlarger_28sp">28sp</dimen>
+    <dimen name="text_xxlarge_32sp">32sp</dimen>
+    <dimen name="text_xxlarger_34sp">34sp</dimen>
+    <dimen name="text_xxxlarge_48sp">48sp</dimen>
+    <dimen name="huge_text">64sp</dimen>
+
+    <!-- Vector sizes -->
+    <dimen name="vector_small">24dp</dimen>
+    <dimen name="vector_medium">32dp</dimen>
+    <dimen name="vector_normal">48dp</dimen>
+    <dimen name="vector_large">64dp</dimen>
+
+    <!-- Zero -->
+    <dimen name="margin_minus_double_half_24dp">-24dp</dimen>
+
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="margin_octuple_128dp">128dp</dimen>
+    <dimen name="margin_penta_80dp">80dp</dimen>
+    <dimen name="margin_quadruple_64dp">64dp</dimen>
+    <dimen name="margin_triple_48dp">48dp</dimen>
+    <dimen name="margin_triple_half_40dp">40dp</dimen>
+    <dimen name="margin_double_32dp">32dp</dimen>
+    <dimen name="margin_double_half_24dp">24dp</dimen>
+    <dimen name="margin_default_16dp">16dp</dimen>
+    <dimen name="margin_half_double_12dp">12dp</dimen>
+    <dimen name="margin_half_8dp">8dp</dimen>
+    <dimen name="margin_quarter_4dp">4dp</dimen>
+    <dimen name="margin_eighth_2dp">2dp</dimen>
+
+    <!-- OnBoarding -->
+    <dimen name="onboarding_input_height">35dp</dimen>
+    <dimen name="onboarding_button_height">48dp</dimen>
+
+    <!-- GridLayoutManager -->
+    <!-- inter spacing between RecyclerView's Item-->
+    <dimen name="item_collections_recommended_title">1dp</dimen>
+    <dimen name="item_beacon_exhibits_spacing">4dp</dimen>
+    <dimen name="item_profile_details_spacing">2dp</dimen>
+
+    <!-- Outdoor Area Title -->
+    <dimen name="outdoor_area_text_size">36sp</dimen>
+</resources>

@@ -126,10 +126,12 @@ object UserAuthRepository {
                     if (response.isSuccessful && response.body() != null) {
                         Log.i(TAG, "onResponse: Response Successful")
                         userMyProfileResponse.postValue(response.body())
+
                     }
                 }
                 override fun onFailure(call: Call<UserGetResponse>, t: Throwable) {
                     Log.i(TAG, "onFailure: " + t.message)
+
                 }
             })
     }

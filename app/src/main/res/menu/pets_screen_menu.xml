@@ -3,7 +3,10 @@
 
     <item android:id="@+id/nearby_vets"
         android:icon="@drawable/ic_baseline_map_24"
-        android:title="Κοντινά Κτηνιατρεία"></item>
+        android:title="Πλησιέστερα Κτηνιατρεία"></item>
+    <item android:id="@+id/settings"
+        android:icon="@drawable/ic_baseline_map_24"
+        android:title="Ρυθμίσεις Λογαριασμού"></item>
     <item android:id="@+id/help"
         android:icon="@drawable/ic_baseline_map_24"
         android:title="Σχετικά με την εφαρμογή"></item>

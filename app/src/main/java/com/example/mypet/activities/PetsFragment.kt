@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mypet.R
 import com.example.mypet.adapters.PetsAdapter
 import com.example.mypet.databinding.FragmentPetsBinding
+import com.example.mypet.googlemaps.ui.AppActivity
 import com.example.mypet.models.Pet
 import com.example.mypet.models.PetLimited
 import com.example.mypet.models.responses.PetsLimitedGetResponse
@@ -29,6 +30,8 @@ class PetsFragment : Fragment(R.layout.fragment_pets) {
     private lateinit var viewmodel: PetsViewModel
     private lateinit var binding: FragmentPetsBinding
     private lateinit var petsList: List<PetLimited>
+    private lateinit var aboutFragment: AboutFragment
+    private lateinit var settingsFragment: SettingsFragment
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?){
         super.onViewCreated(view, savedInstanceState)
@@ -71,11 +74,25 @@ class PetsFragment : Fragment(R.layout.fragment_pets) {
         popup.setOnMenuItemClickListener { menuItem: MenuItem ->
             when(menuItem.itemId){
                 R.id.nearby_vets -> {
-                    println("NEARBY VETS")
+                    val intent = Intent(activity, AppActivity::class.java)
+                    startActivity(intent)
+                    return@setOnMenuItemClickListener true
+                }
+                R.id.settings -> {
+                    settingsFragment = SettingsFragment()
+                    val transaction = activity?.supportFragmentManager?.beginTransaction()
+                    transaction?.replace(this.id, settingsFragment)
+
+                    transaction?.commit()
+                    return@setOnMenuItemClickListener true
                     return@setOnMenuItemClickListener true
                 }
                 R.id.help -> {
-                    println("HELP")
+                    aboutFragment = AboutFragment()
+                    val transaction = activity?.supportFragmentManager?.beginTransaction()
+                    transaction?.replace(this.id, aboutFragment)
+
+                    transaction?.commit()
                     return@setOnMenuItemClickListener true
                 }
             }

@@ -9,5 +9,6 @@ data class User (
     val phoneNumber : String,
     val address : String,
     val pets : List<Pet>,
+    val receiveMissingMail : Boolean,
     val _id: String
 )

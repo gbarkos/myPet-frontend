@@ -45,6 +45,7 @@ class UserAuthViewModel: ViewModel() {
     var name: String? = null
     var surname: String? = null
     var address: String? = null
+    var receiveMails: Boolean? = false
     var authListener: AuthFunctions? = null
 
     private val userAuthRepository: UserAuthRepository = UserAuthRepository
@@ -68,6 +69,13 @@ class UserAuthViewModel: ViewModel() {
 
     fun registerUser(username: String, password: String, confirmPassword: String, name: String, surname: String, email: String, phoneNumber: String, address: String) {
         userAuthRepository.requestToRegister(username, password, confirmPassword, name, surname, email, phoneNumber, address)
+    }
+
+    fun getProfile(){
+        viewModelScope.launch {
+            userAuthRepository.requestUserInfo()
+
+        }
     }
 
     fun loginUser(username:String, password: String, errorCodes:MutableList<Int>) {

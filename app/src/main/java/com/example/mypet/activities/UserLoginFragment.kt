@@ -62,6 +62,7 @@ class UserLoginFragment: Fragment(R.layout.fragment_login_user), AuthFunctions {
         Log.d("Login fragment", "Succeed")
         dialog.dismiss()
         viewmodel.getUserLoginDataFromRepo().observe(requireActivity(), {
+            viewmodel.receiveMails = it?.user?.receiveMissingMail
             SharedPreferencesUtil.saveAccessToken(it?.token.toString())
             val intent = Intent(activity, MainContentActivity::class.java)
             startActivity(intent)
