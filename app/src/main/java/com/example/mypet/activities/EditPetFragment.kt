@@ -167,7 +167,7 @@ class EditPetFragment : Fragment(R.layout.fragment_edit_pet), AuthFunctions {
         activity?.startActivity(intent)
     }
 
-    override fun OnFailure(errorCode: MutableList<Int>) {
+    override fun OnFailure(errorCode: MutableList<Int>?) {
         Log.d("Update pet fragment", "Error")
 
     }

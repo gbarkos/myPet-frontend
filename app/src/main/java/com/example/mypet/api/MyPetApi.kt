@@ -19,6 +19,9 @@ interface MyPetApi {
     @GET("users/myProfile")
     fun getUserInfo(): Call<UserGetResponse>
 
+    @PATCH("users/changeEmailStatus")
+    fun changeEmailStatus(@Body body: UserChangeEmailPreferencesRequest): Call<UserGetResponse>
+
     //Vet
     @POST("vets/signup")
     fun registerVet(@Body body: VetRegisterPostRequest): Call<VetLoginRegisterPostResponse>

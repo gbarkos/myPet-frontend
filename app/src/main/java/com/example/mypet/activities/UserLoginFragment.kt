@@ -62,7 +62,6 @@ class UserLoginFragment: Fragment(R.layout.fragment_login_user), AuthFunctions {
         Log.d("Login fragment", "Succeed")
         dialog.dismiss()
         viewmodel.getUserLoginDataFromRepo().observe(requireActivity(), {
-            viewmodel.receiveMails = it?.user?.receiveMissingMail
             SharedPreferencesUtil.saveAccessToken(it?.token.toString())
             val intent = Intent(activity, MainContentActivity::class.java)
             startActivity(intent)
@@ -71,12 +70,12 @@ class UserLoginFragment: Fragment(R.layout.fragment_login_user), AuthFunctions {
         })
     }
 
-    override fun OnFailure(errorCode: MutableList<Int>) {
+    override fun OnFailure(errorCode: MutableList<Int>?) {
         Log.d("Login fragment", "Wrong username or password")
         binding.textViewError.visibility = View.VISIBLE
         binding.textViewError.setText("Λάθος όνομα χρήστη ή κωδικός πρόσβασης")
         dialog.dismiss()
-        //Toast.makeText(context, "Wrong username or password...", Toast.LENGTH_LONG).show()
+        Toast.makeText(context, "Wrong username or password...", Toast.LENGTH_LONG).show()
     }
 
 }

@@ -59,7 +59,7 @@ class VetLoginFragment: Fragment(R.layout.fragment_login_vet), AuthFunctions {
         })
     }
 
-    override fun OnFailure(errorCode: MutableList<Int>) {
+    override fun OnFailure(errorCode: MutableList<Int>?) {
         Log.d("Login fragment", "Wrong username or password")
         binding.textViewError.visibility = View.VISIBLE
         binding.textViewError.setText("Λάθος όνομα χρήστη ή κωδικός πρόσβασης")

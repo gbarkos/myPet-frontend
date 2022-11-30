@@ -4,6 +4,7 @@ import android.util.Log
 import android.view.View
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.mypet.models.responses.UserGetResponse
 import com.example.mypet.models.responses.UserLoginRegisterPostResponse
 import com.example.mypet.repositories.UserAuthRepository
 import com.example.mypet.utils.AuthFunctions
@@ -59,12 +60,24 @@ class UserAuthViewModel: ViewModel() {
         return userAuthRepository.getUserRegisterResponse()
     }
 
+    fun getUserUpdateDataFromRepo(): SingleLiveEvent<UserGetResponse> {
+        return userAuthRepository.getUserUpdateResponse()
+    }
+
     fun getFailureMessageFromRegister(): SingleLiveEvent<String>{
         return userAuthRepository.getFailureMessageFromRegister()
     }
 
+    fun getUserProfileDataFromRepo(): SingleLiveEvent<UserGetResponse>{
+        return userAuthRepository.getMyProfileResponse();
+    }
+
     fun getStatusFromLogin(): String?{
         return userAuthRepository.getStatusFromLogin()
+    }
+
+    fun getStatusFromUpdate(): String?{
+        return userAuthRepository.getStatusFromUpdate()
     }
 
     fun registerUser(username: String, password: String, confirmPassword: String, name: String, surname: String, email: String, phoneNumber: String, address: String) {
@@ -74,7 +87,6 @@ class UserAuthViewModel: ViewModel() {
     fun getProfile(){
         viewModelScope.launch {
             userAuthRepository.requestUserInfo()
-
         }
     }
 
@@ -87,6 +99,21 @@ class UserAuthViewModel: ViewModel() {
                     Log.d("On Failure","failed")
                 }
                 else {
+                    authListener?.OnSuccess()
+                }
+            })
+        }
+    }
+
+    fun updateUserEmailPreferences(shouldReceiveEmail : Boolean){
+        authListener?.OnStarted()
+        viewModelScope.launch {
+            userAuthRepository.requestEmailPreferencesChange(shouldReceiveEmail, fun() {
+                Log.d("STATUS",getStatusFromUpdate().toString())
+                if(getStatusFromUpdate().toString() == "fail"){
+                    authListener?.OnFailure(null)
+                    Log.d("On Failure","failed")
+                }else{
                     authListener?.OnSuccess()
                 }
             })

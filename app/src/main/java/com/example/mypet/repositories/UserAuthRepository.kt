@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.example.mypet.api.ServiceGenerator
 import com.example.mypet.models.ErrorResponse
+import com.example.mypet.models.requests.UserChangeEmailPreferencesRequest
 import com.example.mypet.models.requests.UserLoginPostRequest
 import com.example.mypet.models.requests.UserRegisterPostRequest
 import com.example.mypet.models.responses.UserGetResponse
@@ -19,6 +20,15 @@ object UserAuthRepository {
     val gson = Gson()
     private var statusFromLogin: String = ""
 
+    private var statusFromUpdate: String = ""
+    private val updateUserResponse : SingleLiveEvent<UserGetResponse> = SingleLiveEvent();
+    fun getUserUpdateResponse() : SingleLiveEvent<UserGetResponse> {
+        return updateUserResponse;
+    }
+    fun getStatusFromUpdate(): String{
+        return statusFromUpdate
+    }
+
     private val userLoginResponse : SingleLiveEvent<UserLoginRegisterPostResponse> = SingleLiveEvent();
     fun getUserLoginResponse() : SingleLiveEvent<UserLoginRegisterPostResponse> {
         return userLoginResponse;
@@ -29,7 +39,11 @@ object UserAuthRepository {
         return userRegisterResponse;
     }
 
-    private val userMyProfileResponse: MutableLiveData<UserGetResponse> = MutableLiveData()
+    private val userMyProfileResponse: SingleLiveEvent<UserGetResponse> = SingleLiveEvent()
+    fun getMyProfileResponse() : SingleLiveEvent<UserGetResponse> {
+        return userMyProfileResponse;
+    }
+
     private val failureMessageFromRegister: SingleLiveEvent<String> = SingleLiveEvent()
 
     fun getFailureMessageFromRegister(): SingleLiveEvent<String>{
@@ -132,6 +146,45 @@ object UserAuthRepository {
                 override fun onFailure(call: Call<UserGetResponse>, t: Throwable) {
                     Log.i(TAG, "onFailure: " + t.message)
 
+                }
+            })
+    }
+
+    fun requestEmailPreferencesChange(shouldReceiveMails : Boolean, callback: () ->Unit) {
+        val dataSource = ServiceGenerator
+        val body = UserChangeEmailPreferencesRequest(shouldReceiveMails)
+
+        dataSource.getMyPetApi()
+            .changeEmailStatus(body)
+            .enqueue(object : Callback<UserGetResponse> {
+                override fun onResponse(
+                    call: Call<UserGetResponse>,
+                    response: Response<UserGetResponse>
+                ) {
+                    if (response.isSuccessful && response.body() != null) {
+                        Log.i(TAG, "onResponse: Response Successful")
+                        updateUserResponse.postValue(response.body())
+                        statusFromUpdate=""
+                        callback()
+                    } else {
+                        try {
+                            val responseObj: ErrorResponse = gson.fromJson(
+                                response.errorBody()?.string(),
+                                ErrorResponse::class.java
+                            )
+                            statusFromUpdate = responseObj.status
+                            Log.d("FAILURE MESSAGE", statusFromUpdate.toString())
+                            callback()
+                        } catch (e: Exception) {
+                            statusFromUpdate = "Something Went Wrong"
+                            Log.d("IN CATCH", statusFromUpdate.toString())
+                            callback()
+                        }
+                    }
+                }
+                override fun onFailure(call: Call<UserGetResponse>, t: Throwable) {
+                    Log.i(TAG, "onFailure: " + t.message)
+                    callback()
                 }
             })
     }

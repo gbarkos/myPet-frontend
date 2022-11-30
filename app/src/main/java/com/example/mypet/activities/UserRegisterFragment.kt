@@ -82,10 +82,10 @@ class UserRegisterFragment: Fragment(R.layout.fragment_register_user), AuthFunct
         binding.registerButton.setEnabled(true)
     }
 
-    override fun OnFailure(errorCodes: MutableList<Int>) {
+    override fun OnFailure(errorCodes: MutableList<Int>?) {
         loadingDialog.dismiss()
         binding.registerButton.setEnabled(true)
-        for(error in errorCodes) {
+        for(error in errorCodes!!) {
             if (error == 910) {
                 binding.usernameInput.error = getString(R.string.username_not_valid_error)
             }
