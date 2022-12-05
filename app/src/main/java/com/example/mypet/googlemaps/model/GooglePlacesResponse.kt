@@ -59,5 +59,9 @@ data class GooglePlaceDetailsResponse(
     @Json(name = "place_id")
     val placeId: String?,
     @Json(name = "international_phone_number")
-    val phone: String?
+    val phone: String?,
+    @Json(name = "business_status")
+    val businessStatus: String?,
+    @Json(name = "opening_hours")
+    val openingHours: String?,
 )

@@ -17,7 +17,8 @@ interface GooglePlacesApi {
     @GET("/maps/api/place/details/json?&key=AIzaSyDd6i78agEdZNiTpM4TD9wffGVUbur5Ljk")
     suspend fun getGooglePlaceDetails(
         @Query("place_id") placeId: String,
-        @Query("fields") fields: String
+        @Query("fields") fields: String,
+        @Query("language") language: String
     ): Response<GooglePlaceDetailsGenericResponse>
 
 }

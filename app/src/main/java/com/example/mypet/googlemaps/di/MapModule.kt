@@ -74,7 +74,8 @@ object MapModule {
         return Places.createClient(context)
     }
 
-    const val PLACES_API_KEY = "AIzaSyAM4ohNphBqIoD2d8Nc_aE08sRsnH6Dg5E"
+    //const val PLACES_API_KEY = "AIzaSyAM4ohNphBqIoD2d8Nc_aE08sRsnH6Dg5E"
+    const val PLACES_API_KEY = "AIzaSyDd6i78agEdZNiTpM4TD9wffGVUbur5Ljk"
 
     @Provides
     fun provideLocationManager(application: Application): LocationManager {

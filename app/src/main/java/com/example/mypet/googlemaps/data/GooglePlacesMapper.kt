@@ -17,6 +17,7 @@ class GooglePlacesMapper @Inject constructor() : Mapper {
                     id = it.placeId ?: "",
                     latitude = it.geometry?.location?.lat ?: (0).toDouble(),
                     longitude = it.geometry?.location?.lng ?: (0).toDouble()
+
                 )
             )
         }
@@ -30,7 +31,9 @@ class GooglePlacesMapper @Inject constructor() : Mapper {
                     rating = it?.rating ?: 0.0f,
                     name = it?.name ?: "",
                     id = it?.placeId ?: "",
-                    phone = it?.phone ?: ""
+                    phone = it?.phone ?: "",
+                    businessStatus = it?.businessStatus ?: "",
+                    openingHours = it?.openingHours ?: ""
                 )
         }
     }

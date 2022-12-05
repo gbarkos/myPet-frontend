@@ -38,7 +38,7 @@
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/excavation_site_details_card"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height = "wrap_content"
         android:layout_marginBottom="@dimen/margin_double_32dp"
         android:visibility="gone"
         app:cardBackgroundColor="@color/white"
@@ -46,30 +46,31 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintWidth_percent="0.90"
+        android:padding="20dp"
         tools:visibility="visible">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
+
 
             <TextView
                 android:id="@+id/stores_address_txt"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_default_16dp"
-                android:layout_marginTop="@dimen/margin_default_16dp"
-                android:layout_marginEnd="@dimen/margin_default_16dp"
-                android:layout_marginBottom="@dimen/margin_half_double_12dp"
                 android:ellipsize="end"
                 android:lines="2"
                 android:maxLines="2"
                 android:minLines="2"
-                app:autoSizeMaxTextSize="@dimen/text_default_14sp"
-                app:autoSizeMinTextSize="@dimen/text_small_12sp"
-                app:autoSizeTextType="uniform"
-                app:layout_constraintEnd_toStartOf="@id/stores_img"
+                app:layout_constraintWidth_percent="0.90"
+
+                android:layout_marginTop="@dimen/margin_default_16dp"
+
+                android:textColor="@color/black"
+                android:textSize="16dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/stores_name_label_txt"
                 tools:text="Ανδριανουπόλεως 57, 55133" />
 
             <TextView
@@ -77,63 +78,66 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_default_16dp"
-                android:layout_marginTop="@dimen/margin_half_8dp"
-                android:layout_marginEnd="@dimen/margin_default_16dp"
-                android:layout_marginBottom="@dimen/margin_quarter_4dp"
+                android:layout_marginTop="@dimen/margin_default_16dp"
                 android:ellipsize="end"
                 android:lines="2"
                 android:maxLines="2"
                 android:minLines="2"
-                app:layout_constraintEnd_toStartOf="@id/stores_img"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/stores_address_txt"
-                tools:text="+302310 436436" />
+                android:textColor="@color/black"
+                android:textSize="16dp"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Placeholder name" />
 
             <TextView
-                android:id="@+id/store_rating_label_txt"
+                android:id="@+id/phone_txt"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_default_16dp"
-                android:layout_marginTop="@dimen/margin_half_8dp"
-                android:layout_marginEnd="@dimen/margin_default_16dp"
-                android:text="phone"
-                app:layout_constraintEnd_toStartOf="@id/stores_img"
+                android:layout_marginTop="@dimen/margin_default_16dp"
+                android:text="+30 6977777777"
+                android:textColor="@color/black"
+                android:textSize="16dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/stores_name_label_txt" />
+                app:layout_constraintTop_toBottomOf="@+id/stores_address_txt" />
 
             <TextView
-                android:id="@+id/stores_schedule_txt"
+                android:id="@+id/rating_txt"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_default_16dp"
-                android:layout_marginEnd="@dimen/margin_default_16dp"
-                android:layout_marginBottom="@dimen/margin_half_8dp"
-                android:ellipsize="end"
-                android:maxLines="1"
-                app:autoSizeMaxTextSize="@dimen/text_normal_16sp"
-                app:autoSizeMinTextSize="@dimen/text_micro_8sp"
-                app:autoSizeTextType="uniform"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/stores_img"
+                android:layout_marginTop="@dimen/margin_default_16dp"
+
+
+
+                android:textColor="@color/black"
+                android:textSize="16dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/store_rating_label_txt"
-                app:layout_constraintVertical_bias="0.0"
+                app:layout_constraintTop_toBottomOf="@+id/phone_txt"
                 tools:text="5.00" />
 
+            <TextView
+                android:id="@+id/status_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_default_16dp"
+                android:layout_marginTop="@dimen/margin_default_16dp"
+                android:layout_marginBottom="@dimen/margin_default_16dp"
+                android:text="Status"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:textColor="@color/black"
+                android:textSize="16dp"
+                app:layout_constraintTop_toBottomOf="@+id/rating_txt" />
 
             <ImageView
-                android:id="@+id/stores_img"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginStart="@dimen/margin_default_16dp"
+                android:id="@+id/imageView"
+                android:layout_width="138dp"
+                android:layout_height="138dp"
                 android:layout_marginEnd="@dimen/margin_default_16dp"
-                android:padding="12dp"
-                app:srcCompat="@drawable/pet_shop"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintDimensionRatio="1:1"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintWidth_percent="0.3" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:srcCompat="@drawable/ic_logo3" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

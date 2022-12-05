@@ -24,5 +24,7 @@ data class PlaceDetailsItem(
     val rating: Float = 0.0f,
     val name: String = "",
     val id: String = "",
-    val phone: String = ""
+    val phone: String = "",
+    val businessStatus: String = "",
+    val openingHours: String? = ""
 ) :Serializable

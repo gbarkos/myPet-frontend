@@ -47,7 +47,7 @@ class MapSearcherDataSourceImpl @Inject constructor(
         fields: String
     ): GooglePlaceDetailsGenericResponse {
         return withContext(Dispatchers.IO) {
-            api.getGooglePlaceDetails(placeId, fields).requireNotNull()
+            api.getGooglePlaceDetails(placeId, fields, "el").requireNotNull()
         }
     }
 

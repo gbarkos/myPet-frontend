@@ -27,6 +27,7 @@ import com.example.mypet.googlemaps.model.UserLocation
 import com.example.mypet.googlemaps.util.getStatusBarHeight
 import com.example.mypet.googlemaps.util.safeNavigate
 import com.example.mypet.googlemaps.util.screenWidth
+import com.google.android.libraries.places.api.model.OpeningHours
 
 @AndroidEntryPoint
 class MapSearcherFragment : BaseFragment<FragmentMapBinding>(), OnMapReadyCallback {
@@ -157,11 +158,14 @@ class MapSearcherFragment : BaseFragment<FragmentMapBinding>(), OnMapReadyCallba
     }
 
     private fun showClusterItemDetails(placeDetailsItem: PlaceDetailsItem) {
+        print(placeDetailsItem.openingHours)
         with(binding) {
             excavationSiteDetailsCard.visibility = View.VISIBLE
             storesAddressTxt.text = placeDetailsItem.formattedΑddress
             storesNameLabelTxt.text = placeDetailsItem.name
-            storesScheduleTxt.text = placeDetailsItem.phone
+            ratingTxt.text = placeDetailsItem.rating.toString() + "/5.0"
+            statusTxt.text = placeDetailsItem.openingHours
+            phoneTxt.text = placeDetailsItem.phone
         }
     }
 
