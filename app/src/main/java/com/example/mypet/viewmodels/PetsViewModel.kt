@@ -9,6 +9,7 @@ import com.example.mypet.models.MedicalRecord
 import com.example.mypet.models.Pet
 import com.example.mypet.models.Vaccination
 import com.example.mypet.models.requests.PetPostRequest
+import com.example.mypet.models.requests.SetPetAsMissingRequest
 import com.example.mypet.models.responses.PetGetResponse
 import com.example.mypet.models.responses.PetsGetResponse
 import com.example.mypet.models.responses.PetsLimitedGetResponse
@@ -95,6 +96,21 @@ class PetsViewModel : ViewModel() {
                 if(getStatusFromUpdate().toString() == "fail"){
                     var errors = mutableListOf<Int>()
                     authListener?.OnFailure(errors)
+                }else{
+                    authListener?.OnSuccess()
+                }
+            })
+        }
+    }
+
+    fun setPetAsMissing(lat: String, lng: String, contactInfo: List<String>, petId: String){
+        authListener?.OnStarted()
+        viewModelScope.launch {
+            petsRepository.setPetAsMissing(lat, lng, contactInfo, petId, fun() {
+                Log.d("STATUS",petsRepository.getStatusFromSetPetAsMissing())
+                if(petsRepository.getStatusFromSetPetAsMissing() == "fail"){
+                    authListener?.OnFailure(null)
+                    Log.d("On Failure","failed")
                 }else{
                     authListener?.OnSuccess()
                 }

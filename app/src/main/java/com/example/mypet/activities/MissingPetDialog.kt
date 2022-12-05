@@ -10,6 +10,7 @@ import androidx.fragment.app.FragmentActivity
 import com.example.mypet.R
 
 class MissingPetDialog : DialogFragment() {
+    private lateinit var missingFragment: SetMissingFragment
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return activity?.let {
@@ -19,6 +20,11 @@ class MissingPetDialog : DialogFragment() {
                 .setPositiveButton("Ναι",
                     DialogInterface.OnClickListener { dialog, id ->
                         println("Dialog accepted")
+                        missingFragment = SetMissingFragment()
+                        val transaction = activity?.supportFragmentManager?.beginTransaction()
+                        transaction?.replace(this.id, missingFragment)
+
+                        transaction?.commit()
                     })
                 .setNegativeButton("Οχι",
                     DialogInterface.OnClickListener { dialog, id ->

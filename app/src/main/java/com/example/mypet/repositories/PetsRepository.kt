@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import com.example.mypet.api.ServiceGenerator
 import com.example.mypet.models.ErrorResponse
 import com.example.mypet.models.requests.PetPostRequest
+import com.example.mypet.models.requests.SetPetAsMissingRequest
 import com.example.mypet.models.responses.PetGetResponse
 import com.example.mypet.models.responses.PetsLimitedGetResponse
 import com.example.mypet.utils.Event
@@ -33,6 +34,8 @@ object PetsRepository {
     val gson = Gson()
     private var statusFromGetPets: String = ""
     private var statusFromUpdate: String = ""
+    private var statusFromSetPetAsMissing: String = ""
+    private var statusFromSetPetAsFound: String = ""
     private val failureMessageFromNewPet: SingleLiveEvent<String> = SingleLiveEvent()
 
     private var _loadState = MutableLiveData<Event<NetworkLoadingState>>()
@@ -41,6 +44,14 @@ object PetsRepository {
 
     fun getStatusFromUpdate(): String{
         return statusFromUpdate
+    }
+
+    fun getStatusFromSetPetAsMissing(): String{
+        return statusFromSetPetAsMissing
+    }
+
+    fun getStatusFromSetPetAsFound(): String{
+        return statusFromSetPetAsFound
     }
 
     val petsGetResponse : MutableLiveData<PetsLimitedGetResponse> = MutableLiveData()
@@ -210,6 +221,82 @@ object PetsRepository {
                 override fun onFailure(call: Call<PetGetResponse>, t: Throwable) {
                     //Log.i(PetsRepository.TAG, "onFailure: " + t.message)
                     //_loadState.value = Event(NetworkLoadingState.OnError(t.message.toString()))
+                    callback()
+                }
+            })
+    }
+
+    fun setPetAsMissing(lat: String, lng: String, contactInfo: List<String>, petId: String, callback: () -> Unit) {
+        val dataSource = ServiceGenerator
+        val body = SetPetAsMissingRequest(lat, lng, contactInfo)
+
+        dataSource.getMyPetApi()
+            .setPetAsMissing(body, petId)
+            .enqueue(object: Callback<PetGetResponse> {
+                override fun onResponse(
+                    call: Call<PetGetResponse>,
+                    response: Response<PetGetResponse>
+                ){
+                    if (response.isSuccessful && response.body() != null) {
+                        statusFromSetPetAsMissing = ""
+                        Log.i(TAG, "onResponse: Response Successful")
+                        petGetResponse.postValue(response.body())
+                        callback()
+                    } else {
+                        try {
+                            val responseObj: ErrorResponse = UserAuthRepository.gson.fromJson(
+                                response.errorBody()?.string(),
+                                ErrorResponse::class.java
+                            )
+                            Log.d("FAILURE MESSAGE", "Failed to set pet as missing")
+                            statusFromSetPetAsMissing = responseObj.status
+                            callback()
+                        } catch (e: Exception) {
+                            statusFromSetPetAsMissing = "Something went wrong"
+                            Log.d("IN CATCH", e.message.toString())
+                            callback()
+                        }
+                    }
+                }
+
+                override fun onFailure(call: Call<PetGetResponse>, t: Throwable) {
+                    Log.i(TAG, "onFailure: " + t.message)
+                    callback()
+                }
+            })
+    }
+
+    fun setPetAsFound(petId: String, callback: () -> Unit) {
+        val dataSource = ServiceGenerator
+
+        dataSource.getMyPetApi()
+            .setPetAsFound(petId)
+            .enqueue(object: Callback<PetGetResponse> {
+                override fun onResponse(
+                    call: Call<PetGetResponse>,
+                    response: Response<PetGetResponse>
+                ){
+                    if (response.isSuccessful && response.body() != null) {
+                        Log.i(TAG, "onResponse: Response Successful")
+                        petGetResponse.postValue(response.body())
+                        callback()
+                    } else {
+                        try {
+                            val responseObj: ErrorResponse = UserAuthRepository.gson.fromJson(
+                                response.errorBody()?.string(),
+                                ErrorResponse::class.java
+                            )
+                            Log.d("FAILURE MESSAGE", "Failed to set pet as missing")
+                            callback()
+                        } catch (e: Exception) {
+                            Log.d("IN CATCH", e.message.toString())
+                            callback()
+                        }
+                    }
+                }
+
+                override fun onFailure(call: Call<PetGetResponse>, t: Throwable) {
+                    Log.i(TAG, "onFailure: " + t.message)
                     callback()
                 }
             })

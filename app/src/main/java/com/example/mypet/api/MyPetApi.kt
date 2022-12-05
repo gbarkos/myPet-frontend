@@ -42,9 +42,12 @@ interface MyPetApi {
     @POST("pets")
     fun newPet(@Body body: PetPostRequest): Call<PetGetResponse>
 
-   /* @PATCH("pets/{id}")
-    fun updatePet(@Body body: PetPatchRequest,
-                  @Path("id") id: String?): Call<PetGetResponse>*/
+    @PATCH("pets/set-as-missing/{id}")
+    fun setPetAsMissing(@Body body: SetPetAsMissingRequest,
+                        @Path("id") id: String): Call<PetGetResponse>
+
+    @PATCH("pets/set-as-found/{id}")
+    fun setPetAsFound(@Path("id") id: String): Call<PetGetResponse>
 
     @Multipart
     @PATCH("pets/{id}")
@@ -54,6 +57,8 @@ interface MyPetApi {
                   @Part("weight") weight: RequestBody?,
                   @Part("height") height: RequestBody?,
                   @Path("id") _id: String?): Call<PetGetResponse>
+
+
 
     //Medical Record
     @PATCH("records/{id}")
