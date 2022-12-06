@@ -9,5 +9,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="govblue">#003476</color>
     <color name="govcyan">#00AEEF</color>
+    <color name="red">#FF0000</color>
 
 </resources>

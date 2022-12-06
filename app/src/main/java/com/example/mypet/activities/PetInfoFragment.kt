@@ -1,8 +1,11 @@
 package com.example.mypet.activities
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Intent
+import android.content.res.ColorStateList
 import android.graphics.Bitmap
+import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
@@ -34,6 +37,7 @@ class PetInfoFragment: Fragment(R.layout.fragment_pet_info) {
     private lateinit var viewmodel: PetsViewModel
     private lateinit var binding: FragmentPetInfoBinding
     private lateinit var editPetFragment : EditPetFragment
+    lateinit var foundDialog : FoundPetDialog
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?){
         super.onViewCreated(view, savedInstanceState)
@@ -63,12 +67,18 @@ class PetInfoFragment: Fragment(R.layout.fragment_pet_info) {
                 populateViews(it)
                 viewmodel.recordId =
                     it.pet.medicalRecord._id // set the record id to the viewmodel so that patch requests know which pet to update
+                viewmodel.isMissing = it.pet.isMissing
             }
         }
 
         binding.missingPet.setOnClickListener{
-            var dialog : MissingPetDialog = MissingPetDialog()
-            dialog.show(this.parentFragmentManager, "Missing pet")
+            if(viewmodel.isMissing){
+                foundDialog = FoundPetDialog.newInstance(petID)
+                foundDialog.show(childFragmentManager, "dialog")
+            }else{
+                var dialog : MissingPetDialog = MissingPetDialog()
+                dialog.show(this.parentFragmentManager, "Missing pet")
+            }
         }
 
     }
@@ -84,6 +94,13 @@ class PetInfoFragment: Fragment(R.layout.fragment_pet_info) {
             petInfoHeight.text = it.pet.height?.toEditable() ?: "-".toEditable()
             petInfoWeight.text = it.pet.weight?.toEditable() ?: "-".toEditable()
             petInfoDistinguishingMarks.text = it.pet.distinguishingMarks?.toEditable() ?: "-".toEditable()
+            if(it.pet.isMissing) {
+                cardView.strokeWidth = 5
+                val colorInt = Color.parseColor("#FF0000")
+                cardView.strokeColor = colorInt
+            }else{
+                cardView.strokeWidth = 0
+            }
         }
 
         var picasso = Picasso.get()
@@ -92,7 +109,7 @@ class PetInfoFragment: Fragment(R.layout.fragment_pet_info) {
         picasso
             .load("https://drive.google.com/uc?export=download&id="+it.pet.photo)
             .config(Bitmap.Config.RGB_565)
-            .resize(160, 160)
+            /*.resize(160, 160)*/
             .error(R.drawable.dummy_pet_profile_pic)
             .into(binding.petInfoProfilePic)
     }

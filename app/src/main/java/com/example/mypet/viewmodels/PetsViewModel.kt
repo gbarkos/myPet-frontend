@@ -37,6 +37,7 @@ class PetsViewModel : ViewModel() {
     var medicalRecord : MedicalRecord? = null
     var _id: String? = null
     var recordId : String? = null
+    var isMissing: Boolean = false
     var authListener: AuthFunctions? = null
 
     private val petsRepository: PetsRepository = PetsRepository
@@ -103,12 +104,27 @@ class PetsViewModel : ViewModel() {
         }
     }
 
-    fun setPetAsMissing(lat: String, lng: String, contactInfo: List<String>, petId: String){
+    fun setPetAsMissing(lat: String, lng: String, contactInfo: List<String>, petId: String?){
         authListener?.OnStarted()
         viewModelScope.launch {
             petsRepository.setPetAsMissing(lat, lng, contactInfo, petId, fun() {
                 Log.d("STATUS",petsRepository.getStatusFromSetPetAsMissing())
                 if(petsRepository.getStatusFromSetPetAsMissing() == "fail"){
+                    authListener?.OnFailure(null)
+                    Log.d("On Failure","failed")
+                }else{
+                    authListener?.OnSuccess()
+                }
+            })
+        }
+    }
+
+    fun setPetAsFound(petId: String?){
+        authListener?.OnStarted()
+        viewModelScope.launch {
+            petsRepository.setPetAsFound(petId, fun() {
+                Log.d("STATUS",petsRepository.getStatusFromSetPetAsFound())
+                if(petsRepository.getStatusFromSetPetAsFound() == "fail"){
                     authListener?.OnFailure(null)
                     Log.d("On Failure","failed")
                 }else{

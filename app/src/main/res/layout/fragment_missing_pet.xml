@@ -34,7 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="28dp"
-            android:text="Επίλεξε σημείο στον χάρτη"
+            android:text="Επιλέξτε σημείο στον χάρτη"
             android:textColor="@color/black"
             android:textSize="15dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -55,9 +55,10 @@
             android:id="@+id/contact_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Εισήγαγε στοιχεία επικοινωνίας"
+            android:text="Εισάγετε στοιχεία επικοινωνίας"
             android:textColor="@color/black"
             android:textSize="15dp"
+            android:layout_marginBottom="5dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/open_map_btn" />
@@ -194,6 +195,18 @@
                 android:textColor="@color/black"
                 android:textSize="15dp" />
         </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/error_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#FF0000"
+            android:textSize="15dp"
+            android:text=""
+            app:layout_constraintBottom_toTopOf="@+id/submit_missing_btn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/instagramHint" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -44,10 +44,10 @@ interface MyPetApi {
 
     @PATCH("pets/set-as-missing/{id}")
     fun setPetAsMissing(@Body body: SetPetAsMissingRequest,
-                        @Path("id") id: String): Call<PetGetResponse>
+                        @Path("id") id: String?): Call<PetGetResponse>
 
     @PATCH("pets/set-as-found/{id}")
-    fun setPetAsFound(@Path("id") id: String): Call<PetGetResponse>
+    fun setPetAsFound(@Path("id") id: String?): Call<PetGetResponse>
 
     @Multipart
     @PATCH("pets/{id}")

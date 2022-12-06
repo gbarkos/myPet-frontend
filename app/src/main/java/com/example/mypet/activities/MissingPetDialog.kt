@@ -22,7 +22,7 @@ class MissingPetDialog : DialogFragment() {
                         println("Dialog accepted")
                         missingFragment = SetMissingFragment()
                         val transaction = activity?.supportFragmentManager?.beginTransaction()
-                        transaction?.replace(this.id, missingFragment)
+                        transaction?.replace(R.id.navigationFragmentContainer, missingFragment)
 
                         transaction?.commit()
                     })

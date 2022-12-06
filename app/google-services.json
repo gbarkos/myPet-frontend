@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "707578249179",
+    "project_id": "mapsearcher-a755e",
+    "storage_bucket": "mapsearcher-a755e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:707578249179:android:1b1ed589147b5a3c26f1fe",
+        "android_client_info": {
+          "package_name": "com.example.mypet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "707578249179-h626gcttbslcnt4520faucve1u88ncvd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.mypet",
+            "certificate_hash": "28a9097caaf3d39bed3fe66e2bc48f61b89fbf3a"
+          }
+        },
+        {
+          "client_id": "707578249179-9oevj8rd868gnnf1jpkarm8le082qsqk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBnpXNDQzQX3xTkPPsXljoI3ShNob-ReRs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "707578249179-9oevj8rd868gnnf1jpkarm8le082qsqk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

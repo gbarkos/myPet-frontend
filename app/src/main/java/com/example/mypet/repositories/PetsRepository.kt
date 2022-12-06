@@ -226,7 +226,7 @@ object PetsRepository {
             })
     }
 
-    fun setPetAsMissing(lat: String, lng: String, contactInfo: List<String>, petId: String, callback: () -> Unit) {
+    fun setPetAsMissing(lat: String, lng: String, contactInfo: List<String>, petId: String?, callback: () -> Unit) {
         val dataSource = ServiceGenerator
         val body = SetPetAsMissingRequest(lat, lng, contactInfo)
 
@@ -266,7 +266,7 @@ object PetsRepository {
             })
     }
 
-    fun setPetAsFound(petId: String, callback: () -> Unit) {
+    fun setPetAsFound(petId: String?, callback: () -> Unit) {
         val dataSource = ServiceGenerator
 
         dataSource.getMyPetApi()
