@@ -23,12 +23,30 @@ object SharedPreferencesUtil {
         return sharedPreferences.getString(key, null)
     }
     @JvmStatic
+    fun deleteFromSharedPreferences(key: String) {
+        val editor = sharedPreferences.edit()
+        editor.remove(key)
+        editor.apply()
+    }
+    @JvmStatic
     fun saveAccessToken(accessToken: String) {
         writeToSharedPreferences(Constants().getAccessToken(), accessToken)
     }
     @JvmStatic
     fun getAccessToken(): String? {
         return readFromSharedPreferences(Constants().getAccessToken())
+    }
+    @JvmStatic
+    fun saveVetData(vet : String) {
+        return writeToSharedPreferences("VET_PROFILE", vet)
+    }
+    @JvmStatic
+    fun getVetData(): String?{
+        return readFromSharedPreferences("VET_PROFILE")
+    }
+    @JvmStatic
+    fun deleteVetData() {
+        return deleteFromSharedPreferences("VET_PROFILE")
     }
     @JvmStatic
     fun clearPreferences() {

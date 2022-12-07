@@ -1,5 +1,8 @@
 package com.example.mypet.activities
 
+import android.app.Activity
+import android.content.SharedPreferences
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -16,7 +19,10 @@ import com.example.mypet.databinding.FragmentPetsBinding
 import com.example.mypet.databinding.FragmentVaccinationsBinding
 import com.example.mypet.models.Pet
 import com.example.mypet.models.Vaccination
+import com.example.mypet.models.Vet
+import com.example.mypet.utils.SharedPreferencesUtil
 import com.example.mypet.viewmodels.PetsViewModel
+import com.google.gson.Gson
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
@@ -25,14 +31,21 @@ class VaccinationsFragment : Fragment(R.layout.fragment_vaccinations){
     private lateinit var binding: FragmentVaccinationsBinding
     private val vaccinationInfoFragment = VaccinationInfoFragment()
     private lateinit var newVaccinationFragment : NewVaccinationFragment
+    private lateinit var sharedPreferences: SharedPreferences
 
     private lateinit var vaccinationsList: List<Vaccination>
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?){
         super.onViewCreated(view, savedInstanceState)
+        sharedPreferences = requireActivity().getSharedPreferences(
+            requireActivity().packageName,
+            Activity.MODE_PRIVATE
+        )
         binding = FragmentVaccinationsBinding.bind(view)
         viewmodel = ViewModelProvider(requireActivity())[PetsViewModel::class.java]
         binding.petsviewmodel = viewmodel
+
+        adjustViewForVet()
 
         val petID = viewmodel._id
         val recordId = viewmodel.recordId
@@ -73,4 +86,16 @@ class VaccinationsFragment : Fragment(R.layout.fragment_vaccinations){
             transaction?.commit()
         }
     }
+
+    private fun adjustViewForVet(){
+        var stringVet = SharedPreferencesUtil.getVetData()
+        if(!stringVet.isNullOrEmpty()) {
+            binding.apply {
+                topAppBar.setBackgroundColor(resources.getColor(R.color.vet_blue))
+                backgroundLayout.background = resources.getDrawable(R.drawable.generic_background_vet)
+                addNewVaccinationButton.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.vet_blue))
+            }
+        }
+    }
+
 }

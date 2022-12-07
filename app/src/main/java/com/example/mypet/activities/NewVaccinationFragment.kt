@@ -1,5 +1,8 @@
 package com.example.mypet.activities
 
+import android.app.Activity
+import android.content.SharedPreferences
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.text.Editable
 import android.view.View
@@ -14,14 +17,12 @@ import com.example.mypet.R
 import com.example.mypet.databinding.FragmentNewPetBinding
 import com.example.mypet.databinding.FragmentNewVaccinationBinding
 import com.example.mypet.models.Vet
-import com.example.mypet.utils.AuthFunctions
-import com.example.mypet.utils.EventObserver
-import com.example.mypet.utils.NetworkLoadingState
-import com.example.mypet.utils.getShortDate
+import com.example.mypet.utils.*
 import com.example.mypet.viewmodels.MedicalRecordViewModel
 import com.example.mypet.viewmodels.PetsViewModel
 import com.example.mypet.viewmodels.VetViewModel
 import com.google.android.material.datepicker.MaterialDatePicker
+import com.google.gson.Gson
 import java.util.*
 
 class NewVaccinationFragment : Fragment(R.layout.fragment_new_vaccination), AuthFunctions {
@@ -31,6 +32,7 @@ class NewVaccinationFragment : Fragment(R.layout.fragment_new_vaccination), Auth
     private lateinit var binding: FragmentNewVaccinationBinding
     private val vaccinationsFragment = VaccinationsFragment()
     lateinit var dialog : testDialog
+    private lateinit var sharedPreferences: SharedPreferences
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?){
         super.onViewCreated(view, savedInstanceState)
@@ -39,6 +41,12 @@ class NewVaccinationFragment : Fragment(R.layout.fragment_new_vaccination), Auth
         vetViewModel = ViewModelProvider(requireActivity())[VetViewModel::class.java]
         viewmodel.authListener = this
         //vetViewModel.authListener = this
+
+        sharedPreferences = requireActivity().getSharedPreferences(
+            requireActivity().packageName,
+            Activity.MODE_PRIVATE
+        )
+        adjustViewForVet()
 
         dialog = testDialog()
 
@@ -141,30 +149,17 @@ class NewVaccinationFragment : Fragment(R.layout.fragment_new_vaccination), Auth
                 var expirationDate = binding.newVaccinationExpirationDate.text.toString();
                 var medicalRecordId = arguments?.getString("recordId")
 
-                /*vetViewModel.getVetProfileDataFromRepo().observe(viewLifecycleOwner){ vetGetResponse ->
-                    if(vetGetResponse != null){
-                        vetViewModel.name = vetGetResponse.vet.name
-                        vetViewModel.surname = vetGetResponse.vet.surname
-                        viewmodel.addVaccination(medicalRecordId, batchNumber, manufacturer, name,
-                            expirationDate, vaccinationDate, validUntil, vetGetResponse.vet)
 
-                    }else{
-                        viewmodel.addVaccination(medicalRecordId, batchNumber, manufacturer, name,
-                            expirationDate, vaccinationDate, validUntil)
-                    }
-                }*/
-
-                viewmodel.addVaccination(medicalRecordId, batchNumber, manufacturer, name,
-                    expirationDate, vaccinationDate, validUntil)
-/*
-                viewmodel.addVaccination(medicalRecordId, batchNumber, manufacturer, name, expirationDate, vaccinationDate, validUntil, )
-*/
-                /*viewmodel.getMedicalRecordFromRepo().observe(viewLifecycleOwner){
-                    if(it.medicalRecord != null){
-
-                    }
-                }*/
-
+                var stringVet = SharedPreferencesUtil.getVetData()
+                if(!stringVet.isNullOrEmpty()){
+                    var gson = Gson()
+                    var vet  = gson.fromJson(stringVet,Vet::class.java )
+                    viewmodel.addVaccination(medicalRecordId, batchNumber, manufacturer, name,
+                        expirationDate, vaccinationDate, validUntil, vet)
+                }else{
+                    viewmodel.addVaccination(medicalRecordId, batchNumber, manufacturer, name,
+                        expirationDate, vaccinationDate, validUntil)
+                }
                 /*viewmodel.getLoadStateFromRepo().observe(viewLifecycleOwner, EventObserver {
                     when (it) {
                         is NetworkLoadingState.OnLoading -> println("You can show loading indicator here or whatever to inform user that data is being loaded")
@@ -177,8 +172,21 @@ class NewVaccinationFragment : Fragment(R.layout.fragment_new_vaccination), Auth
                             transaction?.commit()
                         }
                         is NetworkLoadingState.OnError -> println(it.message)
-                    }})*/
+                   }})*/
+            }
+        }
+    }
 
+    private fun adjustViewForVet(){
+        var stringVet = SharedPreferencesUtil.getVetData()
+        if(!stringVet.isNullOrEmpty()) {
+            var gson = Gson()
+            var vet = gson.fromJson(stringVet, Vet::class.java)
+
+            binding.apply {
+                topAppBar.setBackgroundColor(resources.getColor(R.color.vet_blue))
+                backgroundLayout.background = resources.getDrawable(R.drawable.generic_background_vet)
+                newVaccinationSubmit.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.vet_blue))
             }
         }
     }

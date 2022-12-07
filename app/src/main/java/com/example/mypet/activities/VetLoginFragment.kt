@@ -21,11 +21,13 @@ class VetLoginFragment: Fragment(R.layout.fragment_login_vet), AuthFunctions {
     private lateinit var binding: FragmentLoginVetBinding;
     private lateinit var viewmodel: VetViewModel
     private lateinit var sharedPreferences: SharedPreferences
+    lateinit var dialog : testDialog
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?){
         super.onViewCreated(view, savedInstanceState);
         binding = FragmentLoginVetBinding.bind(view); //viewbinding
         viewmodel = ViewModelProvider(this)[VetViewModel::class.java];
+        dialog = testDialog()
         sharedPreferences = requireActivity().getSharedPreferences(
             requireActivity().packageName,
             Activity.MODE_PRIVATE
@@ -43,23 +45,24 @@ class VetLoginFragment: Fragment(R.layout.fragment_login_vet), AuthFunctions {
     }
 
     override fun OnStarted() {
+        dialog.show(parentFragmentManager, "")
         binding.textViewError.visibility = View.INVISIBLE
-        Log.d("Login fragment", "Logging in...")
         //Toast.makeText(context, "Login", Toast.LENGTH_LONG).show()
     }
 
     override fun OnSuccess() {
         Log.d("Login fragment", "Succeed")
-
+        dialog.dismiss()
         viewmodel.getVetLoginDataFromRepo().observe(requireActivity(), {
             SharedPreferencesUtil.saveAccessToken(it?.token.toString())
             val intent = Intent(activity, MainContentVetActivity::class.java)
             startActivity(intent)
-            Toast.makeText(context, "Success...", Toast.LENGTH_LONG).show()
+            Toast.makeText(context, "Επιτυχής Σύνδεση", Toast.LENGTH_LONG).show()
         })
     }
 
     override fun OnFailure(errorCode: MutableList<Int>?) {
+        dialog.dismiss()
         Log.d("Login fragment", "Wrong username or password")
         binding.textViewError.visibility = View.VISIBLE
         binding.textViewError.setText("Λάθος όνομα χρήστη ή κωδικός πρόσβασης")

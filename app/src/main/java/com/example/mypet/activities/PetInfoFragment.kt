@@ -1,8 +1,10 @@
 package com.example.mypet.activities
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.res.ColorStateList
 import android.graphics.Bitmap
 import android.graphics.Color
@@ -22,12 +24,11 @@ import com.example.mypet.R
 import com.example.mypet.adapters.PetsAdapter
 import com.example.mypet.databinding.FragmentPetInfoBinding
 import com.example.mypet.models.Pet
-import com.example.mypet.utils.MongoDateAdapter
+import com.example.mypet.models.Vet
 import com.example.mypet.models.responses.PetGetResponse
-import com.example.mypet.utils.Constants
-import com.example.mypet.utils.EventObserver
-import com.example.mypet.utils.NetworkLoadingState
+import com.example.mypet.utils.*
 import com.example.mypet.viewmodels.PetsViewModel
+import com.google.gson.Gson
 import com.squareup.picasso.Picasso
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -38,13 +39,16 @@ class PetInfoFragment: Fragment(R.layout.fragment_pet_info) {
     private lateinit var binding: FragmentPetInfoBinding
     private lateinit var editPetFragment : EditPetFragment
     lateinit var foundDialog : FoundPetDialog
+    private lateinit var sharedPreferences: SharedPreferences
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?){
         super.onViewCreated(view, savedInstanceState)
-
+        sharedPreferences = requireActivity().getSharedPreferences(
+            requireActivity().packageName,
+            Activity.MODE_PRIVATE
+        )
         binding = FragmentPetInfoBinding.bind(view)
         viewmodel = ViewModelProvider(requireActivity())[PetsViewModel::class.java]
-        //binding.petsviewmodelInfo = viewmodel
 
         val petID = viewmodel._id;
         viewmodel.requestPet(petID.toString())
@@ -84,6 +88,13 @@ class PetInfoFragment: Fragment(R.layout.fragment_pet_info) {
     }
 
     private fun populateViews(it: PetGetResponse){
+        var stringVet = SharedPreferencesUtil.getVetData()
+        var vet : Vet? = null
+        if(!stringVet.isNullOrEmpty()) {
+            var gson = Gson()
+            vet = gson.fromJson(stringVet, Vet::class.java)
+        }
+
         binding.apply{
             petInfoName.text = it.pet.name.toEditable();
             petInfoBirthdate.text = MongoDateAdapter(it.pet.birthdate).getDate().toEditable()
@@ -100,6 +111,18 @@ class PetInfoFragment: Fragment(R.layout.fragment_pet_info) {
                 cardView.strokeColor = colorInt
             }else{
                 cardView.strokeWidth = 0
+            }
+
+            if(vet !=null ){
+                editPetButton.hide()
+                generateQrCodeButton.hide()
+
+                missingPet.setImageResource(0)
+                missingPet.setOnClickListener(null)
+                topAppBar.setBackgroundColor(resources.getColor(R.color.vet_blue))
+                backgroundLayout.background = resources.getDrawable(R.drawable.generic_background_vet)
+                constraintLayout2.setBackgroundColor(resources.getColor(R.color.vet_blue))
+                imageCardView.setStrokeColor(resources.getColor(R.color.vet_blue_light))
             }
         }
 

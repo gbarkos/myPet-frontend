@@ -1,5 +1,8 @@
 package com.example.mypet.activities
 
+import android.app.Activity
+import android.content.SharedPreferences
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.text.Editable
 import android.view.View
@@ -13,10 +16,7 @@ import com.example.mypet.databinding.FragmentNewDiagnosticTestBinding
 import com.example.mypet.databinding.FragmentNewSurgeryBinding
 import com.example.mypet.databinding.FragmentNewTreatmentBinding
 import com.example.mypet.databinding.FragmentNewVermifugationBinding
-import com.example.mypet.utils.AuthFunctions
-import com.example.mypet.utils.EventObserver
-import com.example.mypet.utils.NetworkLoadingState
-import com.example.mypet.utils.getShortDate
+import com.example.mypet.utils.*
 import com.example.mypet.viewmodels.MedicalRecordViewModel
 import com.google.android.material.datepicker.MaterialDatePicker
 
@@ -26,13 +26,19 @@ class NewDiagnosticTestFragment : Fragment(R.layout.fragment_new_diagnostic_test
     private lateinit var binding: FragmentNewDiagnosticTestBinding
     private val diagnosticTestsFragment = DiagnosticTestsFragment()
     lateinit var dialog : testDialog
+    private lateinit var sharedPreferences: SharedPreferences
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?){
         super.onViewCreated(view, savedInstanceState)
+        sharedPreferences = requireActivity().getSharedPreferences(
+            requireActivity().packageName,
+            Activity.MODE_PRIVATE
+        )
         binding = FragmentNewDiagnosticTestBinding.bind(view)
         viewmodel = ViewModelProvider(requireActivity())[MedicalRecordViewModel::class.java]
         viewmodel.authListener = this
         dialog = testDialog()
+        adjustViewForVet()
 
         //Surgery Date Picker
         val datePicker =
@@ -89,6 +95,17 @@ class NewDiagnosticTestFragment : Fragment(R.layout.fragment_new_diagnostic_test
                 var medicalRecordId = arguments?.getString("recordId")
 
                 viewmodel.addDiagnosticTest(medicalRecordId, name, date, result)
+            }
+        }
+    }
+
+    private fun adjustViewForVet(){
+        var stringVet = SharedPreferencesUtil.getVetData()
+        if(!stringVet.isNullOrEmpty()) {
+            binding.apply {
+                topAppBar.setBackgroundColor(resources.getColor(R.color.vet_blue))
+                backgroundLayout.background = resources.getDrawable(R.drawable.generic_background_vet)
+                newDiagnosticTestSubmit.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.vet_blue))
             }
         }
     }

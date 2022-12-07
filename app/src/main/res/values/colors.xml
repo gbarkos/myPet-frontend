@@ -10,5 +10,7 @@
     <color name="govblue">#003476</color>
     <color name="govcyan">#00AEEF</color>
     <color name="red">#FF0000</color>
+    <color name="vet_blue">#006D9F</color>
+    <color name="vet_blue_light">#70CEFD</color>
 
 </resources>

@@ -46,6 +46,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/background_layout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="13"
@@ -77,6 +78,7 @@
                     android:background="#135e52">
 
                     <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/image_card_view"
                         android:layout_width="160dp"
                         android:layout_height="160dp"
                         app:cardElevation="0dp"

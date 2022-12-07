@@ -63,6 +63,7 @@ class UserLoginFragment: Fragment(R.layout.fragment_login_user), AuthFunctions {
         dialog.dismiss()
         viewmodel.getUserLoginDataFromRepo().observe(requireActivity(), {
             SharedPreferencesUtil.saveAccessToken(it?.token.toString())
+            SharedPreferencesUtil.deleteVetData()
             val intent = Intent(activity, MainContentActivity::class.java)
             startActivity(intent)
 

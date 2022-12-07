@@ -1,5 +1,8 @@
 package com.example.mypet.activities
 
+import android.app.Activity
+import android.content.SharedPreferences
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.text.Editable
 import android.util.Log
@@ -14,21 +17,26 @@ import com.example.mypet.models.Surgery
 import com.example.mypet.models.Treatment
 import com.example.mypet.models.Vermifugation
 import com.example.mypet.utils.MongoDateAdapter
+import com.example.mypet.utils.SharedPreferencesUtil
 import com.example.mypet.viewmodels.PetsViewModel
 
 class SurgeryInfoFragment  : Fragment(R.layout.fragment_pet_surgery){
     private lateinit var viewmodel: PetsViewModel
     private lateinit var binding: FragmentPetSurgeryBinding
     private lateinit var surgery: Surgery
+    private lateinit var sharedPreferences: SharedPreferences
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?){
         super.onViewCreated(view, savedInstanceState)
-
+        sharedPreferences = requireActivity().getSharedPreferences(
+            requireActivity().packageName,
+            Activity.MODE_PRIVATE
+        )
         binding = FragmentPetSurgeryBinding.bind(view)
         viewmodel = ViewModelProvider(requireActivity())[PetsViewModel::class.java]
         binding.petsViewmodelSurgery= viewmodel
         val id = arguments?.getString("treatmentID")
-
+        adjustViewForVet()
         //val petID = viewmodel._id;
         //Toast.makeText(context, "$petID", Toast.LENGTH_LONG).show()
 
@@ -51,6 +59,16 @@ class SurgeryInfoFragment  : Fragment(R.layout.fragment_pet_surgery){
             petSurgeryVet.text =
                 if(it.veterinarian != null) (it.veterinarian.surname+" "+it.veterinarian.name).toEditable()
                 else "-".toEditable()
+        }
+    }
+
+    private fun adjustViewForVet(){
+        var stringVet = SharedPreferencesUtil.getVetData()
+        if(!stringVet.isNullOrEmpty()) {
+            binding.apply {
+                topAppBar.setBackgroundColor(resources.getColor(R.color.vet_blue))
+                backgroundLayout.background = resources.getDrawable(R.drawable.generic_background_vet)
+            }
         }
     }
 }
