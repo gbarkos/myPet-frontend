@@ -3,6 +3,7 @@ package com.example.mypet.activities
 import android.os.Bundle
 import android.text.Editable
 import android.view.View
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
@@ -12,22 +13,26 @@ import com.example.mypet.databinding.FragmentNewDiagnosticTestBinding
 import com.example.mypet.databinding.FragmentNewSurgeryBinding
 import com.example.mypet.databinding.FragmentNewTreatmentBinding
 import com.example.mypet.databinding.FragmentNewVermifugationBinding
+import com.example.mypet.utils.AuthFunctions
 import com.example.mypet.utils.EventObserver
 import com.example.mypet.utils.NetworkLoadingState
 import com.example.mypet.utils.getShortDate
 import com.example.mypet.viewmodels.MedicalRecordViewModel
 import com.google.android.material.datepicker.MaterialDatePicker
 
-class NewDiagnosticTestFragment : Fragment(R.layout.fragment_new_diagnostic_test) {
+class NewDiagnosticTestFragment : Fragment(R.layout.fragment_new_diagnostic_test), AuthFunctions {
 
     private lateinit var viewmodel: MedicalRecordViewModel
     private lateinit var binding: FragmentNewDiagnosticTestBinding
     private val diagnosticTestsFragment = DiagnosticTestsFragment()
+    lateinit var dialog : testDialog
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?){
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentNewDiagnosticTestBinding.bind(view)
         viewmodel = ViewModelProvider(requireActivity())[MedicalRecordViewModel::class.java]
+        viewmodel.authListener = this
+        dialog = testDialog()
 
         //Surgery Date Picker
         val datePicker =
@@ -84,21 +89,27 @@ class NewDiagnosticTestFragment : Fragment(R.layout.fragment_new_diagnostic_test
                 var medicalRecordId = arguments?.getString("recordId")
 
                 viewmodel.addDiagnosticTest(medicalRecordId, name, date, result)
-                viewmodel.getLoadStateFromRepo().observe(viewLifecycleOwner, EventObserver {
-                    when (it) {
-                        is NetworkLoadingState.OnLoading -> println("You can show loading indicator here or whatever to inform user that data is being loaded")
-                        is NetworkLoadingState.OnSuccess -> {
-                            val bundle = bundleOf("recordHasBeenUpdated" to true)
-                            diagnosticTestsFragment.arguments = bundle
-                            val transaction = activity?.supportFragmentManager?.beginTransaction()
-                            transaction?.replace(R.id.navigationFragmentContainer, diagnosticTestsFragment)
-                            transaction?.disallowAddToBackStack()
-                            transaction?.commit()
-                        }
-                        is NetworkLoadingState.OnError -> println(it.message)
-                    }})
             }
         }
+    }
+
+    override fun OnStarted() {
+        dialog.show(parentFragmentManager, "")
+    }
+
+    override fun OnSuccess() {
+        dialog.dismiss()
+        val bundle = bundleOf("recordHasBeenUpdated" to true)
+        diagnosticTestsFragment.arguments = bundle
+        val transaction = activity?.supportFragmentManager?.beginTransaction()
+        transaction?.replace(R.id.navigationFragmentContainer, diagnosticTestsFragment)
+        transaction?.disallowAddToBackStack()
+        transaction?.commit()
+    }
+
+    override fun OnFailure(errorCode: MutableList<Int>?) {
+        dialog.dismiss()
+        Toast.makeText(context, "Αδυναμία προσθήκης διαγνωστικού τεστ", Toast.LENGTH_LONG).show()
     }
 }
 

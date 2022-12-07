@@ -4,7 +4,9 @@ import android.util.Log
 import android.view.View
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.mypet.api.ServiceGenerator
 import com.example.mypet.models.responses.UserLoginRegisterPostResponse
+import com.example.mypet.models.responses.VetGetResponse
 import com.example.mypet.models.responses.VetLoginRegisterPostResponse
 import com.example.mypet.repositories.UserAuthRepository
 import com.example.mypet.repositories.VetRepository
@@ -30,12 +32,20 @@ class VetViewModel: ViewModel() {
         return VetRepository.getVetLoginResponse()
     }
 
+    fun getVetProfileDataFromRepo(): SingleLiveEvent<VetGetResponse>{
+        return VetRepository.getVetMyProfileResponse()
+    }
+
     fun getFailureMessageFromRegister(): SingleLiveEvent<String> {
         return userAuthRepository.getFailureMessageFromRegister()
     }
 
     fun getStatusFromLogin(): String?{
         return VetRepository.getStatusFromLogin()
+    }
+
+    fun getStatusFromGetProfile(): String? {
+        return VetRepository.getStatusFromGetProfile()
     }
 
     fun loginVet(username:String, password: String, errorCodes:MutableList<Int>) {
@@ -69,6 +79,20 @@ class VetViewModel: ViewModel() {
 
         }else{
             authListener?.OnFailure(errorCodes)
+        }
+    }
+
+    fun getVetProfile(){
+        authListener?.OnStarted()
+        viewModelScope.launch{
+            VetRepository.getVetProfile(fun(){
+                if(getStatusFromGetProfile().toString() == "fail"){
+                    authListener?.OnFailure(null)
+                    Log.d("On Failure","failed")
+                }else{
+                    authListener?.OnSuccess()
+                }
+            })
         }
     }
 }

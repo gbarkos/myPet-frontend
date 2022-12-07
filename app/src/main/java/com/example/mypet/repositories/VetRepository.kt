@@ -21,17 +21,25 @@ object VetRepository {
     private const val TAG = "VetRepository"
     val gson = Gson()
     private var statusFromLogin: String = ""
+    private var statusFromGetProfile: String = ""
 
     private val vetLoginResponse : SingleLiveEvent<VetLoginRegisterPostResponse> = SingleLiveEvent();
     fun getVetLoginResponse() : SingleLiveEvent<VetLoginRegisterPostResponse> {
         return vetLoginResponse;
     }
 
-    private val vetMyProfileResponse: MutableLiveData<VetGetResponse> = MutableLiveData()
+    private val vetMyProfileResponse: SingleLiveEvent<VetGetResponse> = SingleLiveEvent()
+    fun getVetMyProfileResponse() : SingleLiveEvent<VetGetResponse>{
+        return vetMyProfileResponse;
+    }
     private val failureMessageFromRegister: SingleLiveEvent<String> = SingleLiveEvent()
 
     fun getStatusFromLogin(): String{
         return statusFromLogin
+    }
+
+    fun getStatusFromGetProfile(): String{
+        return statusFromGetProfile
     }
 
     fun requestToLogin(username: String,password: String, callback: () ->Unit) {
@@ -88,10 +96,50 @@ object VetRepository {
                     if (response.isSuccessful && response.body() != null) {
                         Log.i(TAG, "onResponse: Response Successful")
                         vetMyProfileResponse.postValue(response.body())
+                        statusFromGetProfile=""
                     }
                 }
                 override fun onFailure(call: Call<VetGetResponse>, t: Throwable) {
                     Log.i(TAG, "onFailure: " + t.message)
+                }
+            })
+    }
+
+    fun getVetProfile(callback: () -> Unit){
+        val dataSource = ServiceGenerator
+
+        dataSource.getMyPetApi()
+            .getVetInfo()
+            .enqueue(object : Callback<VetGetResponse>{
+                override fun onResponse(
+                    call: Call<VetGetResponse>,
+                    response: Response<VetGetResponse>
+                ){
+                    if(response.isSuccessful && response.body() != null){
+                        Log.i(TAG, "onResponse: Response Successful")
+                        vetMyProfileResponse.postValue((response.body()))
+                        statusFromGetProfile =""
+                        callback()
+                    } else {
+                      try {
+                          val responseObj: ErrorResponse = gson.fromJson(
+                              response.errorBody()?.string(),
+                              ErrorResponse::class.java
+                          )
+                          statusFromGetProfile = responseObj.status
+                          Log.d("FAILURE MESSAGE", "Vet get profile failed")
+                          callback()
+                      }catch (e: Exception) {
+                          statusFromGetProfile = "Something went wrong"
+                          Log.d("IN CATCH", e.toString())
+                          callback()
+                      }
+                    }
+                }
+
+                override fun onFailure(call: Call<VetGetResponse>, t: Throwable) {
+                    Log.i(TAG, "onFailure: " + t.message)
+                    callback()
                 }
             })
     }

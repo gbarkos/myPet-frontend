@@ -3,6 +3,7 @@ package com.example.mypet.activities
 import android.os.Bundle
 import android.text.Editable
 import android.view.View
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
@@ -11,23 +12,26 @@ import com.example.mypet.R
 import com.example.mypet.databinding.FragmentNewSurgeryBinding
 import com.example.mypet.databinding.FragmentNewTreatmentBinding
 import com.example.mypet.databinding.FragmentNewVermifugationBinding
+import com.example.mypet.utils.AuthFunctions
 import com.example.mypet.utils.EventObserver
 import com.example.mypet.utils.NetworkLoadingState
 import com.example.mypet.utils.getShortDate
 import com.example.mypet.viewmodels.MedicalRecordViewModel
 import com.google.android.material.datepicker.MaterialDatePicker
 
-class NewSurgeryFragment : Fragment(R.layout.fragment_new_surgery) {
+class NewSurgeryFragment : Fragment(R.layout.fragment_new_surgery), AuthFunctions {
 
     private lateinit var viewmodel: MedicalRecordViewModel
     private lateinit var binding: FragmentNewSurgeryBinding
     private val surgeriesFragment = SurgeriesFragment()
+    lateinit var dialog : testDialog
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?){
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentNewSurgeryBinding.bind(view)
         viewmodel = ViewModelProvider(requireActivity())[MedicalRecordViewModel::class.java]
-
+        viewmodel.authListener = this
+        dialog = testDialog()
         //Surgery Date Picker
         val datePicker =
             MaterialDatePicker.Builder.datePicker()
@@ -74,21 +78,27 @@ class NewSurgeryFragment : Fragment(R.layout.fragment_new_surgery) {
                 var medicalRecordId = arguments?.getString("recordId")
 
                 viewmodel.addSurgery(medicalRecordId, name, date)
-                viewmodel.getLoadStateFromRepo().observe(viewLifecycleOwner, EventObserver {
-                    when (it) {
-                        is NetworkLoadingState.OnLoading -> println("You can show loading indicator here or whatever to inform user that data is being loaded")
-                        is NetworkLoadingState.OnSuccess -> {
-                            val bundle = bundleOf("recordHasBeenUpdated" to true)
-                            surgeriesFragment.arguments = bundle
-                            val transaction = activity?.supportFragmentManager?.beginTransaction()
-                            transaction?.replace(R.id.navigationFragmentContainer, surgeriesFragment)
-                            transaction?.disallowAddToBackStack()
-                            transaction?.commit()
-                        }
-                        is NetworkLoadingState.OnError -> println(it.message)
-                    }})
             }
         }
+    }
+
+    override fun OnStarted() {
+        dialog.show(parentFragmentManager, "")
+    }
+
+    override fun OnSuccess() {
+        dialog.dismiss()
+        val bundle = bundleOf("recordHasBeenUpdated" to true)
+        surgeriesFragment.arguments = bundle
+        val transaction = activity?.supportFragmentManager?.beginTransaction()
+        transaction?.replace(R.id.navigationFragmentContainer, surgeriesFragment)
+        transaction?.disallowAddToBackStack()
+        transaction?.commit()
+    }
+
+    override fun OnFailure(errorCode: MutableList<Int>?) {
+        dialog.dismiss()
+        Toast.makeText(context, "Αδυναμία προσθήκης εγχείρισης", Toast.LENGTH_LONG).show()
     }
 }
 

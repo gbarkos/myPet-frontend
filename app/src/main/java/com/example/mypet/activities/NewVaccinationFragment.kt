@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.view.View
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
@@ -12,24 +13,36 @@ import androidx.navigation.fragment.findNavController
 import com.example.mypet.R
 import com.example.mypet.databinding.FragmentNewPetBinding
 import com.example.mypet.databinding.FragmentNewVaccinationBinding
+import com.example.mypet.models.Vet
+import com.example.mypet.utils.AuthFunctions
 import com.example.mypet.utils.EventObserver
 import com.example.mypet.utils.NetworkLoadingState
 import com.example.mypet.utils.getShortDate
 import com.example.mypet.viewmodels.MedicalRecordViewModel
 import com.example.mypet.viewmodels.PetsViewModel
+import com.example.mypet.viewmodels.VetViewModel
 import com.google.android.material.datepicker.MaterialDatePicker
 import java.util.*
 
-class NewVaccinationFragment : Fragment(R.layout.fragment_new_vaccination) {
+class NewVaccinationFragment : Fragment(R.layout.fragment_new_vaccination), AuthFunctions {
 
     private lateinit var viewmodel: MedicalRecordViewModel
+    private lateinit var vetViewModel: VetViewModel
     private lateinit var binding: FragmentNewVaccinationBinding
     private val vaccinationsFragment = VaccinationsFragment()
+    lateinit var dialog : testDialog
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?){
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentNewVaccinationBinding.bind(view)
         viewmodel = ViewModelProvider(requireActivity())[MedicalRecordViewModel::class.java]
+        vetViewModel = ViewModelProvider(requireActivity())[VetViewModel::class.java]
+        viewmodel.authListener = this
+        //vetViewModel.authListener = this
+
+        dialog = testDialog()
+
+       // vetViewModel.getVetProfile()
 
         //Vaccination Date Picker
         val vaccinationDatePicker =
@@ -128,8 +141,31 @@ class NewVaccinationFragment : Fragment(R.layout.fragment_new_vaccination) {
                 var expirationDate = binding.newVaccinationExpirationDate.text.toString();
                 var medicalRecordId = arguments?.getString("recordId")
 
-                viewmodel.addVaccination(medicalRecordId, batchNumber, manufacturer, name, expirationDate, vaccinationDate, validUntil)
-                viewmodel.getLoadStateFromRepo().observe(viewLifecycleOwner, EventObserver {
+                /*vetViewModel.getVetProfileDataFromRepo().observe(viewLifecycleOwner){ vetGetResponse ->
+                    if(vetGetResponse != null){
+                        vetViewModel.name = vetGetResponse.vet.name
+                        vetViewModel.surname = vetGetResponse.vet.surname
+                        viewmodel.addVaccination(medicalRecordId, batchNumber, manufacturer, name,
+                            expirationDate, vaccinationDate, validUntil, vetGetResponse.vet)
+
+                    }else{
+                        viewmodel.addVaccination(medicalRecordId, batchNumber, manufacturer, name,
+                            expirationDate, vaccinationDate, validUntil)
+                    }
+                }*/
+
+                viewmodel.addVaccination(medicalRecordId, batchNumber, manufacturer, name,
+                    expirationDate, vaccinationDate, validUntil)
+/*
+                viewmodel.addVaccination(medicalRecordId, batchNumber, manufacturer, name, expirationDate, vaccinationDate, validUntil, )
+*/
+                /*viewmodel.getMedicalRecordFromRepo().observe(viewLifecycleOwner){
+                    if(it.medicalRecord != null){
+
+                    }
+                }*/
+
+                /*viewmodel.getLoadStateFromRepo().observe(viewLifecycleOwner, EventObserver {
                     when (it) {
                         is NetworkLoadingState.OnLoading -> println("You can show loading indicator here or whatever to inform user that data is being loaded")
                         is NetworkLoadingState.OnSuccess -> {
@@ -141,9 +177,29 @@ class NewVaccinationFragment : Fragment(R.layout.fragment_new_vaccination) {
                             transaction?.commit()
                         }
                         is NetworkLoadingState.OnError -> println(it.message)
-                    }})
+                    }})*/
+
             }
         }
+    }
+
+    override fun OnStarted() {
+        dialog.show(parentFragmentManager, "")
+    }
+
+    override fun OnSuccess() {
+        dialog.dismiss()
+        val bundle = bundleOf("recordHasBeenUpdated" to true)
+        vaccinationsFragment.arguments = bundle
+        val transaction = activity?.supportFragmentManager?.beginTransaction()
+        transaction?.replace(R.id.navigationFragmentContainer, vaccinationsFragment)
+        transaction?.disallowAddToBackStack()
+        transaction?.commit()
+    }
+
+    override fun OnFailure(errorCode: MutableList<Int>?) {
+        dialog.dismiss()
+        Toast.makeText(context, "Αδυναμία προσθήκης εμβολιασμού", Toast.LENGTH_LONG).show()
     }
 }
 

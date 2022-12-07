@@ -1,14 +1,9 @@
 package com.example.mypet.viewmodels
 
-import android.net.Uri
 import android.util.Log
-import android.view.View
 import androidx.lifecycle.*
-import com.example.mypet.api.ServiceGenerator
 import com.example.mypet.models.MedicalRecord
 import com.example.mypet.models.Pet
-import com.example.mypet.models.Vaccination
-import com.example.mypet.models.requests.PetPostRequest
 import com.example.mypet.models.requests.SetPetAsMissingRequest
 import com.example.mypet.models.responses.PetGetResponse
 import com.example.mypet.models.responses.PetsGetResponse
