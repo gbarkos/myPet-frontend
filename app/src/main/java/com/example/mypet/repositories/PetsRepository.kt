@@ -36,6 +36,7 @@ object PetsRepository {
     private var statusFromUpdate: String = ""
     private var statusFromSetPetAsMissing: String = ""
     private var statusFromSetPetAsFound: String = ""
+    private var statusFromNewPet: String = ""
     private val failureMessageFromNewPet: SingleLiveEvent<String> = SingleLiveEvent()
 
     private var _loadState = MutableLiveData<Event<NetworkLoadingState>>()
@@ -46,6 +47,9 @@ object PetsRepository {
         return statusFromUpdate
     }
 
+    fun getStatusFromNewPet(): String{
+        return statusFromNewPet
+    }
     fun getStatusFromSetPetAsMissing(): String{
         return statusFromSetPetAsMissing
     }
@@ -118,25 +122,42 @@ object PetsRepository {
                   breed : String,
                   sex : String,
                   weight : String?,
-                  height : String?) {
+                  height : String?,
+                  species : String,
+                  callback : () -> Unit) {
         val dataSource = ServiceGenerator
         //Log.i(PetsRepository.TAG, "Pet response: Call started")
         dataSource.getMyPetApi()
-            .newPet(PetPostRequest(id, name, birthdate, colour, distinguishingMarks, breed, sex, weight, height, false ))
+            .newPet(PetPostRequest(id, name, birthdate, colour, distinguishingMarks, breed, sex, weight, height, species,false ))
             .enqueue(object : Callback<PetGetResponse> {
                 override fun onResponse(
                     call: Call<PetGetResponse>,
                     response: Response<PetGetResponse>
                 ) {
                     if (response.isSuccessful && response.body() != null) {
-                        //Log.i(petsRepository.TAG, "onResponse: Response Successful")
+                        statusFromNewPet = ""
+                        Log.i(TAG, "onResponse: Response Successful")
                         petGetResponse.postValue(response.body())
-                        _loadState.value = Event(NetworkLoadingState.OnSuccess)
+                        callback()
+                    } else {
+                        try {
+                            val responseObj: ErrorResponse = UserAuthRepository.gson.fromJson(
+                                response.errorBody()?.string(),
+                                ErrorResponse::class.java
+                            )
+                            Log.d("FAILURE MESSAGE", "Failed to add pet")
+                            statusFromNewPet = responseObj.status
+                            callback()
+                        } catch (e: Exception) {
+                            statusFromNewPet = "Something went wrong"
+                            Log.d("IN CATCH", e.message.toString())
+                            callback()
+                        }
                     }
                 }
                 override fun onFailure(call: Call<PetGetResponse>, t: Throwable) {
                     //Log.i(PetsRepository.TAG, "onFailure: " + t.message)
-                    _loadState.value = Event(NetworkLoadingState.OnError(t.message.toString()))
+                  callback()
                 }
             })
     }

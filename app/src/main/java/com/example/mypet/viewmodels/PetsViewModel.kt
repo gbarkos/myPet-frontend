@@ -66,9 +66,23 @@ class PetsViewModel : ViewModel() {
         return PetsRepository.getStatusFromUpdate()
     }
 
+    fun getStatusFromNewPet(): String?{
+        return PetsRepository.getStatusFromNewPet()
+    }
+
     fun addPet(id : String?, name : String, birthdate : String, colour : String, distinguishingMarks : String?,
-               breed : String, sex : String, weight : String?, height : String?){
-        petsRepository.addNewPet(id, name, birthdate, colour, distinguishingMarks, breed, sex, weight, height)
+               breed : String, sex : String, weight : String?, height : String?, species: String){
+        authListener?.OnStarted()
+        viewModelScope.launch {
+            petsRepository.addNewPet(id, name, birthdate, colour, distinguishingMarks, breed, sex, weight, height, species, fun() {
+                if(getStatusFromNewPet().toString() == "fail"){
+                    var errors = mutableListOf<Int>()
+                    authListener?.OnFailure(errors)
+                }else{
+                    authListener?.OnSuccess()
+                }
+            })
+        }
     }
 
     fun updatePet(id : String?,
@@ -87,6 +101,7 @@ class PetsViewModel : ViewModel() {
                     height : String?,
                     photo: String?,
                     _id : String?){
+        authListener?.OnStarted() //TODO
         viewModelScope.launch{
             petsRepository.updatePet(id, distinguishingMarks, weight, height, photo, _id, fun(){
                 if(getStatusFromUpdate().toString() == "fail"){

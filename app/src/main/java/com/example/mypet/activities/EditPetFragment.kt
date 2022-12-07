@@ -45,6 +45,7 @@ class EditPetFragment : Fragment(R.layout.fragment_edit_pet), AuthFunctions {
                 populateViews(it)
             }
         }
+        dialog = testDialog()
 
         binding.choosePetProfilePic.setOnClickListener{
             observer.selectImage()
@@ -119,28 +120,7 @@ class EditPetFragment : Fragment(R.layout.fragment_edit_pet), AuthFunctions {
                 var photo = path
                 var _id = viewmodel._id
 
-                dialog = testDialog()
-                viewmodel.updatePet(id, distinguishingMarks, weight, height, photo, _id)
-               /* viewmodel.getLoadStateFromRepo().observe(viewLifecycleOwner, EventObserver {
-                    when (it) {
-                        is NetworkLoadingState.OnLoading -> {
-                           Log.d("Loading", "Loading...")
-                        }
-                        is NetworkLoadingState.OnSuccess -> {
-                            val intent = Intent (getActivity(), MainContentActivity::class.java)
-                            activity?.startActivity(intent)
-                            activity?.finish()
-
-                          *//*  petInfoFragment = PetInfoFragment()
-                            val transaction = activity?.supportFragmentManager?.beginTransaction()
-                            transaction?.replace(R.id.navigationFragmentContainer, petInfoFragment)
-                            transaction?.disallowAddToBackStack()
-                            transaction?.commit()*//*
-                        }
-                        is NetworkLoadingState.OnError -> {
-                            Log.d("Loading", it.message)
-                        }
-                    }})*/
+                viewmodel.doUpdatePet(id, distinguishingMarks, weight, height, photo, _id)
             }
         }
     }
@@ -165,10 +145,13 @@ class EditPetFragment : Fragment(R.layout.fragment_edit_pet), AuthFunctions {
         dialog.dismiss()
         val intent = Intent (getActivity(), MainContentActivity::class.java)
         activity?.startActivity(intent)
+        Toast.makeText(context, "Επιτυχής επεξεργασία κατοικίδιου", Toast.LENGTH_LONG).show()
     }
 
     override fun OnFailure(errorCode: MutableList<Int>?) {
+        dialog.dismiss()
         Log.d("Update pet fragment", "Error")
+        Toast.makeText(context, "Αδυναμία επεξεργασίας κατοικίδιου", Toast.LENGTH_LONG).show()
 
     }
 

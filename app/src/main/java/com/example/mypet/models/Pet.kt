@@ -14,5 +14,6 @@ data class Pet(
     val medicalRecord : MedicalRecord,
     val owner: String,
     val _id: String,
+    var species : String,
     val isMissing : Boolean
 )

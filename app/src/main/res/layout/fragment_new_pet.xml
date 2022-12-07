@@ -94,6 +94,38 @@
                             </com.google.android.material.textfield.TextInputLayout>
 
                             <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/newPetSpeciesHint"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:hint="Είδος"
+                                app:boxBackgroundColor="@color/white"
+                                app:boxStrokeColor="@color/black"
+                                app:boxStrokeWidth="1dp"
+                                app:errorEnabled="true"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/newPetNameHint"
+                                app:layout_constraintWidth_percent="0.95"
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+                                <AutoCompleteTextView
+                                    android:id="@+id/newPetSpecies"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:inputType="none"
+                                    android:textColor="@color/black"/>
+
+
+
+                                <!--                                <com.google.android.material.textfield.TextInputEditText-->
+                                <!--                                    android:id="@+id/newPetSex"-->
+                                <!--                                    android:layout_width="match_parent"-->
+                                <!--                                    android:layout_height="wrap_content"-->
+                                <!--                                    android:minWidth="100dp"-->
+                                <!--                                    android:textColor="@color/black"-->
+                                <!--                                    android:textSize="15dp" />-->
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <com.google.android.material.textfield.TextInputLayout
                                 android:id="@+id/newPetBirthdateHint"
                                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                                 android:layout_width="0dp"
@@ -107,7 +139,7 @@
                                 app:startIconCheckable="true"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@+id/newPetNameHint"
+                                app:layout_constraintTop_toBottomOf="@+id/newPetSpeciesHint"
                                 app:layout_constraintWidth_percent="0.95">
 
                                 <com.google.android.material.textfield.TextInputEditText

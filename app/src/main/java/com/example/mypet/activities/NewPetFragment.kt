@@ -3,6 +3,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.view.View
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
@@ -10,23 +11,25 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.mypet.R
 import com.example.mypet.databinding.FragmentNewPetBinding
+import com.example.mypet.utils.AuthFunctions
 import com.example.mypet.utils.EventObserver
 import com.example.mypet.utils.NetworkLoadingState
 import com.example.mypet.utils.getShortDate
 import com.example.mypet.viewmodels.PetsViewModel
 import com.google.android.material.datepicker.MaterialDatePicker
 
-class NewPetFragment : Fragment(R.layout.fragment_new_pet) {
+class NewPetFragment : Fragment(R.layout.fragment_new_pet), AuthFunctions {
     private lateinit var viewmodel: PetsViewModel
     private lateinit var binding: FragmentNewPetBinding
-    lateinit var dialog : LoadingDialogFragment
+    lateinit var dialog : testDialog
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?){
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentNewPetBinding.bind(view)
         viewmodel = ViewModelProvider(requireActivity())[PetsViewModel::class.java]
         //binding.petsviewmodel = viewmodel
-        dialog = LoadingDialogFragment(activity)
+        dialog = testDialog()
+        viewmodel.authListener = this
 
         //Date Picker
         val datePicker =
@@ -50,6 +53,12 @@ class NewPetFragment : Fragment(R.layout.fragment_new_pet) {
             requireContext(), android.R.layout.simple_spinner_dropdown_item, listOf("Αρσενικό", "Θηλυκό")
         )
         binding.newPetSex.setAdapter(adapter)
+
+        var speciesAdapter = ArrayAdapter(
+            requireContext(), android.R.layout.simple_spinner_dropdown_item, listOf("Σκύλος", "Γάτα")
+        )
+        binding.newPetSpecies.setAdapter(speciesAdapter)
+
         // error listeners
         binding.newPetBirthdate.doOnTextChanged { text, start, before, count ->
             if(!text.isNullOrEmpty()) binding.newPetBirthdateHint.error = null
@@ -57,6 +66,10 @@ class NewPetFragment : Fragment(R.layout.fragment_new_pet) {
 
         binding.newPetSex.doOnTextChanged { text, start, before, count ->
             if(!text.isNullOrEmpty()) binding.newPetSexHint.error = null
+        }
+
+        binding.newPetSpecies.doOnTextChanged { text, start, before, count ->
+            if(!text.isNullOrEmpty()) binding.newPetSpecies.error = null
         }
 
         binding.newPetBreed.doOnTextChanged { text, start, before, count ->
@@ -95,13 +108,17 @@ class NewPetFragment : Fragment(R.layout.fragment_new_pet) {
                 binding.newPetSexHint.error = "Παρακαλώ επιλέξτε φύλο"
                 errorCounter++
             }
+            if(binding.newPetSpecies.text.isNullOrEmpty()){
+                binding.newPetSpeciesHint.error = "Παρακαλώ επιλέξτε είδος"
+                errorCounter++
+            }
 
             if(errorCounter == 0){
                 var name = binding.newPetName.text.toString();
                 var birthdate = binding.newPetBirthdate.text.toString();
                 var sex = binding.newPetSex.text.toString();
                 var breed = binding.newPetBreed.text.toString();
-
+                var species = binding.newPetSpecies.text.toString()
                 var id = binding.newPetID.text.toString()
                 var color = binding.newPetColor.text.toString();
                 var height = binding.newPetHeight.text.toString();
@@ -109,25 +126,26 @@ class NewPetFragment : Fragment(R.layout.fragment_new_pet) {
                 var marks = binding.newPetDistinguishingMarks.text.toString();
 
 
-                viewmodel.addPet(id, name, birthdate, color, marks, breed, sex, weight, height)
-                viewmodel.getLoadStateFromRepo().observe(viewLifecycleOwner, EventObserver {
-                    when (it) {
-                        is NetworkLoadingState.OnLoading -> {
-                            println("Loading...")
-                            binding.newPetLoadingBar.visibility = View.VISIBLE
-
-                        }
-                        is NetworkLoadingState.OnSuccess -> {
-                            binding.newPetLoadingBar.visibility = View.INVISIBLE
-                            findNavController().navigate(R.id.action_newPetFragment_to_petsFragment)
-                        }
-                        is NetworkLoadingState.OnError -> {
-                            binding.newPetLoadingBar.visibility = View.INVISIBLE
-                            println(it.message)
-                        }
-                    }})
+                viewmodel.addPet(id, name, birthdate, color, marks, breed, sex, weight, height, species)
             }
         }
+    }
+
+    override fun OnStarted() {
+        dialog.show(parentFragmentManager, "")
+    }
+
+    override fun OnSuccess() {
+        dialog.dismiss()
+        binding.newPetLoadingBar.visibility = View.INVISIBLE
+        findNavController().navigate(R.id.action_newPetFragment_to_petsFragment)
+        Toast.makeText(context, "Επιτυχής προσθήκη κατοικίδιου", Toast.LENGTH_LONG).show()
+    }
+
+    override fun OnFailure(errorCode: MutableList<Int>?) {
+        dialog.dismiss()
+        Toast.makeText(context, "Αδυναμία προσθήκης κατοικίδιου", Toast.LENGTH_LONG).show()
+
     }
 }
 
