@@ -15,9 +15,11 @@ import com.example.mypet.R
 import com.example.mypet.databinding.FragmentNewSurgeryBinding
 import com.example.mypet.databinding.FragmentNewTreatmentBinding
 import com.example.mypet.databinding.FragmentNewVermifugationBinding
+import com.example.mypet.models.Vet
 import com.example.mypet.utils.*
 import com.example.mypet.viewmodels.MedicalRecordViewModel
 import com.google.android.material.datepicker.MaterialDatePicker
+import com.google.gson.Gson
 
 class NewSurgeryFragment : Fragment(R.layout.fragment_new_surgery), AuthFunctions {
 
@@ -83,7 +85,14 @@ class NewSurgeryFragment : Fragment(R.layout.fragment_new_surgery), AuthFunction
                 var date = binding.newSurgeryDate.text.toString()
                 var medicalRecordId = arguments?.getString("recordId")
 
-                viewmodel.addSurgery(medicalRecordId, name, date)
+                var stringVet = SharedPreferencesUtil.getVetData()
+                if(!stringVet.isNullOrEmpty()) {
+                    var gson = Gson()
+                    var vet = gson.fromJson(stringVet, Vet::class.java)
+                    viewmodel.addSurgery(medicalRecordId, name, date, vet)
+                }else{
+                    viewmodel.addSurgery(medicalRecordId, name, date)
+                }
             }
         }
     }

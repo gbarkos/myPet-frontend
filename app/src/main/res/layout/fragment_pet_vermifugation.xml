@@ -212,16 +212,6 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/petAddVermifugationNotification"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="30dp"
-                android:contentDescription="Προσθήκη Αντιπαρασιτικής Θεραπείας"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:srcCompat="@drawable/ic_baseline_notifications_24" />
-
         </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
 

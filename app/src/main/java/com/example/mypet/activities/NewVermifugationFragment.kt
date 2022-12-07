@@ -135,7 +135,17 @@ class NewVermifugationFragment : Fragment(R.layout.fragment_new_vermifugation), 
                 var expirationDate = binding.newVermifugationExpirationDate.text.toString();
                 var medicalRecordId = arguments?.getString("recordId")
 
-                viewmodel.addVermifugation(medicalRecordId, manufacturer, name, expirationDate, vermifugationDate, validUntil)
+                var stringVet = SharedPreferencesUtil.getVetData()
+                if(!stringVet.isNullOrEmpty()) {
+                    var gson = Gson()
+                    var vet = gson.fromJson(stringVet, Vet::class.java)
+                    viewmodel.addVermifugation(medicalRecordId, manufacturer, name, expirationDate,
+                        vermifugationDate, validUntil, vet)
+
+                }else{
+                    viewmodel.addVermifugation(medicalRecordId, manufacturer, name, expirationDate,
+                        vermifugationDate, validUntil)
+                }
             }
         }
     }

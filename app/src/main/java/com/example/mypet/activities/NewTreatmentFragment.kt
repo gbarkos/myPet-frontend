@@ -14,10 +14,12 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.mypet.R
 import com.example.mypet.databinding.FragmentNewTreatmentBinding
 import com.example.mypet.databinding.FragmentNewVermifugationBinding
+import com.example.mypet.models.Vet
 import com.example.mypet.utils.*
 import com.example.mypet.viewmodels.MedicalRecordViewModel
 import com.google.android.gms.auth.api.Auth
 import com.google.android.material.datepicker.MaterialDatePicker
+import com.google.gson.Gson
 
 class NewTreatmentFragment : Fragment(R.layout.fragment_new_treatment), AuthFunctions { //TODO
 
@@ -126,7 +128,14 @@ class NewTreatmentFragment : Fragment(R.layout.fragment_new_treatment), AuthFunc
                 var frequency = binding.newTreatmentFrequency.text.toString()
                 var medicalRecordId = arguments?.getString("recordId")
 
-                viewmodel.addTreatment(medicalRecordId, medicine, disease, startDate, endDate, frequency)
+                var stringVet = SharedPreferencesUtil.getVetData()
+                if(!stringVet.isNullOrEmpty()) {
+                    var gson = Gson()
+                    var vet = gson.fromJson(stringVet, Vet::class.java)
+                    viewmodel.addTreatment(medicalRecordId, medicine, disease, startDate, endDate, frequency, vet)
+                }else{
+                    viewmodel.addTreatment(medicalRecordId, medicine, disease, startDate, endDate, frequency)
+                }
             }
         }
     }

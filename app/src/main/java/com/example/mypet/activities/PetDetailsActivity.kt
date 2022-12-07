@@ -1,5 +1,8 @@
 package com.example.mypet.activities
 
+import android.app.Activity
+import android.content.SharedPreferences
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -21,6 +24,7 @@ import com.example.mypet.databinding.ActivityPetDetailsBinding
 import com.example.mypet.databinding.FragmentPetInfoBinding
 import com.example.mypet.models.Pet
 import com.example.mypet.models.Vaccination
+import com.example.mypet.utils.SharedPreferencesUtil
 import com.example.mypet.viewmodels.PetsViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
@@ -33,16 +37,20 @@ class PetDetailsActivity: AppCompatActivity() {
     private val vermifugationsFragment = VermifugationsFragment()
     private val moreMenuFragment = MoreMenuFragment()
     private lateinit var bottomNavigationView: BottomNavigationView
+    private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pet_details)
-
+        sharedPreferences = getSharedPreferences(
+            packageName,
+            Activity.MODE_PRIVATE
+        )
         binding = ActivityPetDetailsBinding.inflate(layoutInflater)
         viewmodel = ViewModelProvider(this)[PetsViewModel::class.java]
         binding.petsviewmodelDetails = viewmodel
         viewmodel._id = this.intent.extras?.getString("petID") //pass the id to the viewmodel, so that we can call requestPet(:id)
-
+        adjustViewForVet()
         replaceFragment(petInfoFragment)
 
         bottomNavigationView = findViewById(R.id.bottomNavigationView)
@@ -72,6 +80,14 @@ class PetDetailsActivity: AppCompatActivity() {
             return@setOnItemSelectedListener true
         }
    }
+    private fun adjustViewForVet(){
+        var stringVet = SharedPreferencesUtil.getVetData()
+        if(!stringVet.isNullOrEmpty()) {
+            binding.apply {
+                bottomNavigationView.itemTextColor = ColorStateList.valueOf(resources.getColor(R.color.vet_blue))
+            }
+        }
+    }
 
     private fun replaceFragment(fragment: Fragment){
         if(fragment != null){
