@@ -7,8 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.mypet.models.*
 import com.example.mypet.models.responses.MedicalRecordPatchResponse
 import com.example.mypet.repositories.MedicalRecordRepository
-import com.example.mypet.repositories.PetsRepository
-import com.example.mypet.utils.AuthFunctions
+import com.example.mypet.utils.ResponseFunctions
 import com.example.mypet.utils.Event
 import com.example.mypet.utils.NetworkLoadingState
 import kotlinx.coroutines.launch
@@ -20,7 +19,7 @@ class MedicalRecordViewModel : ViewModel() {
     lateinit var treatments : List<Treatment>
     lateinit var surgeries : List<Surgery>
     lateinit var diagnosticTests : List<DiagnosticTest>
-    var authListener: AuthFunctions? = null
+    var responseListener: ResponseFunctions? = null
 
     private val medicalRecordRepository : MedicalRecordRepository = MedicalRecordRepository
 
@@ -43,13 +42,13 @@ class MedicalRecordViewModel : ViewModel() {
 
     fun addVaccination (medicalRecordId : String?, batchNumber : String?, manufacturer : String, name : String, expirationDate : String?,
                          vaccinationDate : String, validUntil : String, vet : Vet? = null){
-        authListener?.OnStarted()
+        responseListener?.OnStarted()
         viewModelScope.launch{
             medicalRecordRepository.addVaccination(medicalRecordId, batchNumber, manufacturer, name, expirationDate, vaccinationDate, validUntil, vet, fun(){
                 if(getStatusFromUpdateRecord().toString() == "fail"){
-                    authListener?.OnFailure(null)
+                    responseListener?.OnFailure(null)
                 }else{
-                    authListener?.OnSuccess()
+                    responseListener?.OnSuccess()
                 }
             })
         }
@@ -57,13 +56,13 @@ class MedicalRecordViewModel : ViewModel() {
 
     fun addVermifugation (medicalRecordId : String?, manufacturer : String, name : String, expirationDate : String?,
                         vermifugationDate : String, validUntil : String, vet : Vet? = null) {
-        authListener?.OnStarted()
+        responseListener?.OnStarted()
         viewModelScope.launch{
             medicalRecordRepository.addVermifugation(medicalRecordId, manufacturer, name, expirationDate, vermifugationDate, validUntil, vet, fun(){
                 if(getStatusFromUpdateRecord().toString() == "fail"){
-                    authListener?.OnFailure(null)
+                    responseListener?.OnFailure(null)
                 }else{
-                    authListener?.OnSuccess()
+                    responseListener?.OnSuccess()
                 }
             })
         }
@@ -71,26 +70,26 @@ class MedicalRecordViewModel : ViewModel() {
 
     fun addTreatment(medicalRecordId : String?, medicine : String, disease : String, startOfTreatment : String,
                      endOfTreatment : String, frequency : String, vet : Vet? = null) {
-        authListener?.OnStarted()
+        responseListener?.OnStarted()
         viewModelScope.launch{
             medicalRecordRepository.addTreatment(medicalRecordId, medicine, disease, startOfTreatment, endOfTreatment, frequency, vet, fun(){
                 if(getStatusFromUpdateRecord().toString() == "fail"){
-                    authListener?.OnFailure(null)
+                    responseListener?.OnFailure(null)
                 }else{
-                    authListener?.OnSuccess()
+                    responseListener?.OnSuccess()
                 }
             })
         }
     }
 
     fun addSurgery(medicalRecordId : String?, name : String, date : String, vet : Vet? = null) {
-        authListener?.OnStarted()
+        responseListener?.OnStarted()
         viewModelScope.launch{
             medicalRecordRepository.addSurgery(medicalRecordId, name, date, vet, fun(){
                 if(getStatusFromUpdateRecord().toString() == "fail"){
-                    authListener?.OnFailure(null)
+                    responseListener?.OnFailure(null)
                 }else{
-                    authListener?.OnSuccess()
+                    responseListener?.OnSuccess()
                 }
             })
         }
@@ -98,13 +97,13 @@ class MedicalRecordViewModel : ViewModel() {
     }
 
     fun addDiagnosticTest(medicalRecordId : String?, name : String, date : String, result: String, vet : Vet? = null) {
-        authListener?.OnStarted()
+        responseListener?.OnStarted()
         viewModelScope.launch{
             medicalRecordRepository.addDiagnosticTest(medicalRecordId, name, date, result, vet, fun(){
                 if(getStatusFromUpdateRecord().toString() == "fail"){
-                    authListener?.OnFailure(null)
+                    responseListener?.OnFailure(null)
                 }else{
-                    authListener?.OnSuccess()
+                    responseListener?.OnSuccess()
                 }
             })
         }

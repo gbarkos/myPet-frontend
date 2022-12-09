@@ -6,7 +6,7 @@ import android.os.Bundle
 import androidx.fragment.app.DialogFragment
 import com.example.mypet.R
 
-class testDialog : DialogFragment(){
+class LoadingCircleDialog : DialogFragment(){
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return activity?.let {

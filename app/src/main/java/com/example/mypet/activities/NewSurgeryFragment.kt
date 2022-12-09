@@ -13,21 +13,19 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.mypet.R
 import com.example.mypet.databinding.FragmentNewSurgeryBinding
-import com.example.mypet.databinding.FragmentNewTreatmentBinding
-import com.example.mypet.databinding.FragmentNewVermifugationBinding
 import com.example.mypet.models.Vet
 import com.example.mypet.utils.*
 import com.example.mypet.viewmodels.MedicalRecordViewModel
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.gson.Gson
 
-class NewSurgeryFragment : Fragment(R.layout.fragment_new_surgery), AuthFunctions {
+class NewSurgeryFragment : Fragment(R.layout.fragment_new_surgery), ResponseFunctions {
 
     private lateinit var viewmodel: MedicalRecordViewModel
     private lateinit var binding: FragmentNewSurgeryBinding
     private val surgeriesFragment = SurgeriesFragment()
     private lateinit var sharedPreferences: SharedPreferences
-    lateinit var dialog : testDialog
+    lateinit var dialog : LoadingCircleDialog
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?){
         super.onViewCreated(view, savedInstanceState)
@@ -37,8 +35,8 @@ class NewSurgeryFragment : Fragment(R.layout.fragment_new_surgery), AuthFunction
         )
         binding = FragmentNewSurgeryBinding.bind(view)
         viewmodel = ViewModelProvider(requireActivity())[MedicalRecordViewModel::class.java]
-        viewmodel.authListener = this
-        dialog = testDialog()
+        viewmodel.responseListener = this
+        dialog = LoadingCircleDialog()
         adjustViewForVet()
         //Surgery Date Picker
         val datePicker =

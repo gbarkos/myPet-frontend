@@ -6,13 +6,13 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.mypet.R
 import com.example.mypet.databinding.FragmentMissingPetBinding
-import com.example.mypet.utils.AuthFunctions
+import com.example.mypet.utils.ResponseFunctions
 import com.example.mypet.viewmodels.PetsViewModel
 
-class SetMissingFragment : Fragment(R.layout.fragment_missing_pet), AuthFunctions {
+class SetMissingFragment : Fragment(R.layout.fragment_missing_pet), ResponseFunctions {
     private lateinit var binding: FragmentMissingPetBinding
     private lateinit var viewmodel: PetsViewModel
-    lateinit var dialog : testDialog
+    lateinit var dialog : LoadingCircleDialog
     lateinit var missingDialog : MissingPetSubmitDialog
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -21,8 +21,8 @@ class SetMissingFragment : Fragment(R.layout.fragment_missing_pet), AuthFunction
         binding = FragmentMissingPetBinding.bind(view)
         viewmodel = ViewModelProvider(requireActivity())[PetsViewModel::class.java]
         binding.petsviewmodelMissing = viewmodel
-        viewmodel.authListener = this   //assign authlistener
-        dialog = testDialog()
+        viewmodel.responseListener = this   //assign responseListener
+        dialog = LoadingCircleDialog()
 
         binding.submitMissingBtn.setOnClickListener {
             var cellphone = binding.mobileInput.text.toString()

@@ -19,6 +19,7 @@ object UserAuthRepository {
     private const val TAG = "AuthRepository"
     val gson = Gson()
     private var statusFromLogin: String = ""
+    private var statusFromRegister: String = ""
 
     private var statusFromUpdate: String = ""
     private val updateUserResponse : SingleLiveEvent<UserGetResponse> = SingleLiveEvent();
@@ -44,16 +45,17 @@ object UserAuthRepository {
         return userMyProfileResponse;
     }
 
-    private val failureMessageFromRegister: SingleLiveEvent<String> = SingleLiveEvent()
-
-    fun getFailureMessageFromRegister(): SingleLiveEvent<String>{
-        return failureMessageFromRegister
+    fun getStatusFromRegister(): String{
+        return statusFromRegister
     }
+
     fun getStatusFromLogin(): String{
         return statusFromLogin
     }
 
-    fun requestToRegister(username: String, password: String, confirmPassword: String, name: String, surname: String, email: String, phoneNumber: String, address: String) {
+    fun requestToRegister(username: String, password: String, confirmPassword: String, name: String,
+                          surname: String, email: String, phoneNumber: String, address: String, callback : () -> Unit) {
+
         val dataSource = ServiceGenerator
 
         Log.i(TAG, "registerUser: Call is started")
@@ -68,15 +70,19 @@ object UserAuthRepository {
                     if (response.isSuccessful && response.body() != null) {
                         Log.i(TAG, "onResponse: Response Successful")
                         userRegisterResponse.postValue(response.body())
+                        statusFromRegister = ""
+                        callback()
                     } else {
                         try {
                             val responseObj: ErrorResponse = gson.fromJson(
                                 response.errorBody()?.string(),
                                 ErrorResponse::class.java
                             )
-                            failureMessageFromRegister.postValue(responseObj.message)
+                            statusFromRegister = responseObj.status
+                            callback()
                         } catch (e: Exception) {
-                            failureMessageFromRegister.postValue("Something Went Wrong")
+                            statusFromRegister = "Κάτι πήγε λάθος"
+                            callback()
                         }
                     }
                 }

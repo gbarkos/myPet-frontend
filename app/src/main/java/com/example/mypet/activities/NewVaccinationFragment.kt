@@ -6,32 +6,27 @@ import android.content.res.ColorStateList
 import android.os.Bundle
 import android.text.Editable
 import android.view.View
-import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import com.example.mypet.R
-import com.example.mypet.databinding.FragmentNewPetBinding
 import com.example.mypet.databinding.FragmentNewVaccinationBinding
 import com.example.mypet.models.Vet
 import com.example.mypet.utils.*
 import com.example.mypet.viewmodels.MedicalRecordViewModel
-import com.example.mypet.viewmodels.PetsViewModel
 import com.example.mypet.viewmodels.VetViewModel
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.gson.Gson
-import java.util.*
 
-class NewVaccinationFragment : Fragment(R.layout.fragment_new_vaccination), AuthFunctions {
+class NewVaccinationFragment : Fragment(R.layout.fragment_new_vaccination), ResponseFunctions {
 
     private lateinit var viewmodel: MedicalRecordViewModel
     private lateinit var vetViewModel: VetViewModel
     private lateinit var binding: FragmentNewVaccinationBinding
     private val vaccinationsFragment = VaccinationsFragment()
-    lateinit var dialog : testDialog
+    lateinit var dialog : LoadingCircleDialog
     private lateinit var sharedPreferences: SharedPreferences
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?){
@@ -39,8 +34,8 @@ class NewVaccinationFragment : Fragment(R.layout.fragment_new_vaccination), Auth
         binding = FragmentNewVaccinationBinding.bind(view)
         viewmodel = ViewModelProvider(requireActivity())[MedicalRecordViewModel::class.java]
         vetViewModel = ViewModelProvider(requireActivity())[VetViewModel::class.java]
-        viewmodel.authListener = this
-        //vetViewModel.authListener = this
+        viewmodel.responseListener = this
+        //vetViewModel.responseListener = this
 
         sharedPreferences = requireActivity().getSharedPreferences(
             requireActivity().packageName,
@@ -48,7 +43,7 @@ class NewVaccinationFragment : Fragment(R.layout.fragment_new_vaccination), Auth
         )
         adjustViewForVet()
 
-        dialog = testDialog()
+        dialog = LoadingCircleDialog()
 
        // vetViewModel.getVetProfile()
 

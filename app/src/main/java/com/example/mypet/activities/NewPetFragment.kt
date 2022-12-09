@@ -4,32 +4,29 @@ import android.text.Editable
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Toast
-import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.mypet.R
 import com.example.mypet.databinding.FragmentNewPetBinding
-import com.example.mypet.utils.AuthFunctions
-import com.example.mypet.utils.EventObserver
-import com.example.mypet.utils.NetworkLoadingState
+import com.example.mypet.utils.ResponseFunctions
 import com.example.mypet.utils.getShortDate
 import com.example.mypet.viewmodels.PetsViewModel
 import com.google.android.material.datepicker.MaterialDatePicker
 
-class NewPetFragment : Fragment(R.layout.fragment_new_pet), AuthFunctions {
+class NewPetFragment : Fragment(R.layout.fragment_new_pet), ResponseFunctions {
     private lateinit var viewmodel: PetsViewModel
     private lateinit var binding: FragmentNewPetBinding
-    lateinit var dialog : testDialog
+    lateinit var dialog : LoadingCircleDialog
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?){
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentNewPetBinding.bind(view)
         viewmodel = ViewModelProvider(requireActivity())[PetsViewModel::class.java]
         //binding.petsviewmodel = viewmodel
-        dialog = testDialog()
-        viewmodel.authListener = this
+        dialog = LoadingCircleDialog()
+        viewmodel.responseListener = this
 
         //Date Picker
         val datePicker =

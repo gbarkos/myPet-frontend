@@ -9,22 +9,22 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.mypet.R
 import com.example.mypet.databinding.FragmentSettingsBinding
-import com.example.mypet.utils.AuthFunctions
-import com.example.mypet.viewmodels.UserAuthViewModel
+import com.example.mypet.utils.ResponseFunctions
+import com.example.mypet.viewmodels.UserViewModel
 
-class SettingsFragment: Fragment(R.layout.fragment_settings), AuthFunctions {
+class SettingsFragment: Fragment(R.layout.fragment_settings), ResponseFunctions {
     private lateinit var binding: FragmentSettingsBinding
-    private lateinit var viewmodel: UserAuthViewModel
-    lateinit var dialog : testDialog
+    private lateinit var viewmodel: UserViewModel
+    lateinit var dialog : LoadingCircleDialog
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         binding = FragmentSettingsBinding.bind(view)
-        viewmodel = ViewModelProvider(requireActivity())[UserAuthViewModel::class.java]
+        viewmodel = ViewModelProvider(requireActivity())[UserViewModel::class.java]
         binding.userviewmodel = viewmodel
-        viewmodel.authListener = this   //assign authlistener
-        dialog = testDialog()
+        viewmodel.responseListener = this   //assign responseListener
+        dialog = LoadingCircleDialog()
 
         viewmodel.getProfile()
         viewmodel.getUserProfileDataFromRepo().observe(requireActivity(), {

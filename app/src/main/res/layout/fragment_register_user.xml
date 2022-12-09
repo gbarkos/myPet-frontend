@@ -4,7 +4,7 @@
     <data>
         <variable
             name="userregisterviewmodel"
-            type="com.example.mypet.viewmodels.UserAuthViewModel"/>
+            type="com.example.mypet.viewmodels.UserViewModel"/>
     </data>
 
 
@@ -48,6 +48,7 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
+
             <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
@@ -55,11 +56,11 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    >
+                    android:layout_height="match_parent">
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/usernameInput"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
@@ -67,25 +68,25 @@
                         app:boxBackgroundColor="@color/white"
                         app:boxStrokeColor="@color/black"
                         app:boxStrokeWidth="1dp"
+                        app:errorEnabled="true"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintWidth_percent="0.70"
-                        app:errorEnabled="true"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                        app:layout_constraintWidth_percent="0.70">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/registerUsername"
-                            android:text="@={userregisterviewmodel.username}"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:minWidth="100dp"
+                            android:text="@={userregisterviewmodel.username}"
                             android:textColor="@color/black"
                             android:textSize="15dp" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/emailInput"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
@@ -93,129 +94,25 @@
                         app:boxBackgroundColor="@color/white"
                         app:boxStrokeColor="@color/black"
                         app:boxStrokeWidth="1dp"
+                        app:errorEnabled="true"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/usernameInput"
-                        app:layout_constraintWidth_percent="0.70"
-                        app:errorEnabled="true"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                        app:layout_constraintWidth_percent="0.70">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/registerEmail"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:minWidth="100dp"
                             android:text="@={userregisterviewmodel.email}"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:minWidth="100dp"
                             android:textColor="@color/black"
                             android:textSize="15dp" />
                     </com.google.android.material.textfield.TextInputLayout>
-
-                   <!-- <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/nameInput"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:hint="Όνομα"
-                        app:boxBackgroundColor="@color/white"
-                        app:boxStrokeColor="@color/black"
-                        app:boxStrokeWidth="1dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/emailInput"
-                        app:layout_constraintWidth_percent="0.70"
-                        app:errorEnabled="true"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/registerName"
-                            android:text="@={userregisterviewmodel.name}"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:minWidth="100dp"
-                            android:textColor="@color/black"
-                            android:textSize="15dp" />
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/surnameInput"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:hint="Επώνυμο"
-                        app:boxBackgroundColor="@color/white"
-                        app:boxStrokeColor="@color/black"
-                        app:boxStrokeWidth="1dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/nameInput"
-                        app:layout_constraintWidth_percent="0.70"
-                        app:errorEnabled="true"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/registerSurname"
-                            android:text="@={userregisterviewmodel.surname}"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:minWidth="100dp"
-                            android:textColor="@color/black"
-                            android:textSize="15dp" />
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/phoneInput"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:hint="Αριθμός Τηλεφώνου"
-                        app:boxBackgroundColor="@color/white"
-                        app:boxStrokeColor="@color/black"
-                        app:boxStrokeWidth="1dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/surnameInput"
-                        app:layout_constraintWidth_percent="0.70"
-                        app:errorEnabled="true"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/registerPhone"
-                            android:text="@={userregisterviewmodel.phoneNumber}"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:minWidth="100dp"
-                            android:textColor="@color/black"
-                            android:textSize="15dp" />
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/addressInput"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:hint="Διεύθυνση"
-                        app:boxBackgroundColor="@color/white"
-                        app:boxStrokeColor="@color/black"
-                        app:boxStrokeWidth="1dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/phoneInput"
-                        app:layout_constraintWidth_percent="0.70"
-                        app:errorEnabled="true"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/registerAddress"
-                            android:text="@={userregisterviewmodel.address}"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:minWidth="100dp"
-                            android:textColor="@color/black"
-                            android:textSize="15dp" />
-                    </com.google.android.material.textfield.TextInputLayout>-->
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/passwordInput"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
@@ -223,25 +120,25 @@
                         app:boxBackgroundColor="@color/white"
                         app:boxStrokeColor="@color/black"
                         app:boxStrokeWidth="1dp"
+                        app:errorEnabled="true"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/emailInput"
-                        app:layout_constraintWidth_percent="0.70"
-                        app:errorEnabled="true"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                        app:layout_constraintWidth_percent="0.70">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/registerPassword"
-                            android:text="@={userregisterviewmodel.password}"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:minWidth="100dp"
+                            android:text="@={userregisterviewmodel.password}"
                             android:textColor="@color/black"
                             android:textSize="15dp" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/confirmPasswordInput"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
@@ -249,19 +146,18 @@
                         app:boxBackgroundColor="@color/white"
                         app:boxStrokeColor="@color/black"
                         app:boxStrokeWidth="1dp"
+                        app:errorEnabled="true"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/passwordInput"
-                        app:layout_constraintWidth_percent="0.70"
-                        app:errorEnabled="true"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                        app:layout_constraintWidth_percent="0.70">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/registerConfirmPassword"
-                            android:text="@={userregisterviewmodel.confirmPassword}"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:minWidth="100dp"
+                            android:text="@={userregisterviewmodel.confirmPassword}"
                             android:textColor="@color/black"
                             android:textSize="15dp" />
                     </com.google.android.material.textfield.TextInputLayout>
@@ -270,29 +166,29 @@
                         android:id="@+id/registerButton"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:onClick="@{userregisterviewmodel::onRegisterButtonClick}"
                         android:backgroundTint="#135e52"
-                        app:cornerRadius="20dp"
+                        android:onClick="@{userregisterviewmodel::onRegisterButtonClick}"
                         android:padding="12dp"
-                        app:layout_constraintWidth_percent="0.70"
                         android:text="ΕΓΓΡΑΦΗ"
+                        app:cornerRadius="20dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/confirmPasswordInput" />
+                        app:layout_constraintTop_toBottomOf="@+id/confirmPasswordInput"
+                        app:layout_constraintWidth_percent="0.70" />
 
                     <TextView
                         android:id="@+id/textViewGoToLogin"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
                         android:text="Έχετε ήδη λογαριασμό; Συνδεθείτε τώρα!"
                         android:textColor="#135e52"
                         android:textSize="15dp"
-                        android:layout_marginTop="15dp"
-                        android:layout_marginBottom="15dp"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/registerButton"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent" />
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/registerButton"
+                        app:layout_constraintVertical_bias="1.0" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </ScrollView>
 

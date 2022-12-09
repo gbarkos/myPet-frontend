@@ -12,27 +12,33 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.mypet.R
 import com.example.mypet.databinding.FragmentLoginUserBinding
-import com.example.mypet.utils.AuthFunctions
+import com.example.mypet.utils.ResponseFunctions
 import com.example.mypet.utils.SharedPreferencesUtil
-import com.example.mypet.viewmodels.UserAuthViewModel
+import com.example.mypet.viewmodels.UserViewModel
 
-class UserLoginFragment: Fragment(R.layout.fragment_login_user), AuthFunctions {
+class UserLoginFragment: Fragment(R.layout.fragment_login_user), ResponseFunctions {
     private lateinit var binding: FragmentLoginUserBinding;
-    private lateinit var viewmodel: UserAuthViewModel
+    private lateinit var viewmodel: UserViewModel
     private lateinit var sharedPreferences: SharedPreferences
-    lateinit var dialog : testDialog
+    lateinit var dialog : LoadingCircleDialog
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?){
         super.onViewCreated(view, savedInstanceState);
         binding = FragmentLoginUserBinding.bind(view); //viewbinding
-        viewmodel = ViewModelProvider(this)[UserAuthViewModel::class.java];
+        viewmodel = ViewModelProvider(this)[UserViewModel::class.java];
         sharedPreferences = requireActivity().getSharedPreferences(
             requireActivity().packageName,
             Activity.MODE_PRIVATE
         )
         binding.userloginviewmodel = viewmodel //databinding
-        viewmodel.authListener = this   //assign authlistener
-        dialog = testDialog()
+        viewmodel.responseListener = this   //assign responseListener
+        dialog = LoadingCircleDialog()
+
+        viewmodel.getStatusFromLoginValidation().observe(viewLifecycleOwner) {
+            if(it != null){
+                binding.textViewError.text = it
+            }
+        }
 
         binding.textViewGoToRegister.setOnClickListener() {
             navRegister()
@@ -76,7 +82,6 @@ class UserLoginFragment: Fragment(R.layout.fragment_login_user), AuthFunctions {
         binding.textViewError.visibility = View.VISIBLE
         binding.textViewError.setText("Λάθος όνομα χρήστη ή κωδικός πρόσβασης")
         dialog.dismiss()
-        Toast.makeText(context, "Wrong username or password...", Toast.LENGTH_LONG).show()
     }
 
 }

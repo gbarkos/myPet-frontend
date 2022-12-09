@@ -2,41 +2,19 @@ package com.example.mypet.viewmodels
 
 import android.util.Log
 import android.view.View
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.mypet.models.enums.RegisterErrorCodes
 import com.example.mypet.models.responses.UserGetResponse
 import com.example.mypet.models.responses.UserLoginRegisterPostResponse
 import com.example.mypet.repositories.UserAuthRepository
-import com.example.mypet.utils.AuthFunctions
+import com.example.mypet.utils.ResponseFunctions
 import com.example.mypet.utils.*
 import com.example.mypet.utils.SingleLiveEvent
 import kotlinx.coroutines.launch
 
-//ERROR CODES
-//810 -> Username must be at least 6 chars long(Login)
-//811 -> Username must not be empty(Login)
-
-//820 -> Fill all fields
-
-//910 -> Username must be at least 6 chars long
-//911 -> Username must not be empty
-
-//920 -> email address is not valid
-//921 -> email address must not be empty
-
-//930 -> phone number is not valid
-//931 -> phone number must not  be empty
-
-//940 -> First name must not be empty
-
-//950 -> Last name must not be empty
-
-//960 -> Password must be at least 8 chars
-//961 -> Passwords do not match
-
-//970 -> Address must not be empty
-
-class UserAuthViewModel: ViewModel() {
+class UserViewModel: ViewModel() {
 
     var username: String? = null
     var password: String? = null
@@ -47,7 +25,7 @@ class UserAuthViewModel: ViewModel() {
     var surname: String? = null
     var address: String? = null
     var receiveMails: Boolean? = false
-    var authListener: AuthFunctions? = null
+    var responseListener: ResponseFunctions? = null
 
     private val userAuthRepository: UserAuthRepository = UserAuthRepository
 
@@ -64,10 +42,6 @@ class UserAuthViewModel: ViewModel() {
         return userAuthRepository.getUserUpdateResponse()
     }
 
-    fun getFailureMessageFromRegister(): SingleLiveEvent<String>{
-        return userAuthRepository.getFailureMessageFromRegister()
-    }
-
     fun getUserProfileDataFromRepo(): SingleLiveEvent<UserGetResponse>{
         return userAuthRepository.getMyProfileResponse();
     }
@@ -76,12 +50,38 @@ class UserAuthViewModel: ViewModel() {
         return userAuthRepository.getStatusFromLogin()
     }
 
+    fun getStatusFromRegister(): String?{
+        return userAuthRepository.getStatusFromRegister()
+    }
+
     fun getStatusFromUpdate(): String?{
         return userAuthRepository.getStatusFromUpdate()
     }
 
+    private var statusFromLoginValidation : SingleLiveEvent<String> = SingleLiveEvent()
+    fun getStatusFromLoginValidation(): SingleLiveEvent<String> {
+        return statusFromLoginValidation
+    }
+
+    private var statusFromRegisterValidation : MutableLiveData<List<RegisterErrorCodes>> = MutableLiveData()
+    fun getStatusFromRegisterValidation() : MutableLiveData<List<RegisterErrorCodes>>{
+        return statusFromRegisterValidation
+    }
+
     fun registerUser(username: String, password: String, confirmPassword: String, name: String, surname: String, email: String, phoneNumber: String, address: String) {
-        userAuthRepository.requestToRegister(username, password, confirmPassword, name, surname, email, phoneNumber, address)
+        viewModelScope.launch {
+            userAuthRepository.requestToRegister(username, password, confirmPassword, name, surname, email, phoneNumber, address, fun (){
+                Log.d("STATUS",getStatusFromRegister().toString())
+                if(getStatusFromRegister().toString() == "fail") {
+                    responseListener?.OnFailure(null)
+                    Log.d("On Failure","failed")
+                }
+                else {
+                    responseListener?.OnSuccess()
+                }
+            })
+        }
+
     }
 
     fun getProfile(){
@@ -90,119 +90,81 @@ class UserAuthViewModel: ViewModel() {
         }
     }
 
-    fun loginUser(username:String, password: String, errorCodes:MutableList<Int>) {
+    fun loginUser(username:String, password: String) {
         viewModelScope.launch {
             userAuthRepository.requestToLogin(username, password, fun(){
                 Log.d("STATUS",getStatusFromLogin().toString())
                 if(getStatusFromLogin().toString() == "fail") {
-                    authListener?.OnFailure(errorCodes)
+                    responseListener?.OnFailure(null)
                     Log.d("On Failure","failed")
                 }
                 else {
-                    authListener?.OnSuccess()
+                    responseListener?.OnSuccess()
                 }
             })
         }
     }
 
     fun updateUserEmailPreferences(shouldReceiveEmail : Boolean){
-        authListener?.OnStarted()
+        responseListener?.OnStarted()
         viewModelScope.launch {
             userAuthRepository.requestEmailPreferencesChange(shouldReceiveEmail, fun() {
                 Log.d("STATUS",getStatusFromUpdate().toString())
                 if(getStatusFromUpdate().toString() == "fail"){
-                    authListener?.OnFailure(null)
+                    responseListener?.OnFailure(null)
                     Log.d("On Failure","failed")
                 }else{
-                    authListener?.OnSuccess()
+                    responseListener?.OnSuccess()
                 }
             })
         }
     }
 
     fun onLoginButtonClick(view: View) {
-        var errorCodes: MutableList<Int> = mutableListOf()
-        authListener?.OnStarted()
-
-        if (username.isNullOrEmpty() || password.isNullOrEmpty()) {
-            errorCodes.add(820)
-        }else {
-            if (!UsernameValidator.isValid(username.toString())) {
-                errorCodes.add(910)
-            }
+        if (username.isNullOrEmpty()){
+            return statusFromLoginValidation.postValue("Παρακαλώ εισάγετε όνομα χρήστη")
         }
-        if (errorCodes.size==0){
-            loginUser(username.toString(),password.toString(),errorCodes)
 
-        }else{
-            authListener?.OnFailure(errorCodes)
+        if(password.isNullOrEmpty()) {
+            return statusFromLoginValidation.postValue("Παρακαλώ εισάγετε κωδικό πρόσβασης")
         }
+
+        responseListener?.OnStarted()
+        loginUser(password.toString(), password.toString())
     }
 
     fun onRegisterButtonClick(view: View) {
-        var errorCodes = mutableListOf<Int>()
-
-        authListener?.OnStarted()
+        var errorCodes = mutableListOf<RegisterErrorCodes>()
+        statusFromRegisterValidation.value = errorCodes
 
         if(username.isNullOrEmpty()){
-            errorCodes.add(911)
-        }else{
-            if(!UsernameValidator.isValid(username.toString())){
-                errorCodes.add(910)
-                Log.d("HealthId", "Wrong HealthId")
-            }else{
-                Log.d("HealthId", "healthId is ok")
-            }
+            errorCodes.add(RegisterErrorCodes.MandatoryUsername)
         }
-
         if(email.isNullOrEmpty()){
-            errorCodes.add(921)
-        }else{
-            if(!EmailValidator.isValid(email.toString())){
-                errorCodes.add(920)
-                Log.d("Email", "Wrong Email")
-            }else{
-                Log.d("Email", "email is ok")
-            }
+            errorCodes.add(RegisterErrorCodes.MandatoryEmail)
         }
-
-       /* if(phoneNumber.isNullOrEmpty()){
-            errorCodes.add(931)
-        }else{
-            if(!PhoneNumberValidator.isValid(phoneNumber.toString())){
-                errorCodes.add(930)
-                Log.d("Phone Number", "Wrong Phone Number")
-            }else{
-                Log.d("Phone Number", "Phone Number is ok")
-            }
+        if(!EmailValidator.isValid(email.toString())){
+            errorCodes.add(RegisterErrorCodes.InvalidEmail)
         }
-
-        if(address.isNullOrEmpty()){
-            errorCodes.add(970)
+        if(password.isNullOrEmpty()){
+            errorCodes.add(RegisterErrorCodes.MandatoryPassword)
         }
-
-        if(name.isNullOrEmpty()){
-            errorCodes.add(940)
+        if(confirmPassword.isNullOrEmpty()){
+            errorCodes.add(RegisterErrorCodes.MandatoryConfirmPassword)
         }
-
-        if(name.isNullOrEmpty()){
-            errorCodes.add(950)
-        }*/
-
         if(!PasswordValidator.isValid(password.toString())){
-            errorCodes.add(960)
+            errorCodes.add(RegisterErrorCodes.InvalidPassword)
         }
-
         if(!PasswordConfirmValidator.isValid(password.toString(), confirmPassword.toString())){
-            errorCodes.add(961)
+            errorCodes.add(RegisterErrorCodes.PasswordsDoNotMatch)
         }
 
         if(errorCodes.size == 0){
-            authListener?.OnSuccess()
+            responseListener?.OnStarted()
             registerUser(username.toString(), password.toString(), confirmPassword.toString(),
                 "", "", email.toString(), "", "")
         }else {
-            authListener?.OnFailure(errorCodes)
+            statusFromRegisterValidation.postValue(errorCodes)
         }
     }
 }

@@ -12,7 +12,6 @@ import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.mypet.R
-import com.example.mypet.databinding.FragmentNewVaccinationBinding
 import com.example.mypet.databinding.FragmentNewVermifugationBinding
 import com.example.mypet.models.Vet
 import com.example.mypet.utils.*
@@ -20,13 +19,13 @@ import com.example.mypet.viewmodels.MedicalRecordViewModel
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.gson.Gson
 
-class NewVermifugationFragment : Fragment(R.layout.fragment_new_vermifugation), AuthFunctions {
+class NewVermifugationFragment : Fragment(R.layout.fragment_new_vermifugation), ResponseFunctions {
 
     private lateinit var viewmodel: MedicalRecordViewModel
     private lateinit var binding: FragmentNewVermifugationBinding
     private val vermifugationsFragment = VermifugationsFragment()
     private lateinit var sharedPreferences: SharedPreferences
-    lateinit var dialog : testDialog
+    lateinit var dialog : LoadingCircleDialog
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?){
         super.onViewCreated(view, savedInstanceState)
@@ -36,9 +35,9 @@ class NewVermifugationFragment : Fragment(R.layout.fragment_new_vermifugation), 
         )
         binding = FragmentNewVermifugationBinding.bind(view)
         viewmodel = ViewModelProvider(requireActivity())[MedicalRecordViewModel::class.java]
-        viewmodel.authListener = this
+        viewmodel.responseListener = this
         adjustViewForVet()
-        dialog = testDialog()
+        dialog = LoadingCircleDialog()
         //Vermifugation Date Picker
         val vermifugationDatePicker =
             MaterialDatePicker.Builder.datePicker()

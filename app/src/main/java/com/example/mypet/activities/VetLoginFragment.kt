@@ -12,28 +12,27 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.mypet.R
 import com.example.mypet.databinding.FragmentLoginVetBinding
-import com.example.mypet.utils.AuthFunctions
+import com.example.mypet.utils.ResponseFunctions
 import com.example.mypet.utils.SharedPreferencesUtil
-import com.example.mypet.viewmodels.UserAuthViewModel
 import com.example.mypet.viewmodels.VetViewModel
 
-class VetLoginFragment: Fragment(R.layout.fragment_login_vet), AuthFunctions {
+class VetLoginFragment: Fragment(R.layout.fragment_login_vet), ResponseFunctions {
     private lateinit var binding: FragmentLoginVetBinding;
     private lateinit var viewmodel: VetViewModel
     private lateinit var sharedPreferences: SharedPreferences
-    lateinit var dialog : testDialog
+    lateinit var dialog : LoadingCircleDialog
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?){
         super.onViewCreated(view, savedInstanceState);
         binding = FragmentLoginVetBinding.bind(view); //viewbinding
         viewmodel = ViewModelProvider(this)[VetViewModel::class.java];
-        dialog = testDialog()
+        dialog = LoadingCircleDialog()
         sharedPreferences = requireActivity().getSharedPreferences(
             requireActivity().packageName,
             Activity.MODE_PRIVATE
         )
         binding.vetloginviewmodel = viewmodel //databinding
-        viewmodel.authListener = this   //assign authlistener
+        viewmodel.responseListener = this   //assign responseListener
 
         binding.textViewGoToUserLogin.setOnClickListener() {
             navRegister()

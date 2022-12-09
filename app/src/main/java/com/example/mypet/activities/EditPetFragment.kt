@@ -17,13 +17,13 @@ import com.example.mypet.viewmodels.PetsViewModel
 import java.io.*
 
 
-class EditPetFragment : Fragment(R.layout.fragment_edit_pet), AuthFunctions {
+class EditPetFragment : Fragment(R.layout.fragment_edit_pet), ResponseFunctions {
 
     private lateinit var viewmodel: PetsViewModel
     private lateinit var binding: FragmentEditPetBinding
     private lateinit var observer : PhotoPickerLifecycleObserver
     private lateinit var petInfoFragment : PetInfoFragment
-    lateinit var dialog : testDialog
+    lateinit var dialog : LoadingCircleDialog
     private var uri: Uri? = null
     private var path : String? = null
 
@@ -39,13 +39,13 @@ class EditPetFragment : Fragment(R.layout.fragment_edit_pet), AuthFunctions {
 
         binding = FragmentEditPetBinding.bind(view)
         viewmodel = ViewModelProvider(requireActivity())[PetsViewModel::class.java]
-        viewmodel.authListener = this   //assign authlistener
+        viewmodel.responseListener = this   //assign responseListener
         viewmodel.getPetDataFromRepo().observe(viewLifecycleOwner) {
             if (it.pet != null) {
                 populateViews(it)
             }
         }
-        dialog = testDialog()
+        dialog = LoadingCircleDialog()
 
         binding.choosePetProfilePic.setOnClickListener{
             observer.selectImage()

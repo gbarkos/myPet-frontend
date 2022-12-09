@@ -8,13 +8,12 @@ import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.mypet.R
-import com.example.mypet.utils.AuthFunctions
+import com.example.mypet.utils.ResponseFunctions
 import com.example.mypet.viewmodels.PetsViewModel
-import com.example.mypet.viewmodels.UserAuthViewModel
 
-class MissingPetSubmitDialog : DialogFragment(), AuthFunctions {
+class MissingPetSubmitDialog : DialogFragment(), ResponseFunctions {
 
-    lateinit var dialog : testDialog
+    lateinit var dialog : LoadingCircleDialog
     private lateinit var viewmodel: PetsViewModel
     private lateinit var petInfoFragment: PetInfoFragment
 
@@ -29,12 +28,12 @@ class MissingPetSubmitDialog : DialogFragment(), AuthFunctions {
         lat = arguments?.getString(LAT) ?: throw IllegalStateException("No args provided")
         lng = arguments?.getString(LNG) ?: throw IllegalStateException("No args provided")
         petId = arguments?.getString(PET_ID) ?: throw IllegalStateException("No args provided")
-        dialog = testDialog()
+        dialog = LoadingCircleDialog()
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         viewmodel = ViewModelProvider(requireActivity())[PetsViewModel::class.java]
-        viewmodel.authListener = this
+        viewmodel.responseListener = this
 
         return activity?.let {
             // Use the Builder class for convenient dialog construction

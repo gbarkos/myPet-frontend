@@ -4,18 +4,11 @@ import android.util.Log
 import androidx.lifecycle.*
 import com.example.mypet.models.MedicalRecord
 import com.example.mypet.models.Pet
-import com.example.mypet.models.requests.SetPetAsMissingRequest
 import com.example.mypet.models.responses.PetGetResponse
-import com.example.mypet.models.responses.PetsGetResponse
 import com.example.mypet.models.responses.PetsLimitedGetResponse
-import com.example.mypet.models.responses.UserLoginRegisterPostResponse
 import com.example.mypet.repositories.PetsRepository
 import com.example.mypet.utils.*
 import kotlinx.coroutines.launch
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import java.util.*
 
 class PetsViewModel : ViewModel() {
 
@@ -33,7 +26,7 @@ class PetsViewModel : ViewModel() {
     var _id: String? = null
     var recordId : String? = null
     var isMissing: Boolean = false
-    var authListener: AuthFunctions? = null
+    var responseListener: ResponseFunctions? = null
 
     private val petsRepository: PetsRepository = PetsRepository
 
@@ -72,14 +65,14 @@ class PetsViewModel : ViewModel() {
 
     fun addPet(id : String?, name : String, birthdate : String, colour : String, distinguishingMarks : String?,
                breed : String, sex : String, weight : String?, height : String?, species: String){
-        authListener?.OnStarted()
+        responseListener?.OnStarted()
         viewModelScope.launch {
             petsRepository.addNewPet(id, name, birthdate, colour, distinguishingMarks, breed, sex, weight, height, species, fun() {
                 if(getStatusFromNewPet().toString() == "fail"){
                     var errors = mutableListOf<Int>()
-                    authListener?.OnFailure(errors)
+                    responseListener?.OnFailure(errors)
                 }else{
-                    authListener?.OnSuccess()
+                    responseListener?.OnSuccess()
                 }
             })
         }
@@ -91,7 +84,7 @@ class PetsViewModel : ViewModel() {
                   height : String?,
                   photo: String?,
                   _id : String?){
-        authListener?.OnStarted()
+        responseListener?.OnStarted()
         doUpdatePet(id, distinguishingMarks, weight, height, photo, _id)
     }
 
@@ -101,44 +94,44 @@ class PetsViewModel : ViewModel() {
                     height : String?,
                     photo: String?,
                     _id : String?){
-        authListener?.OnStarted() //TODO
+        responseListener?.OnStarted() //TODO
         viewModelScope.launch{
             petsRepository.updatePet(id, distinguishingMarks, weight, height, photo, _id, fun(){
                 if(getStatusFromUpdate().toString() == "fail"){
                     var errors = mutableListOf<Int>()
-                    authListener?.OnFailure(errors)
+                    responseListener?.OnFailure(errors)
                 }else{
-                    authListener?.OnSuccess()
+                    responseListener?.OnSuccess()
                 }
             })
         }
     }
 
     fun setPetAsMissing(lat: String, lng: String, contactInfo: List<String>, petId: String?){
-        authListener?.OnStarted()
+        responseListener?.OnStarted()
         viewModelScope.launch {
             petsRepository.setPetAsMissing(lat, lng, contactInfo, petId, fun() {
                 Log.d("STATUS",petsRepository.getStatusFromSetPetAsMissing())
                 if(petsRepository.getStatusFromSetPetAsMissing() == "fail"){
-                    authListener?.OnFailure(null)
+                    responseListener?.OnFailure(null)
                     Log.d("On Failure","failed")
                 }else{
-                    authListener?.OnSuccess()
+                    responseListener?.OnSuccess()
                 }
             })
         }
     }
 
     fun setPetAsFound(petId: String?){
-        authListener?.OnStarted()
+        responseListener?.OnStarted()
         viewModelScope.launch {
             petsRepository.setPetAsFound(petId, fun() {
                 Log.d("STATUS",petsRepository.getStatusFromSetPetAsFound())
                 if(petsRepository.getStatusFromSetPetAsFound() == "fail"){
-                    authListener?.OnFailure(null)
+                    responseListener?.OnFailure(null)
                     Log.d("On Failure","failed")
                 }else{
-                    authListener?.OnSuccess()
+                    responseListener?.OnSuccess()
                 }
             })
         }

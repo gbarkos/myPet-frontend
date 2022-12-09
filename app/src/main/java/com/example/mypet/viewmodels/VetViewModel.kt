@@ -4,8 +4,6 @@ import android.util.Log
 import android.view.View
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.mypet.api.ServiceGenerator
-import com.example.mypet.models.responses.UserLoginRegisterPostResponse
 import com.example.mypet.models.responses.VetGetResponse
 import com.example.mypet.models.responses.VetLoginRegisterPostResponse
 import com.example.mypet.repositories.UserAuthRepository
@@ -23,7 +21,7 @@ class VetViewModel: ViewModel() {
     var name: String? = null
     var surname: String? = null
     var address: String? = null
-    var authListener: AuthFunctions? = null
+    var responseListener: ResponseFunctions? = null
 
     private val userAuthRepository: UserAuthRepository = UserAuthRepository
 
@@ -34,10 +32,6 @@ class VetViewModel: ViewModel() {
 
     fun getVetProfileDataFromRepo(): SingleLiveEvent<VetGetResponse>{
         return VetRepository.getVetMyProfileResponse()
-    }
-
-    fun getFailureMessageFromRegister(): SingleLiveEvent<String> {
-        return userAuthRepository.getFailureMessageFromRegister()
     }
 
     fun getStatusFromLogin(): String?{
@@ -53,11 +47,11 @@ class VetViewModel: ViewModel() {
             VetRepository.requestToLogin(username, password, fun(){
                 Log.d("STATUS",getStatusFromLogin().toString())
                 if(getStatusFromLogin().toString() == "fail") {
-                    authListener?.OnFailure(errorCodes)
+                    responseListener?.OnFailure(errorCodes)
                     Log.d("On Failure","failed")
                 }
                 else {
-                    authListener?.OnSuccess()
+                    responseListener?.OnSuccess()
                 }
             })
         }
@@ -65,7 +59,7 @@ class VetViewModel: ViewModel() {
 
     fun onLoginButtonClick(view: View) {
         var errorCodes: MutableList<Int> = mutableListOf()
-        authListener?.OnStarted()
+        responseListener?.OnStarted()
 
         if (username.isNullOrEmpty() || password.isNullOrEmpty()) {
             errorCodes.add(820)
@@ -78,19 +72,19 @@ class VetViewModel: ViewModel() {
             loginVet(username.toString(),password.toString(),errorCodes)
 
         }else{
-            authListener?.OnFailure(errorCodes)
+            responseListener?.OnFailure(errorCodes)
         }
     }
 
     fun getVetProfile(){
-        authListener?.OnStarted()
+        responseListener?.OnStarted()
         viewModelScope.launch{
             VetRepository.getVetProfile(fun(){
                 if(getStatusFromGetProfile().toString() == "fail"){
-                    authListener?.OnFailure(null)
+                    responseListener?.OnFailure(null)
                     Log.d("On Failure","failed")
                 }else{
-                    authListener?.OnSuccess()
+                    responseListener?.OnSuccess()
                 }
             })
         }

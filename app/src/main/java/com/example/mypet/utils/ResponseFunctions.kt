@@ -1,6 +1,6 @@
 package com.example.mypet.utils
 
-interface AuthFunctions {
+interface ResponseFunctions {
 
     fun OnStarted()
     fun OnSuccess()

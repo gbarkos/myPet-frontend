@@ -13,20 +13,18 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.mypet.R
 import com.example.mypet.databinding.FragmentNewTreatmentBinding
-import com.example.mypet.databinding.FragmentNewVermifugationBinding
 import com.example.mypet.models.Vet
 import com.example.mypet.utils.*
 import com.example.mypet.viewmodels.MedicalRecordViewModel
-import com.google.android.gms.auth.api.Auth
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.gson.Gson
 
-class NewTreatmentFragment : Fragment(R.layout.fragment_new_treatment), AuthFunctions { //TODO
+class NewTreatmentFragment : Fragment(R.layout.fragment_new_treatment), ResponseFunctions { //TODO
 
     private lateinit var viewmodel: MedicalRecordViewModel
     private lateinit var binding: FragmentNewTreatmentBinding //TODO
     private val treatmentsFragment = TreatmentsFragment()
-    lateinit var dialog : testDialog
+    lateinit var dialog : LoadingCircleDialog
     private lateinit var sharedPreferences: SharedPreferences
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?){
@@ -37,8 +35,8 @@ class NewTreatmentFragment : Fragment(R.layout.fragment_new_treatment), AuthFunc
         )
         binding = FragmentNewTreatmentBinding.bind(view) //TODO
         viewmodel = ViewModelProvider(requireActivity())[MedicalRecordViewModel::class.java]
-        viewmodel.authListener = this
-        dialog = testDialog()
+        viewmodel.responseListener = this
+        dialog = LoadingCircleDialog()
         adjustViewForVet()
 
         //Vermifugation Date Picker
