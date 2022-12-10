@@ -47,7 +47,7 @@ class VetViewModel: ViewModel() {
             VetRepository.requestToLogin(username, password, fun(){
                 Log.d("STATUS",getStatusFromLogin().toString())
                 if(getStatusFromLogin().toString() == "fail") {
-                    responseListener?.OnFailure(errorCodes)
+                    responseListener?.OnFailure(null)
                     Log.d("On Failure","failed")
                 }
                 else {
@@ -72,7 +72,7 @@ class VetViewModel: ViewModel() {
             loginVet(username.toString(),password.toString(),errorCodes)
 
         }else{
-            responseListener?.OnFailure(errorCodes)
+            responseListener?.OnFailure(null)
         }
     }
 

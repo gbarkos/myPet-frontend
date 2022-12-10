@@ -70,7 +70,7 @@ class PetsViewModel : ViewModel() {
             petsRepository.addNewPet(id, name, birthdate, colour, distinguishingMarks, breed, sex, weight, height, species, fun() {
                 if(getStatusFromNewPet().toString() == "fail"){
                     var errors = mutableListOf<Int>()
-                    responseListener?.OnFailure(errors)
+                    responseListener?.OnFailure(null)
                 }else{
                     responseListener?.OnSuccess()
                 }
@@ -99,7 +99,7 @@ class PetsViewModel : ViewModel() {
             petsRepository.updatePet(id, distinguishingMarks, weight, height, photo, _id, fun(){
                 if(getStatusFromUpdate().toString() == "fail"){
                     var errors = mutableListOf<Int>()
-                    responseListener?.OnFailure(errors)
+                    responseListener?.OnFailure(null)
                 }else{
                     responseListener?.OnSuccess()
                 }

@@ -67,7 +67,7 @@ class SetMissingFragment : Fragment(R.layout.fragment_missing_pet), ResponseFunc
         TODO("Not yet implemented")
     }
 
-    override fun OnFailure(errorCode: MutableList<Int>?) {
+    override fun OnFailure(errorMsg: String?) {
         TODO("Not yet implemented")
     }
 }

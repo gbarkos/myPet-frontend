@@ -88,11 +88,13 @@ object UserAuthRepository {
                 }
                 override fun onFailure(call: Call<UserLoginRegisterPostResponse>, t: Throwable) {
                     Log.i(TAG, "onFailure: " + t.message)
+                    statusFromRegister = "fail"
+                    callback()
                 }
             })
     }
 
-     fun requestToLogin(username: String,password: String, callback: () ->Unit) {
+     fun requestToLogin(username: String,password: String, callback: (msg : String) ->Unit) {
         val dataSource = ServiceGenerator
 
         Log.i(TAG, "Login user: Call started")
@@ -108,7 +110,7 @@ object UserAuthRepository {
                         Log.i(TAG, "onResponse: Response Successful")
                         userLoginResponse.postValue(response.body())
                         statusFromLogin=""
-                        callback()
+                        callback("Επιτυχής σύνδεση")
                     } else {
                         try {
                             val responseObj: ErrorResponse = gson.fromJson(
@@ -116,18 +118,19 @@ object UserAuthRepository {
                                 ErrorResponse::class.java
                             )
                             statusFromLogin = responseObj.status
-                            Log.d("FAILURE MESSAGE", statusFromLogin.toString())
-                            callback()
+                            Log.d("FAILURE MESSAGE", statusFromLogin)
+                            callback("Λάθος στοιχεία πρόσβασης")
                         } catch (e: Exception) {
                             statusFromLogin = "Something Went Wrong"
                             Log.d("IN CATCH", statusFromLogin.toString())
-                            callback()
+                            callback("Σφάλμα σύνδεσης")
                         }
                     }
                 }
                 override fun onFailure(call: Call<UserLoginRegisterPostResponse>, t: Throwable) {
                     Log.i(TAG, "onFailure: " + t.message)
-                    callback()
+                    statusFromLogin = "fail"
+                    callback("Αδυναμία σύνδεσης")
                 }
             })
     }

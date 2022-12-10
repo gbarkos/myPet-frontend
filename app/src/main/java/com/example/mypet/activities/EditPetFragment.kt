@@ -148,7 +148,7 @@ class EditPetFragment : Fragment(R.layout.fragment_edit_pet), ResponseFunctions 
         Toast.makeText(context, "Επιτυχής επεξεργασία κατοικίδιου", Toast.LENGTH_LONG).show()
     }
 
-    override fun OnFailure(errorCode: MutableList<Int>?) {
+    override fun OnFailure(errorMsg: String?) {
         dialog.dismiss()
         Log.d("Update pet fragment", "Error")
         Toast.makeText(context, "Αδυναμία επεξεργασίας κατοικίδιου", Toast.LENGTH_LONG).show()

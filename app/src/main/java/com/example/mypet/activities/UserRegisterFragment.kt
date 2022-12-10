@@ -9,7 +9,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.mypet.R
 import com.example.mypet.databinding.FragmentRegisterUserBinding
-import com.example.mypet.models.enums.RegisterErrorCodes
+import com.example.mypet.models.enums.RegisterFormFields
+import com.example.mypet.models.maps.RegisterErrorMap
 import com.example.mypet.utils.ResponseFunctions
 import com.example.mypet.viewmodels.UserViewModel
 
@@ -26,40 +27,48 @@ class UserRegisterFragment: Fragment(R.layout.fragment_register_user), ResponseF
         binding.userregisterviewmodel = viewmodel //databinding
         viewmodel.responseListener = this   //assign responseListener
         loadingDialog = LoadingCircleDialog()
+
+
+        viewmodel.getRegisterFormValidation().observe(viewLifecycleOwner){
+            if(it != null){
+                binding.usernameInput.error = if(it.hasUsernamePassedValidation) "" else RegisterErrorMap.ErrorMap[it.usernameError]
+                binding.emailInput.error = if(it.hasEmailPassedValidation) "" else RegisterErrorMap.ErrorMap[it.emailError]
+                binding.passwordInput.error = if(it.hasPasswordPassedValidation) "" else RegisterErrorMap.ErrorMap[it.passwordError]
+                binding.confirmPasswordInput.error = if(it.hasConfirmPasswordPassedValidation) "" else RegisterErrorMap.ErrorMap[it.confirmPasswordError]
+            }
+        }
+
+        // Listener declaration
         binding.textViewGoToLogin.setOnClickListener {
             navRegister()
         }
 
-       /* //errors
-        binding.registerUsername.doOnTextChanged { text, start, before, count ->
-            if(!text.isNullOrEmpty())binding.usernameInput.error = null
+        binding.registerButton.setOnClickListener {
+            viewmodel.onRegisterButtonClick(binding.registerUsername.text.toString(), binding.registerEmail.text.toString(),
+            binding.registerPassword.text.toString(), binding.registerConfirmPassword.text.toString())
         }
-        binding.registerEmail.doOnTextChanged { text, start, before, count ->
-            if(!text.isNullOrEmpty())binding.emailInput.error = null
-        }
-        binding.registerPassword.doOnTextChanged { text, start, before, count ->
-            if(!text.isNullOrEmpty())binding.passwordInput.error = null
-        }
-        binding.registerConfirmPassword.doOnTextChanged { text, start, before, count ->
-            if(!text.isNullOrEmpty())binding.confirmPasswordInput.error = null
-        }*/
 
-        viewmodel.getStatusFromRegisterValidation().observe(viewLifecycleOwner){
-            if(it != null){
-                clearErrors()
-                for(error in it){
-                    when (error){
-                        RegisterErrorCodes.MandatoryUsername -> binding.usernameInput.error = resources.getString(R.string.field_required)
-                        RegisterErrorCodes.MandatoryEmail -> binding.emailInput.error = resources.getString(R.string.field_required)
-                        RegisterErrorCodes.MandatoryPassword -> binding.passwordInput.error = resources.getString(R.string.field_required)
-                        RegisterErrorCodes.MandatoryConfirmPassword -> binding.confirmPasswordInput.error = resources.getString(R.string.field_required)
-                        RegisterErrorCodes.InvalidPassword -> binding.passwordInput.error = resources.getString(R.string.password_length_error)
-                        RegisterErrorCodes.InvalidEmail -> binding.emailInput.error = resources.getString(R.string.email_not_valid_error)
-                        RegisterErrorCodes.PasswordsDoNotMatch -> binding.passwordInput.error = resources.getString(R.string.password_not_match_error)
-                    }
-                }
+        binding.registerUsername.setOnFocusChangeListener { view, hasFocus ->
+            if(!hasFocus){
+                viewmodel.validateRegisterFormField(RegisterFormFields.Username, binding.registerUsername.text.toString())
             }
         }
+        binding.registerEmail.setOnFocusChangeListener { view, hasFocus ->
+            if(!hasFocus){
+                viewmodel.validateRegisterFormField(RegisterFormFields.Email, binding.registerEmail.text.toString())
+            }
+        }
+        binding.registerPassword.setOnFocusChangeListener { view, hasFocus ->
+            if(!hasFocus){
+                viewmodel.validateRegisterFormField(RegisterFormFields.Password, binding.registerPassword.text.toString())
+            }
+        }
+        binding.registerConfirmPassword.setOnFocusChangeListener { view, hasFocus ->
+            if(!hasFocus){
+                viewmodel.validateRegisterFormField(RegisterFormFields.ConfirmPassword, binding.registerConfirmPassword.text.toString())
+            }
+        }
+
     }
 
     private fun navRegister() {
@@ -73,30 +82,15 @@ class UserRegisterFragment: Fragment(R.layout.fragment_register_user), ResponseF
 
     override fun OnSuccess() {
         Log.d("RegisterFragment", "Succeeded..")
-
-      /*  viewmodel.getUserRegisterDataFromRepo().observe(requireActivity(), {
-            Log.i("VIEWMODEL", "OnSuccess: ${it?.token}")
-            Toast.makeText(requireContext(),"Επιτυχής εγγραφή!", Toast.LENGTH_LONG).show()
-            navRegister()
-        })
-        viewmodel.getFailureMessageFromRegister().observe(requireActivity(), {
-            Toast.makeText(requireContext(), it.toString(), Toast.LENGTH_LONG).show()
-        })*/
         Toast.makeText(requireContext(),"Επιτυχής εγγραφή!", Toast.LENGTH_LONG).show()
         loadingDialog.dismiss()
         navRegister()
         binding.registerButton.setEnabled(true)
     }
 
-    override fun OnFailure(errorCodes: MutableList<Int>?) {
+    override fun OnFailure(errorCodes: String?) {
         loadingDialog.dismiss()
+        binding.registerButton.setEnabled(true)
         Toast.makeText(requireContext(),"Σφάλμα εγγραφής", Toast.LENGTH_LONG).show()
-    }
-
-    private fun clearErrors(){
-        binding.usernameInput.error = ""
-        binding.emailInput.error = ""
-        binding.passwordInput.error =  ""
-        binding.confirmPasswordInput.error = ""
     }
 }

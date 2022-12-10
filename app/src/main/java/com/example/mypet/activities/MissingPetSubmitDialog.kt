@@ -88,7 +88,7 @@ class MissingPetSubmitDialog : DialogFragment(), ResponseFunctions {
         Toast.makeText(context, "Καταχωρήθηκε!", Toast.LENGTH_LONG).show()
     }
 
-    override fun OnFailure(errorCode: MutableList<Int>?) {
+    override fun OnFailure(errorMsg: String?) {
         Toast.makeText(context, "Σφάλμα καταχώρησης!", Toast.LENGTH_LONG).show()
     }
 }

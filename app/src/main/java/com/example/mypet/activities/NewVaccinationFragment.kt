@@ -200,7 +200,7 @@ class NewVaccinationFragment : Fragment(R.layout.fragment_new_vaccination), Resp
         transaction?.commit()
     }
 
-    override fun OnFailure(errorCode: MutableList<Int>?) {
+    override fun OnFailure(errorMsg: String?) {
         dialog.dismiss()
         Toast.makeText(context, "Αδυναμία προσθήκης εμβολιασμού", Toast.LENGTH_LONG).show()
     }

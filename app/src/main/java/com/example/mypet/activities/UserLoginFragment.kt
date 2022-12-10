@@ -73,14 +73,15 @@ class UserLoginFragment: Fragment(R.layout.fragment_login_user), ResponseFunctio
             val intent = Intent(activity, MainContentActivity::class.java)
             startActivity(intent)
 
-            Toast.makeText(context, "Success...", Toast.LENGTH_LONG).show()
+            Toast.makeText(context, "Επιτυχής σύνδεση", Toast.LENGTH_LONG).show()
         })
     }
 
-    override fun OnFailure(errorCode: MutableList<Int>?) {
+    override fun OnFailure(errorMsg: String?) {
         Log.d("Login fragment", "Wrong username or password")
         binding.textViewError.visibility = View.VISIBLE
-        binding.textViewError.setText("Λάθος όνομα χρήστη ή κωδικός πρόσβασης")
+        Toast.makeText(context, errorMsg, Toast.LENGTH_LONG).show()
+        //binding.textViewError.setText(errorMsg)
         dialog.dismiss()
     }
 

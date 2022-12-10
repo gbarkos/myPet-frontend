@@ -60,7 +60,7 @@ class VetLoginFragment: Fragment(R.layout.fragment_login_vet), ResponseFunctions
         })
     }
 
-    override fun OnFailure(errorCode: MutableList<Int>?) {
+    override fun OnFailure(errorMsg: String?) {
         dialog.dismiss()
         Log.d("Login fragment", "Wrong username or password")
         binding.textViewError.visibility = View.VISIBLE

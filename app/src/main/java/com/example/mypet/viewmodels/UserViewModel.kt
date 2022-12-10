@@ -5,13 +5,13 @@ import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.mypet.models.RegisterValidationForm
 import com.example.mypet.models.enums.RegisterErrorCodes
+import com.example.mypet.models.enums.RegisterFormFields
 import com.example.mypet.models.responses.UserGetResponse
 import com.example.mypet.models.responses.UserLoginRegisterPostResponse
 import com.example.mypet.repositories.UserAuthRepository
-import com.example.mypet.utils.ResponseFunctions
 import com.example.mypet.utils.*
-import com.example.mypet.utils.SingleLiveEvent
 import kotlinx.coroutines.launch
 
 class UserViewModel: ViewModel() {
@@ -63,9 +63,10 @@ class UserViewModel: ViewModel() {
         return statusFromLoginValidation
     }
 
-    private var statusFromRegisterValidation : MutableLiveData<List<RegisterErrorCodes>> = MutableLiveData()
-    fun getStatusFromRegisterValidation() : MutableLiveData<List<RegisterErrorCodes>>{
-        return statusFromRegisterValidation
+    private var registerFormValidation = RegisterValidationForm()
+    private var observedRegisterFormValidation : MutableLiveData<RegisterValidationForm> = MutableLiveData()
+    fun getRegisterFormValidation() : MutableLiveData<RegisterValidationForm>{
+        return observedRegisterFormValidation
     }
 
     fun registerUser(username: String, password: String, confirmPassword: String, name: String, surname: String, email: String, phoneNumber: String, address: String) {
@@ -92,10 +93,10 @@ class UserViewModel: ViewModel() {
 
     fun loginUser(username:String, password: String) {
         viewModelScope.launch {
-            userAuthRepository.requestToLogin(username, password, fun(){
+            userAuthRepository.requestToLogin(username, password, fun(msg : String){
                 Log.d("STATUS",getStatusFromLogin().toString())
                 if(getStatusFromLogin().toString() == "fail") {
-                    responseListener?.OnFailure(null)
+                    responseListener?.OnFailure(msg)
                     Log.d("On Failure","failed")
                 }
                 else {
@@ -130,41 +131,106 @@ class UserViewModel: ViewModel() {
         }
 
         responseListener?.OnStarted()
-        loginUser(password.toString(), password.toString())
+        loginUser(username.toString(), password.toString())
     }
 
-    fun onRegisterButtonClick(view: View) {
-        var errorCodes = mutableListOf<RegisterErrorCodes>()
-        statusFromRegisterValidation.value = errorCodes
+    fun onRegisterButtonClick(username : String, email : String, password: String, confirmPassword: String) {
+        validateRegisterFormField(RegisterFormFields.Username, username)
+        validateRegisterFormField(RegisterFormFields.Email, email)
+        validateRegisterFormField(RegisterFormFields.Password, password)
+        validateRegisterFormField(RegisterFormFields.ConfirmPassword, confirmPassword)
 
-        if(username.isNullOrEmpty()){
-            errorCodes.add(RegisterErrorCodes.MandatoryUsername)
-        }
-        if(email.isNullOrEmpty()){
-            errorCodes.add(RegisterErrorCodes.MandatoryEmail)
-        }
-        if(!EmailValidator.isValid(email.toString())){
-            errorCodes.add(RegisterErrorCodes.InvalidEmail)
-        }
-        if(password.isNullOrEmpty()){
-            errorCodes.add(RegisterErrorCodes.MandatoryPassword)
-        }
-        if(confirmPassword.isNullOrEmpty()){
-            errorCodes.add(RegisterErrorCodes.MandatoryConfirmPassword)
-        }
-        if(!PasswordValidator.isValid(password.toString())){
-            errorCodes.add(RegisterErrorCodes.InvalidPassword)
-        }
-        if(!PasswordConfirmValidator.isValid(password.toString(), confirmPassword.toString())){
-            errorCodes.add(RegisterErrorCodes.PasswordsDoNotMatch)
-        }
-
-        if(errorCodes.size == 0){
+        if(registerFormValidation.isFormValidated()){
             responseListener?.OnStarted()
-            registerUser(username.toString(), password.toString(), confirmPassword.toString(),
-                "", "", email.toString(), "", "")
-        }else {
-            statusFromRegisterValidation.postValue(errorCodes)
+            registerUser(username, password, confirmPassword,
+                "", "", email, "", "")
+        }
+    }
+
+    fun validateRegisterFormField(field : RegisterFormFields, value : String){
+        when(field){
+            RegisterFormFields.Username -> {
+                if(value.isNullOrEmpty()){
+                    registerFormValidation.usernameError = RegisterErrorCodes.MissingUsername
+                    registerFormValidation.hasUsernamePassedValidation = false
+                    observedRegisterFormValidation.postValue(registerFormValidation)
+                    return
+                }
+                if(!UsernameValidator.isValid(value)){
+                    registerFormValidation.usernameError = RegisterErrorCodes.InvalidUsername
+                    registerFormValidation.hasUsernamePassedValidation = false
+                    observedRegisterFormValidation.postValue(registerFormValidation)
+                    return
+                }
+                registerFormValidation.usernameError = RegisterErrorCodes.NoError
+                registerFormValidation.hasUsernamePassedValidation = true
+                observedRegisterFormValidation.postValue(registerFormValidation)
+                return
+            }
+            RegisterFormFields.Email -> {
+                if(value.isNullOrEmpty()){
+                    registerFormValidation.emailError = RegisterErrorCodes.MissingEmail
+                    registerFormValidation.hasEmailPassedValidation = false
+                    observedRegisterFormValidation.postValue(registerFormValidation)
+                    return
+                }
+                if(!EmailValidator.isValid(value)){
+                    registerFormValidation.emailError = RegisterErrorCodes.InvalidEmail
+                    registerFormValidation.hasEmailPassedValidation = false
+                    observedRegisterFormValidation.postValue(registerFormValidation)
+                    return
+                }
+                registerFormValidation.emailError = RegisterErrorCodes.NoError
+                registerFormValidation.hasEmailPassedValidation = true
+                observedRegisterFormValidation.postValue(registerFormValidation)
+                return
+            }
+            RegisterFormFields.Password -> {
+                if(value.isNullOrEmpty()){
+                    registerFormValidation.passwordError = RegisterErrorCodes.MissingPassword
+                    registerFormValidation.hasPasswordPassedValidation = false
+                    observedRegisterFormValidation.postValue(registerFormValidation)
+                    return
+                }
+                if(!PasswordValidator.isValid(value)){
+                    registerFormValidation.passwordError = RegisterErrorCodes.InvalidPassword
+                    registerFormValidation.hasPasswordPassedValidation = false
+                    observedRegisterFormValidation.postValue(registerFormValidation)
+                    return
+                }
+                if(!PasswordConfirmValidator.isValid(value, registerFormValidation.confirmPasswordValue)){
+                    registerFormValidation.passwordError = RegisterErrorCodes.PasswordsDoNotMatch
+                    registerFormValidation.hasPasswordPassedValidation = false
+                    observedRegisterFormValidation.postValue(registerFormValidation)
+                    return
+                }
+                registerFormValidation.passwordError = RegisterErrorCodes.NoError
+                registerFormValidation.hasPasswordPassedValidation = true
+                registerFormValidation.passwordValue = value
+                observedRegisterFormValidation.postValue(registerFormValidation)
+                return
+
+            }
+            RegisterFormFields.ConfirmPassword -> {
+                if(value.isNullOrEmpty()){
+                    registerFormValidation.confirmPasswordError = RegisterErrorCodes.MissingConfirmPassword
+                    registerFormValidation.hasConfirmPasswordPassedValidation = false
+                    observedRegisterFormValidation.postValue(registerFormValidation)
+                    return
+                }
+                if(!PasswordConfirmValidator.isValid(registerFormValidation.passwordValue, value)){
+                    registerFormValidation.confirmPasswordError = RegisterErrorCodes.PasswordsDoNotMatch
+                    registerFormValidation.confirmPasswordValue = value
+                    registerFormValidation.hasConfirmPasswordPassedValidation = false
+                    observedRegisterFormValidation.postValue(registerFormValidation)
+                    return
+                }
+                registerFormValidation.confirmPasswordError = RegisterErrorCodes.NoError
+                registerFormValidation.hasConfirmPasswordPassedValidation = true
+                registerFormValidation.confirmPasswordValue = value
+                observedRegisterFormValidation.postValue(registerFormValidation)
+                return
+            }
         }
     }
 }

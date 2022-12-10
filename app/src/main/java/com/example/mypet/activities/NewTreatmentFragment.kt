@@ -163,7 +163,7 @@ class NewTreatmentFragment : Fragment(R.layout.fragment_new_treatment), Response
         transaction?.commit()
     }
 
-    override fun OnFailure(errorCode: MutableList<Int>?) {
+    override fun OnFailure(errorMsg: String?) {
         dialog.dismiss()
         Toast.makeText(context, "Αδυναμία προσθήκης θεραπείας", Toast.LENGTH_LONG).show()
     }

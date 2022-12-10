@@ -4,6 +4,6 @@ interface ResponseFunctions {
 
     fun OnStarted()
     fun OnSuccess()
-    fun OnFailure(errorCode: MutableList<Int>?)
+    fun OnFailure(errorMsg: String?)
 
 }

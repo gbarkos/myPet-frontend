@@ -58,7 +58,7 @@ class SettingsFragment: Fragment(R.layout.fragment_settings), ResponseFunctions 
         })
     }
 
-    override fun OnFailure(errorCode: MutableList<Int>?) {
+    override fun OnFailure(errorMsg: String?) {
         dialog.dismiss()
         Toast.makeText(context, "Could not perform update. Server error", Toast.LENGTH_LONG).show()
     }

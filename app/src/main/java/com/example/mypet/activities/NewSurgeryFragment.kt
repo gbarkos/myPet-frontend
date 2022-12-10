@@ -120,7 +120,7 @@ class NewSurgeryFragment : Fragment(R.layout.fragment_new_surgery), ResponseFunc
         transaction?.commit()
     }
 
-    override fun OnFailure(errorCode: MutableList<Int>?) {
+    override fun OnFailure(errorMsg: String?) {
         dialog.dismiss()
         Toast.makeText(context, "Αδυναμία προσθήκης εγχείρισης", Toast.LENGTH_LONG).show()
     }

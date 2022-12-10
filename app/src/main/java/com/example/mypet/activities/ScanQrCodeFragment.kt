@@ -47,6 +47,6 @@ class ScanQrCodeFragment: Fragment(R.layout.fragment_scan_qr_code), ResponseFunc
        }
     }
 
-    override fun OnFailure(errorCode: MutableList<Int>?) {
+    override fun OnFailure(errorMsg: String?) {
     }
 }
