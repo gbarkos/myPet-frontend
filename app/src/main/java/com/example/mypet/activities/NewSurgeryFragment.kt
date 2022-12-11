@@ -16,6 +16,8 @@ import com.example.mypet.databinding.FragmentNewSurgeryBinding
 import com.example.mypet.models.Vet
 import com.example.mypet.utils.*
 import com.example.mypet.viewmodels.MedicalRecordViewModel
+import com.google.android.material.datepicker.CalendarConstraints
+import com.google.android.material.datepicker.DateValidatorPointBackward
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.gson.Gson
 
@@ -38,10 +40,14 @@ class NewSurgeryFragment : Fragment(R.layout.fragment_new_surgery), ResponseFunc
         viewmodel.responseListener = this
         dialog = LoadingCircleDialog()
         adjustViewForVet()
+
+        var calendarConstraint  = CalendarConstraints.Builder().setValidator(
+            DateValidatorPointBackward.now()).build()
         //Surgery Date Picker
         val datePicker =
             MaterialDatePicker.Builder.datePicker()
                 .setTitleText("Select date")
+                .setCalendarConstraints(calendarConstraint)
                 .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
                 .build()
 

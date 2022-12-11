@@ -10,4 +10,7 @@
     <item android:id="@+id/help"
         android:icon="@drawable/ic_baseline_map_24"
         android:title="Σχετικά με την εφαρμογή"></item>
+    <item android:id="@+id/logout"
+        android:icon="@drawable/ic_baseline_map_24"
+        android:title="Αποσύνδεση"></item>
 </menu>

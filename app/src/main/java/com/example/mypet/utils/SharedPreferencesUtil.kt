@@ -52,5 +52,26 @@ object SharedPreferencesUtil {
     fun clearPreferences() {
         sharedPreferences.edit().clear().apply()
     }
-
+    @JvmStatic
+    fun saveUsername(username : String){
+        writeToSharedPreferences("USERNAME", username)
+    }
+    @JvmStatic
+    fun savePassword(password : String){
+        writeToSharedPreferences("PASSWORD", password)
+    }
+    @JvmStatic
+    fun getUsername(): String?{
+        return readFromSharedPreferences("USERNAME")
+    }
+    @JvmStatic
+    fun getPassword(): String?{
+        return readFromSharedPreferences("PASSWORD")
+    }
+    @JvmStatic
+    fun clearUserData(){
+        deleteFromSharedPreferences("USERNAME")
+        deleteFromSharedPreferences("PASSWORD")
+        return
+    }
 }

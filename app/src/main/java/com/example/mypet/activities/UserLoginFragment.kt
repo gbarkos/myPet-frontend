@@ -30,6 +30,7 @@ class UserLoginFragment: Fragment(R.layout.fragment_login_user), ResponseFunctio
             requireActivity().packageName,
             Activity.MODE_PRIVATE
         )
+
         binding.userloginviewmodel = viewmodel //databinding
         viewmodel.responseListener = this   //assign responseListener
         dialog = LoadingCircleDialog()
@@ -69,6 +70,8 @@ class UserLoginFragment: Fragment(R.layout.fragment_login_user), ResponseFunctio
         dialog.dismiss()
         viewmodel.getUserLoginDataFromRepo().observe(requireActivity(), {
             SharedPreferencesUtil.saveAccessToken(it?.token.toString())
+            SharedPreferencesUtil.saveUsername(it?.user!!.username)
+            SharedPreferencesUtil.savePassword(it?.user!!.password)
             SharedPreferencesUtil.deleteVetData()
             val intent = Intent(activity, MainContentActivity::class.java)
             startActivity(intent)
@@ -84,5 +87,4 @@ class UserLoginFragment: Fragment(R.layout.fragment_login_user), ResponseFunctio
         //binding.textViewError.setText(errorMsg)
         dialog.dismiss()
     }
-
 }

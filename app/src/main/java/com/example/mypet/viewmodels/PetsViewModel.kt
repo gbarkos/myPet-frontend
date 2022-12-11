@@ -97,7 +97,7 @@ class PetsViewModel : ViewModel() {
         responseListener?.OnStarted() //TODO
         viewModelScope.launch{
             petsRepository.updatePet(id, distinguishingMarks, weight, height, photo, _id, fun(){
-                if(getStatusFromUpdate().toString() == "fail"){
+                if(getStatusFromUpdate().toString() == "success"){
                     var errors = mutableListOf<Int>()
                     responseListener?.OnFailure(null)
                 }else{

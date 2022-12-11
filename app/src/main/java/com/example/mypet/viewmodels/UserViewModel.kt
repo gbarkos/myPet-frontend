@@ -5,7 +5,7 @@ import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.mypet.models.RegisterValidationForm
+import com.example.mypet.models.forms.RegisterValidationForm
 import com.example.mypet.models.enums.RegisterErrorCodes
 import com.example.mypet.models.enums.RegisterFormFields
 import com.example.mypet.models.responses.UserGetResponse

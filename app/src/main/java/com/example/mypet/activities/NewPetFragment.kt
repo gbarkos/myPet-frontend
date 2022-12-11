@@ -13,6 +13,8 @@ import com.example.mypet.databinding.FragmentNewPetBinding
 import com.example.mypet.utils.ResponseFunctions
 import com.example.mypet.utils.getShortDate
 import com.example.mypet.viewmodels.PetsViewModel
+import com.google.android.material.datepicker.CalendarConstraints
+import com.google.android.material.datepicker.DateValidatorPointBackward
 import com.google.android.material.datepicker.MaterialDatePicker
 
 class NewPetFragment : Fragment(R.layout.fragment_new_pet), ResponseFunctions {
@@ -28,10 +30,13 @@ class NewPetFragment : Fragment(R.layout.fragment_new_pet), ResponseFunctions {
         dialog = LoadingCircleDialog()
         viewmodel.responseListener = this
 
+        var calendarConstraint  = CalendarConstraints.Builder().setValidator(
+            DateValidatorPointBackward.now()).build()
         //Date Picker
         val datePicker =
             MaterialDatePicker.Builder.datePicker()
                 .setTitleText("Select date")
+                .setCalendarConstraints(calendarConstraint)
                 .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
                 .build()
 

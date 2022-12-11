@@ -17,6 +17,8 @@ import com.example.mypet.models.Vet
 import com.example.mypet.utils.*
 import com.example.mypet.viewmodels.MedicalRecordViewModel
 import com.example.mypet.viewmodels.VetViewModel
+import com.google.android.material.datepicker.CalendarConstraints
+import com.google.android.material.datepicker.DateValidatorPointBackward
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.gson.Gson
 
@@ -47,12 +49,15 @@ class NewVaccinationFragment : Fragment(R.layout.fragment_new_vaccination), Resp
 
        // vetViewModel.getVetProfile()
 
+        var calendarConstraint  = CalendarConstraints.Builder().setValidator(DateValidatorPointBackward.now()).build()
         //Vaccination Date Picker
         val vaccinationDatePicker =
             MaterialDatePicker.Builder.datePicker()
                 .setTitleText("Select date")
+                .setCalendarConstraints(calendarConstraint)
                 .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
                 .build()
+
 
         vaccinationDatePicker.addOnPositiveButtonClickListener () {
             getShortDate(vaccinationDatePicker.selection)
@@ -67,6 +72,7 @@ class NewVaccinationFragment : Fragment(R.layout.fragment_new_vaccination), Resp
         val validUntilPicker =
             MaterialDatePicker.Builder.datePicker()
                 .setTitleText("Select date")
+                .setCalendarConstraints(calendarConstraint)
                 .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
                 .build()
 
@@ -83,6 +89,7 @@ class NewVaccinationFragment : Fragment(R.layout.fragment_new_vaccination), Resp
         val expirationDatePicker =
             MaterialDatePicker.Builder.datePicker()
                 .setTitleText("Select date")
+                .setCalendarConstraints(calendarConstraint)
                 .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
                 .build()
 

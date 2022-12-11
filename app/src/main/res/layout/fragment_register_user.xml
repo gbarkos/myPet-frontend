@@ -131,6 +131,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:minWidth="100dp"
+                            android:inputType="textPassword"
                             android:text="@={userregisterviewmodel.password}"
                             android:textColor="@color/black"
                             android:textSize="15dp" />
@@ -156,6 +157,7 @@
                             android:id="@+id/registerConfirmPassword"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:inputType="textPassword"
                             android:minWidth="100dp"
                             android:text="@={userregisterviewmodel.confirmPassword}"
                             android:textColor="@color/black"

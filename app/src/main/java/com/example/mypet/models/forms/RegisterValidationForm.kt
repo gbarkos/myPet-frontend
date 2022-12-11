@@ -1,4 +1,4 @@
-package com.example.mypet.models
+package com.example.mypet.models.forms
 
 import com.example.mypet.models.enums.RegisterErrorCodes
 import com.example.mypet.models.enums.RegisterFormFields

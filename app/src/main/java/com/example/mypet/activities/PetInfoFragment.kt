@@ -99,6 +99,7 @@ class PetInfoFragment: Fragment(R.layout.fragment_pet_info) {
             petInfoName.text = it.pet.name.toEditable();
             petInfoBirthdate.text = MongoDateAdapter(it.pet.birthdate).getDate().toEditable()
             petInfoSex.text = it.pet.sex.toEditable()
+            petInfoSpecies.text = it.pet.species.toEditable()
             petInfoBreed.text = it.pet.breed.toEditable()
             petInfoID.text = it.pet.id?.toEditable() ?: "Δεν έχει καταχωρηθεί στο μητρώο".toEditable();
             petInfoColor.text = it.pet.colour.toEditable()
@@ -133,7 +134,7 @@ class PetInfoFragment: Fragment(R.layout.fragment_pet_info) {
             .load("https://drive.google.com/uc?export=download&id="+it.pet.photo)
             .config(Bitmap.Config.RGB_565)
             /*.resize(160, 160)*/
-            .error(R.drawable.dummy_pet_profile_pic)
+            .error(R.drawable.palceholder_profile_pic)
             .into(binding.petInfoProfilePic)
     }
 }

@@ -140,6 +140,31 @@
 
                         </com.google.android.material.textfield.TextInputLayout>
 
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/petInfoSpeciesHint"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Είδος"
+                            app:boxBackgroundColor="@color/white"
+                            app:boxStrokeColor="@color/black"
+                            app:boxStrokeWidth="0dp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/petInfoNameHint"
+                           >
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/petInfoSpecies"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:enabled="false"
+                                android:minWidth="100dp"
+
+                                android:text=" "
+                                android:textColor="@color/black"
+                                android:textSize="20dp" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
 
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/petInfoBirthdateHint"
@@ -150,7 +175,7 @@
                             app:boxBackgroundColor="@color/white"
                             app:boxStrokeWidth="0dp"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/petInfoNameHint">
+                            app:layout_constraintTop_toBottomOf="@+id/petInfoSpeciesHint">
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/petInfoBirthdate"

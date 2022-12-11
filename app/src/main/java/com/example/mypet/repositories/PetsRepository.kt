@@ -197,12 +197,15 @@ object PetsRepository {
                   photo: String?,
                   _id : String?, callback: () ->Unit) {
 
+        lateinit var file : File
+        var requestImage : MultipartBody.Part? = null
+        if(!photo.isNullOrEmpty()){
+            file = File(photo)
+            var requestFile = file!!.asRequestBody("image/*".toMediaTypeOrNull())
+            requestImage = MultipartBody.Part?.createFormData("photo", file?.name, requestFile)
+        }
 
-        var file: File? = File(photo)
-
-        var requestFile = file!!.asRequestBody("image/*".toMediaTypeOrNull())
-
-        var requestImage = MultipartBody.Part?.createFormData("photo", file?.name, requestFile)
+        /*var requestImagea = MultipartBody.Part?.createFormData("photo", file?.name, requestFile)*/
         var requestId = id?.toRequestBody("multipart/form-data".toMediaTypeOrNull())
         var requestMarks = distinguishingMarks?.toRequestBody("multipart/form-data".toMediaTypeOrNull())
         var requestWeight = weight?.toRequestBody("multipart/form-data".toMediaTypeOrNull())
@@ -220,7 +223,7 @@ object PetsRepository {
                     if (response.isSuccessful && response.body() != null) {
                         //Log.i(petsRepository.TAG, "onResponse: Response Successful")
                         petGetResponse.postValue(response.body())
-                        statusFromUpdate=""
+                        statusFromUpdate = "success"
                         callback()
                         //_loadState.value = Event(NetworkLoadingState.OnSuccess)
                     }else{
