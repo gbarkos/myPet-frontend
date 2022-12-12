@@ -40,6 +40,7 @@ class PetsFragment : Fragment(R.layout.fragment_pets) {
     private lateinit var aboutFragment: AboutFragment
     private lateinit var settingsFragment: SettingsFragment
     private lateinit var sharedPreferences: SharedPreferences
+    private lateinit var remindersFragment: RemindersFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

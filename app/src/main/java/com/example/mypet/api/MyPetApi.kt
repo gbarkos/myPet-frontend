@@ -86,4 +86,14 @@ interface MyPetApi {
                           @Path("id") id: String?,
                           @Query("option") option: String = "test"): Call<MedicalRecordPatchResponse>
 
+    // Reminders
+    @GET("reminders")
+    fun getReminders() : Call<RemindersGetResponse>
+
+    @POST("reminders")
+    fun newReminder(@Body body: NewReminder) : Call<SingleReminderGetResponse>
+
+    @POST("delete/{id}")
+    fun deleteReminder(@Path("id") id: String) : Call<SingleReminderGetResponse>
+
 }

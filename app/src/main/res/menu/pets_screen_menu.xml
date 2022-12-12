@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-
+    <item android:id="@+id/reminders"
+        android:icon="@drawable/ic_baseline_map_24"
+        android:title="Υπενθυμίσεις"></item>
     <item android:id="@+id/nearby_vets"
         android:icon="@drawable/ic_baseline_map_24"
         android:title="Πλησιέστερα Κτηνιατρεία"></item>

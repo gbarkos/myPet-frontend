@@ -89,6 +89,7 @@ class MissingPetSubmitDialog : DialogFragment(), ResponseFunctions {
     }
 
     override fun OnFailure(errorMsg: String?) {
+        dialog.dismiss()
         Toast.makeText(context, "Σφάλμα καταχώρησης!", Toast.LENGTH_LONG).show()
     }
 }
