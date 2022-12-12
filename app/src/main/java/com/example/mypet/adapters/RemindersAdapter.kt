@@ -40,15 +40,9 @@ class RemindersAdapter(private val reminders: List<Reminder>, private val corout
         val binding: ReminderItemBinding = ReminderItemBinding.bind(itemView);
 
         fun bind(reminder: Reminder) {
-            var title = when (reminder.type) {
-                ReminderTypes.Vaccination -> "Εμβολιασμός - "
-                ReminderTypes.Vermifugation -> "Αποπαρασίτωση - "
-                else -> "Θεραπεία - "
-            }
+           val date = MongoDateAdapter(reminder.dateScheduled).getDate()
 
-            val date = MongoDateAdapter(reminder.dateScheduled.toString()).getDate()
-
-            binding.reminderName.text = title + reminder.pet.name
+            binding.reminderName.text = reminder.type +" - "+ reminder.pet.name
             binding.reminderDate.text = date
 
             binding.reminderDelete.setOnClickListener {

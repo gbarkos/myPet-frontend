@@ -6,10 +6,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mypet.models.responses.PetsLimitedGetResponse
 import com.example.mypet.models.responses.RemindersGetResponse
+import com.example.mypet.models.responses.SingleReminderGetResponse
 import com.example.mypet.repositories.PetsRepository
 import com.example.mypet.repositories.RemindersRepository
 import com.example.mypet.utils.ResponseFunctions
 import kotlinx.coroutines.launch
+import java.util.*
 
 class RemindersViewModel: ViewModel()  {
     var responseListener: ResponseFunctions? = null
@@ -19,6 +21,10 @@ class RemindersViewModel: ViewModel()  {
         return repository.getRemindersResponse()
     }
 
+    fun getNewReminderDataFromRepo(): MutableLiveData<SingleReminderGetResponse> {
+        return repository.getReminderAddResponse()
+    }
+
 
     fun getReminders(){
         responseListener?.OnStarted()
@@ -26,6 +32,36 @@ class RemindersViewModel: ViewModel()  {
             repository.requestReminders(fun(){
                 Log.d("STATUS", repository.getStatusFromGetReminders())
                 if(repository.getStatusFromGetReminders() == "fail"){
+                    responseListener?.OnFailure(null)
+                    Log.d("On Failure","failed")
+                }else{
+                    responseListener?.OnSuccess()
+                }
+            })
+        }
+    }
+
+    fun addReminder(petId : String?, dateScheduled : String, timeScheduled : String, type : String){
+        responseListener?.OnStarted()
+        viewModelScope.launch {
+            repository.addReminder(petId, dateScheduled, timeScheduled, type, fun(){
+                Log.d("STATUS", repository.getStatusFromNewReminder())
+                if(repository.getStatusFromNewReminder() == "fail"){
+                    responseListener?.OnFailure(null)
+                    Log.d("On Failure","failed")
+                }else{
+                    responseListener?.OnSuccess()
+                }
+            })
+        }
+    }
+
+    fun deleteReminder(reminderId : String){
+        responseListener?.OnStarted()
+        viewModelScope.launch {
+            repository.addReminder(reminderId, fun(){
+                Log.d("STATUS", repository.getStatusFromNewReminder())
+                if(repository.getStatusFromNewReminder() == "fail"){
                     responseListener?.OnFailure(null)
                     Log.d("On Failure","failed")
                 }else{

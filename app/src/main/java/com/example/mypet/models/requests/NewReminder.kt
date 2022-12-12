@@ -4,7 +4,8 @@ import com.example.mypet.models.enums.ReminderTypes
 import java.util.*
 
 data class NewReminder(
-        var petId: String,
-        var dateScheduled: Date,
-        var type: ReminderTypes,
+        var petId: String?,
+        var dateScheduled: String,
+        var timeScheduled : String,
+        var type: String,
 )

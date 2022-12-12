@@ -105,6 +105,14 @@ class PetsFragment : Fragment(R.layout.fragment_pets) {
         inflater.inflate(R.menu.pets_screen_menu, popup.menu)
         popup.setOnMenuItemClickListener { menuItem: MenuItem ->
             when(menuItem.itemId){
+                R.id.reminders -> {
+                    remindersFragment = RemindersFragment()
+                    val transaction = activity?.supportFragmentManager?.beginTransaction()
+                    transaction?.replace(this.id, remindersFragment)
+                    transaction?.disallowAddToBackStack()
+                    transaction?.commit()
+                    return@setOnMenuItemClickListener true
+                }
                 R.id.nearby_vets -> {
                     val intent = Intent(activity, AppActivity::class.java)
                     startActivity(intent)

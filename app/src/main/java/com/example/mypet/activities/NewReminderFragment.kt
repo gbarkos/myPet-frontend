@@ -1,5 +1,6 @@
 package com.example.mypet.activities
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.view.View
@@ -7,6 +8,7 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.example.mypet.R
 import com.example.mypet.databinding.FragmentNewPetBinding
 import com.example.mypet.databinding.FragmentNewReminderBinding
@@ -16,6 +18,7 @@ import com.example.mypet.viewmodels.PetsViewModel
 import com.example.mypet.viewmodels.RemindersViewModel
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointBackward
+import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
@@ -28,6 +31,8 @@ class NewReminderFragment : Fragment(R.layout.fragment_new_reminder), ResponseFu
     private lateinit var petsViewmodel : PetsViewModel
     private lateinit var binding: FragmentNewReminderBinding
     lateinit var loadingDialog : LoadingCircleDialog
+    private lateinit var remindersFragment: RemindersFragment
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -35,11 +40,12 @@ class NewReminderFragment : Fragment(R.layout.fragment_new_reminder), ResponseFu
         remindersViewmodel = ViewModelProvider(requireActivity())[RemindersViewModel::class.java]
         petsViewmodel = ViewModelProvider(requireActivity())[PetsViewModel::class.java]
         remindersViewmodel.responseListener = this
+        loadingDialog = LoadingCircleDialog()
         var petMap = mutableMapOf<String, String>()
 
         // Date picker
         var calendarConstraint  = CalendarConstraints.Builder().setValidator(
-            DateValidatorPointBackward.now()).build()
+            DateValidatorPointForward.now()).build()
         val datePicker =
             MaterialDatePicker.Builder.datePicker()
                 .setTitleText("Select date")
@@ -60,7 +66,7 @@ class NewReminderFragment : Fragment(R.layout.fragment_new_reminder), ResponseFu
         var hour = calendar.get(Calendar.HOUR_OF_DAY)+1
         val timePicker =
             MaterialTimePicker.Builder()
-                .setTimeFormat(TimeFormat.CLOCK_24H)
+                .setTimeFormat(TimeFormat.CLOCK_12H)
                 .setHour(hour)
                 .setMinute(0)
                 .build()
@@ -88,50 +94,67 @@ class NewReminderFragment : Fragment(R.layout.fragment_new_reminder), ResponseFu
 
         // Type adapter
         var typesAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, listOf("Εμβολιασμός","Αποπαρασίτωση","Θεραπεία"))
-        binding.newReminderPet.setAdapter(typesAdapter)
+        binding.newReminderType.setAdapter(typesAdapter)
 
         // Button listener
         binding.submitNewReminder.setOnClickListener {
             var errorCounter = 0;
 
-            var name = binding.newReminderPet.text
+            var name = binding.newReminderPet.text.toString()
             if(name.isNullOrEmpty()){
                 binding.newReminderPetHint.error = "Το πεδίο είναι υποχρεωτικό"
                 errorCounter++
             }
-            var type = binding.newReminderType.text
+            var type = binding.newReminderType.text.toString()
             if(type.isNullOrEmpty()){
                 binding.newReminderTypeHint.error = "Το πεδίο είναι υποχρεωτικό"
                 errorCounter++
             }
-            var date = binding.newReminderScheduledDate.text
+            var date = binding.newReminderScheduledDate.text.toString()
             if(date.isNullOrEmpty()){
                 binding.newReminderScheduledDateHint.error = "Το πεδίο είναι υποχρεωτικό"
                 errorCounter++
             }
-            var time = binding.newReminderScheduledTime.text
+            var time = binding.newReminderScheduledTime.text.toString()
             if(time.isNullOrEmpty()){
                 binding.newReminderScheduledTimeHint.error = "Το πεδίο είναι υποχρεωτικό"
                 errorCounter++
             }
 
             if(errorCounter == 0){
-
+                remindersViewmodel.addReminder(petMap[name], date, time, type)
             }
+        }
+
+        binding.settingsReturn.setOnClickListener {
+            remindersFragment = RemindersFragment()
+            val transaction = activity?.supportFragmentManager?.beginTransaction()
+            transaction?.replace(this.id, remindersFragment)
+            transaction?.disallowAddToBackStack()
+            transaction?.commit()
         }
 
     }
 
     override fun OnStarted() {
-        TODO("Not yet implemented")
+       loadingDialog.show(parentFragmentManager, "loading")
     }
 
     override fun OnSuccess() {
-        TODO("Not yet implemented")
+        loadingDialog.dismiss()
+        //Toast.makeText(context, "Επιτυχής προσθήκη!", Toast.LENGTH_LONG).show()
+        remindersFragment = RemindersFragment()
+        val transaction = activity?.supportFragmentManager?.beginTransaction()
+        transaction?.replace(this.id, remindersFragment)
+        transaction?.disallowAddToBackStack()
+        transaction?.commit()
+        //findNavController().navigate(R.id.action_newReminderFragment_to_remindersFragment)
+
     }
 
     override fun OnFailure(errorMsg: String?) {
-        TODO("Not yet implemented")
+        loadingDialog.dismiss()
+        Toast.makeText(context, "Σφάλμα προσθήκης!", Toast.LENGTH_LONG).show()
     }
 
     private fun String?.toEditable(): Editable? {

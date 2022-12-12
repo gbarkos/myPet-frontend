@@ -10,6 +10,7 @@ import androidx.core.view.children
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mypet.R
 import com.example.mypet.adapters.PetsAdapter
@@ -29,6 +30,7 @@ class RemindersFragment : Fragment(R.layout.fragment_reminders), ResponseFunctio
     private lateinit var reminders: List<Reminder>
     lateinit var confirmDeleteDialog : ConfirmReminderDeleteDialog
     lateinit var loadingDialog : LoadingCircleDialog
+    private lateinit var newReminderFragment: NewReminderFragment
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -51,6 +53,19 @@ class RemindersFragment : Fragment(R.layout.fragment_reminders), ResponseFunctio
                 }.launchIn(lifecycleScope)
             }
         })
+
+       binding.addNewReminderButton.setOnClickListener{
+           newReminderFragment = NewReminderFragment()
+           val transaction = activity?.supportFragmentManager?.beginTransaction()
+           transaction?.replace(this.id, newReminderFragment)
+           transaction?.disallowAddToBackStack()
+           transaction?.commit()
+       }
+
+        binding.settingsReturn.setOnClickListener {
+            val intent = Intent(activity, MainContentActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     override fun OnStarted() {

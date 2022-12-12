@@ -15,6 +15,9 @@
         <action
             android:id="@+id/action_petsFragment_to_testFragment"
             app:destination="@id/testFragment" />
+        <action
+            android:id="@+id/action_petsFragment_to_remindersFragment"
+            app:destination="@id/remindersFragment" />
     </fragment>
     <fragment
         android:id="@+id/newPetFragment"
@@ -31,5 +34,24 @@
         <action
             android:id="@+id/action_testFragment_to_petsFragment"
             app:destination="@id/petsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/remindersFragment"
+        android:name="com.example.mypet.activities.RemindersFragment"
+        android:label="RemindersFragment" >
+        <action
+            android:id="@+id/action_remindersFragment_to_newReminderFragment"
+            app:destination="@id/newReminderFragment" />
+        <action
+            android:id="@+id/action_remindersFragment_to_petsFragment"
+            app:destination="@id/petsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/newReminderFragment"
+        android:name="com.example.mypet.activities.NewReminderFragment"
+        android:label="NewReminderFragment" >
+        <action
+            android:id="@+id/action_newReminderFragment_to_remindersFragment"
+            app:destination="@id/remindersFragment" />
     </fragment>
 </navigation>
