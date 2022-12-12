@@ -94,6 +94,6 @@ interface MyPetApi {
     fun newReminder(@Body body: NewReminder) : Call<SingleReminderGetResponse>
 
     @POST("reminders/{id}")
-    fun deleteReminder(@Path("id") id: String) : Call<BarebonesResponse>
+    fun deleteReminder(@Path("id") id: String) : Call<RemindersGetResponse>
 
 }

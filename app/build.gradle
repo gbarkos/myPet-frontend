@@ -46,7 +46,7 @@ dependencies {
     def okHttp = "4.9.2"
     def nav_version = "2.3.5"
     def design_version = "2.8.0"
-
+    implementation platform('com.google.firebase:firebase-bom:31.1.1')
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.3.1'
     implementation 'com.google.android.material:material:1.4.0'

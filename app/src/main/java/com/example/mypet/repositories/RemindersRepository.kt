@@ -33,7 +33,7 @@ object RemindersRepository {
     }
 
     fun getStatusFromDeletedReminder(): String{
-        return statusFromNewReminder
+        return statusFromDeletedReminder
     }
 
     private val reminderAddResponse: MutableLiveData<SingleReminderGetResponse> = MutableLiveData()
@@ -128,14 +128,14 @@ object RemindersRepository {
         Log.i(TAG, "Reminders response: Call started")
         dataSource.getMyPetApi()
             .deleteReminder(reminderId)
-            .enqueue(object : Callback<BarebonesResponse> {
+            .enqueue(object : Callback<RemindersGetResponse> {
                 override fun onResponse(
-                    call: Call<BarebonesResponse>,
-                    response: Response<BarebonesResponse>
+                    call: Call<RemindersGetResponse>,
+                    response: Response<RemindersGetResponse>
                 ) {
                     if (response.isSuccessful && response.body() != null) {
                         Log.i(TAG, "onResponse: Response Successful")
-                        //reminderAddResponse.postValue(response.body())
+                        remindersGetResponse.postValue(response.body())
                         statusFromNewReminder = "success"
                         callback()
                     }else{
@@ -154,7 +154,7 @@ object RemindersRepository {
                         }
                     }
                 }
-                override fun onFailure(call: Call<BarebonesResponse>, t: Throwable) {
+                override fun onFailure(call: Call<RemindersGetResponse>, t: Throwable) {
                     Log.i(TAG, "onFailure: " + t.message)
                     callback()
                 }

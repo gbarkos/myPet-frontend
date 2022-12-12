@@ -59,9 +59,9 @@ class RemindersViewModel: ViewModel()  {
     fun deleteReminder(reminderId : String){
         responseListener?.OnStarted()
         viewModelScope.launch {
-            repository.addReminder(reminderId, fun(){
-                Log.d("STATUS", repository.getStatusFromNewReminder())
-                if(repository.getStatusFromNewReminder() == "fail"){
+            repository.deleteReminder(reminderId, fun(){
+                Log.d("STATUS", repository.getStatusFromDeletedReminder())
+                if(repository.getStatusFromDeletedReminder() == "fail"){
                     responseListener?.OnFailure(null)
                     Log.d("On Failure","failed")
                 }else{

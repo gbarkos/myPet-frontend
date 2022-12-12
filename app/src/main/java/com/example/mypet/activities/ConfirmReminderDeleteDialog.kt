@@ -33,7 +33,7 @@ class ConfirmReminderDeleteDialog : DialogFragment(), ResponseFunctions {
                 .setPositiveButton("Ναι",
                     DialogInterface.OnClickListener { dialog, id ->
                         // TODO
-                        // viewmodel.setPetAsMissing(lat, lng, contactInfo, petId)
+                        viewmodel.deleteReminder(reminderId)
                         println("Dialog accepted")
                     })
                 .setNegativeButton("Όχι",
