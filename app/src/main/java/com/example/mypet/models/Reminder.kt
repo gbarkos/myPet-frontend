@@ -1,12 +1,12 @@
 package com.example.mypet.models
 
-import com.example.mypet.models.enums.ReminderTypes
 import java.util.*
 
 data class Reminder(
         var user: User,
         var pet: Pet,
         var dateScheduled: Date,
-        var type: ReminderTypes,
+        var timeScheduled: String,
+        var type: String,
         val _id: String,
 )
