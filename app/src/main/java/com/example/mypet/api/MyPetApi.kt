@@ -22,6 +22,9 @@ interface MyPetApi {
     @PATCH("users/changeEmailStatus")
     fun changeEmailStatus(@Body body: UserChangeEmailPreferencesRequest): Call<UserGetResponse>
 
+    @POST("users/updateFcmToken")
+    fun saveFcmToken(@Body body: UserUpdateFcmToken): Call<UserGetResponse>
+
     //Vet
     @POST("vets/signup")
     fun registerVet(@Body body: VetRegisterPostRequest): Call<VetLoginRegisterPostResponse>

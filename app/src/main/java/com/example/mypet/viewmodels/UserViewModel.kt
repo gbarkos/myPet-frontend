@@ -121,6 +121,21 @@ class UserViewModel: ViewModel() {
         }
     }
 
+    fun saveFcmToken(token : String){
+        responseListener?.OnStarted()
+        viewModelScope.launch {
+            userAuthRepository.saveFcmToken(token, fun() {
+                Log.d("STATUS",getStatusFromUpdate().toString())
+                if(getStatusFromUpdate().toString() == "fail"){
+                    responseListener?.OnFailure(null)
+                    Log.d("On Failure","failed")
+                }else{
+                    responseListener?.OnSuccess()
+                }
+            })
+        }
+    }
+
     fun onLoginButtonClick(view: View) {
         if (username.isNullOrEmpty()){
             return statusFromLoginValidation.postValue("Παρακαλώ εισάγετε όνομα χρήστη")

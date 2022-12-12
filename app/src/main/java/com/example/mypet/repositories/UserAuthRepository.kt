@@ -7,6 +7,7 @@ import com.example.mypet.models.ErrorResponse
 import com.example.mypet.models.requests.UserChangeEmailPreferencesRequest
 import com.example.mypet.models.requests.UserLoginPostRequest
 import com.example.mypet.models.requests.UserRegisterPostRequest
+import com.example.mypet.models.requests.UserUpdateFcmToken
 import com.example.mypet.models.responses.UserGetResponse
 import com.example.mypet.models.responses.UserLoginRegisterPostResponse
 import com.example.mypet.utils.SingleLiveEvent
@@ -165,6 +166,45 @@ object UserAuthRepository {
 
         dataSource.getMyPetApi()
             .changeEmailStatus(body)
+            .enqueue(object : Callback<UserGetResponse> {
+                override fun onResponse(
+                    call: Call<UserGetResponse>,
+                    response: Response<UserGetResponse>
+                ) {
+                    if (response.isSuccessful && response.body() != null) {
+                        Log.i(TAG, "onResponse: Response Successful")
+                        updateUserResponse.postValue(response.body())
+                        statusFromUpdate=""
+                        callback()
+                    } else {
+                        try {
+                            val responseObj: ErrorResponse = gson.fromJson(
+                                response.errorBody()?.string(),
+                                ErrorResponse::class.java
+                            )
+                            statusFromUpdate = responseObj.status
+                            Log.d("FAILURE MESSAGE", statusFromUpdate.toString())
+                            callback()
+                        } catch (e: Exception) {
+                            statusFromUpdate = "Something Went Wrong"
+                            Log.d("IN CATCH", statusFromUpdate.toString())
+                            callback()
+                        }
+                    }
+                }
+                override fun onFailure(call: Call<UserGetResponse>, t: Throwable) {
+                    Log.i(TAG, "onFailure: " + t.message)
+                    callback()
+                }
+            })
+    }
+
+    fun saveFcmToken(token : String, callback: () ->Unit) {
+        val dataSource = ServiceGenerator
+        val body = UserUpdateFcmToken(token)
+
+        dataSource.getMyPetApi()
+            .saveFcmToken(body)
             .enqueue(object : Callback<UserGetResponse> {
                 override fun onResponse(
                     call: Call<UserGetResponse>,

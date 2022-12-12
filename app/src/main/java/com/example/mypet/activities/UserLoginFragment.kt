@@ -1,6 +1,7 @@
 package com.example.mypet.activities
 
 import android.app.Activity
+import android.content.ContentValues
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -15,6 +16,8 @@ import com.example.mypet.databinding.FragmentLoginUserBinding
 import com.example.mypet.utils.ResponseFunctions
 import com.example.mypet.utils.SharedPreferencesUtil
 import com.example.mypet.viewmodels.UserViewModel
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.messaging.FirebaseMessaging
 
 class UserLoginFragment: Fragment(R.layout.fragment_login_user), ResponseFunctions {
     private lateinit var binding: FragmentLoginUserBinding;

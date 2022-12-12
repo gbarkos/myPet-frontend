@@ -33,7 +33,7 @@ class SettingsFragment: Fragment(R.layout.fragment_settings), ResponseFunctions 
             }
             Log.d("SettingsFragment",it?.user.toString())
             print(it?.user)
-            binding.receiveMailCheckBox.isChecked = it?.user.receiveMissingMail
+            binding.receiveMailCheckBox.isChecked = it?.user!!.receiveMissingMail
         })
 
         binding.settingsReturn.setOnClickListener {
