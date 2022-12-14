@@ -17,7 +17,7 @@
             app:titleTextColor="#FFFF"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:title="QR Code" />
+            app:title="Η κλινική μου" />
 
     </com.google.android.material.appbar.AppBarLayout>
     <com.google.android.material.button.MaterialButton

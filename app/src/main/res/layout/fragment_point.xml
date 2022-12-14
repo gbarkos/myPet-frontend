@@ -17,7 +17,8 @@
         app:uiRotateGestures="true"
         app:uiTiltGestures="true"
         app:uiZoomControls="false"
-        app:uiZoomGestures="true" />
+        app:uiZoomGestures="true"
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <ImageView
         android:id="@+id/my_location_btn"
@@ -33,18 +34,19 @@
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintWidth_percent="0.11" />
+        app:layout_constraintWidth_percent="0.11"
+        tools:ignore="ImageContrastCheck" />
 
     <Button
         android:id="@+id/join_now_btn"
         android:layout_width="0dp"
-        android:layout_height="40dp"
+        android:layout_height="48dp"
         android:background="@color/black"
-        android:text="sent nudes"
+        android:text="@string/select_point"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="20.sp"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
