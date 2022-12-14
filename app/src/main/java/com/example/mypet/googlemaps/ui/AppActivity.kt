@@ -1,8 +1,12 @@
 package com.example.mypet.googlemaps.ui
 
+import android.app.Activity
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
+import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.navigation.Navigation
 import dagger.hilt.android.AndroidEntryPoint
 import com.example.mypet.R
 import com.example.mypet.databinding.ActivityAppBinding
@@ -15,6 +19,37 @@ class AppActivity : BaseActivity<ActivityAppBinding>() {
     private val viewModel: AppViewModel by viewModels()
 
     override fun getViewBinding(): ActivityAppBinding = ActivityAppBinding.inflate(layoutInflater)
+
+    private var navigationId: Int = 0
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        // attach to Presenter
+        handleIntent(intent)
+        when (navigationId) {
+            0 -> {
+
+            }
+            else -> navigationId?.let {
+                handleNavigationGraph(it)
+            }
+        }
+    }
+
+    private fun handleNavigationGraph(navigationId: Int) {
+
+        val navController = Navigation.findNavController(
+            this@AppActivity,
+            R.id.nav_host_fragment
+        )
+
+        // navigation issue - unknown destination during restore
+        try {
+            navController.setGraph(navigationId, Bundle())
+        } catch (e: Exception) {
+            finish()
+        }
+    }
 
     fun checkForLocationServices() {
         if (hasPermissions(FOREGROUND_LOCATION_PERMISSIONS)) {
@@ -48,6 +83,12 @@ class AppActivity : BaseActivity<ActivityAppBinding>() {
                 }
                 requestPermissions(FOREGROUND_LOCATION_PERMISSIONS, FOREGROUND_LOCATION_PERMISSIONS_RC)
             }
+        }
+    }
+
+    fun handleIntent(intent: Intent?) {
+        intent?.extras?.apply {
+            navigationId = getInt(NAVIGATION_GRAPH_ID)
         }
     }
 
@@ -95,5 +136,17 @@ class AppActivity : BaseActivity<ActivityAppBinding>() {
 
     companion object {
         const val FOREGROUND_LOCATION_PERMISSIONS_RC = 1407
+
+        private const val NAVIGATION_GRAPH_ID = "NAVIGATION_GRAPH_ID"
+
+        fun show(activity: Activity, navigationId: Int) {
+            val intent = Intent(activity, AppActivity::class.java)
+
+            intent.putExtras(Bundle().apply {
+                putInt(NAVIGATION_GRAPH_ID, navigationId)
+            })
+
+            activity.startActivityForResult(intent,10)
+        }
     }
 }

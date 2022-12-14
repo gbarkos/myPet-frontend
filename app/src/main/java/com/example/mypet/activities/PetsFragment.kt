@@ -114,8 +114,9 @@ class PetsFragment : Fragment(R.layout.fragment_pets) {
                     return@setOnMenuItemClickListener true
                 }
                 R.id.nearby_vets -> {
-                    val intent = Intent(activity, AppActivity::class.java)
-                    startActivity(intent)
+                    AppActivity.show(this.requireActivity(), R.navigation.nav_graph)
+                    /*val intent = Intent(activity, AppActivity::class.java)
+                    startActivity(intent)*/
                     return@setOnMenuItemClickListener true
                 }
                 R.id.settings -> {

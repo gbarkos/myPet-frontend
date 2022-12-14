@@ -1,6 +1,7 @@
 package com.example.mypet.activities
 
 import android.app.Activity
+import android.content.Intent
 import android.content.SharedPreferences
 import android.content.res.ColorStateList
 import android.os.Bundle
@@ -29,6 +30,8 @@ import com.example.mypet.viewmodels.PetsViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class PetDetailsActivity: AppCompatActivity() {
+    public var lng = 0.0
+    public var lat = 0.0
 
     private lateinit var viewmodel: PetsViewModel
     private lateinit var binding: ActivityPetDetailsBinding
@@ -80,6 +83,14 @@ class PetDetailsActivity: AppCompatActivity() {
             return@setOnItemSelectedListener true
         }
    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        //Retrieve data in the intent
+        lat = data?.getDoubleExtra("Lat",0.0)!!
+        lng = data?.getDoubleExtra("Long",0.0)!!
+    }
+
     private fun adjustViewForVet(){
         var stringVet = SharedPreferencesUtil.getVetData()
         if(!stringVet.isNullOrEmpty()) {

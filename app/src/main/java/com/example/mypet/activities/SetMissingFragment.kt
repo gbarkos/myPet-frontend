@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.mypet.R
 import com.example.mypet.databinding.FragmentMissingPetBinding
+import com.example.mypet.googlemaps.ui.AppActivity
 import com.example.mypet.utils.ResponseFunctions
 import com.example.mypet.viewmodels.PetsViewModel
 
@@ -17,6 +18,7 @@ class SetMissingFragment : Fragment(R.layout.fragment_missing_pet), ResponseFunc
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        var parentActivity = this.activity as PetDetailsActivity
 
         binding = FragmentMissingPetBinding.bind(view)
         viewmodel = ViewModelProvider(requireActivity())[PetsViewModel::class.java]
@@ -44,9 +46,13 @@ class SetMissingFragment : Fragment(R.layout.fragment_missing_pet), ResponseFunc
                 if(fb != null) contactInfo.add(fb)
                 if(instagram != null) contactInfo.add(instagram)
 
-                missingDialog = MissingPetSubmitDialog.newInstance(contactInfo, "36.8605835", "10.3215698", viewmodel._id)
+                missingDialog = MissingPetSubmitDialog.newInstance(contactInfo, parentActivity.lat.toString(), parentActivity.lng.toString(), viewmodel._id)
                 missingDialog.show(childFragmentManager, "dialog")
             }
+        }
+
+        binding.openMapBtn.setOnClickListener{
+            AppActivity.show(this.requireActivity(), R.navigation.select_map_location)
         }
 
     }

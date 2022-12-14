@@ -85,7 +85,7 @@ class MissingPetSubmitDialog : DialogFragment(), ResponseFunctions {
         val transaction = activity?.supportFragmentManager?.beginTransaction()
         transaction?.replace(R.id.navigationFragmentContainer, petInfoFragment)
         transaction?.commit()
-        Toast.makeText(context, "Καταχωρήθηκε!", Toast.LENGTH_LONG).show()
+        //Toast.makeText(context, "Καταχωρήθηκε!", Toast.LENGTH_LONG).show()
     }
 
     override fun OnFailure(errorMsg: String?) {

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/select_map_location"
+    app:startDestination="@id/pointFinterFragment">
+
+    <fragment
+        android:id="@+id/pointFinterFragment"
+        android:name="com.example.mypet.activities.PointFinderFragment"
+        android:label="PointFinterFragment" />
+</navigation>

@@ -22,7 +22,6 @@ class FirebaseService : com.google.firebase.messaging.FirebaseMessagingService()
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         super.onMessageReceived(remoteMessage)
 
-        //val intent = Intent(this, MainActivity::class.java)
         val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         val notificationID = Random.nextInt()
 
@@ -30,23 +29,19 @@ class FirebaseService : com.google.firebase.messaging.FirebaseMessagingService()
             createNotificationChannel(notificationManager)
         }
 
-        //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-
-       // val pendingIntent = PendingIntent.getActivity(this, 0, intent, FLAG_ONE_SHOT)
         val notification = NotificationCompat.Builder(this, CHANNEL_ID)
             .setContentTitle(remoteMessage.notification?.title)
             .setContentText(remoteMessage.notification?.body)
             .setSmallIcon(R.drawable.ic_baseline_pets_24)
-            //.setContentIntent(pendingIntent)
             .build()
 
         notificationManager.notify(notificationID, notification)
     }
 
     private fun createNotificationChannel(notificationManager: NotificationManager){
-        var channelName = "RemindersChannel"
+        var channelName = "Medical Reminders"
         val channel = NotificationChannel(CHANNEL_ID, channelName, IMPORTANCE_HIGH).apply{
-            description = "This channel is fore receiving health reminders"
+            description = "Receive medical reminders"
         }
         notificationManager.createNotificationChannel(channel)
     }
