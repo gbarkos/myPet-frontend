@@ -35,7 +35,7 @@ class PointFinderFragment : BaseFragment<FragmentPointBinding>(), OnMapReadyCall
 
     private val viewModel: MapSearcherViewModel by viewModels()
 
-    override fun getStatusBarType(): StatusBarType = StatusBarType.LIGHT
+    /*override fun getStatusBarType(): StatusBarType = StatusBarType.LIGHT*/
 
     private var googleMap: GoogleMap? = null
 

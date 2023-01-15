@@ -4,13 +4,10 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.widget.SearchView
 import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.navigation.NavDirections
-import androidx.navigation.fragment.findNavController
 import com.example.mypet.R
 import com.example.mypet.databinding.FragmentMapBinding
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -25,9 +22,7 @@ import com.example.mypet.googlemaps.model.MapClusterItem
 import com.example.mypet.googlemaps.model.PlaceDetailsItem
 import com.example.mypet.googlemaps.model.UserLocation
 import com.example.mypet.googlemaps.util.getStatusBarHeight
-import com.example.mypet.googlemaps.util.safeNavigate
 import com.example.mypet.googlemaps.util.screenWidth
-import com.google.android.libraries.places.api.model.OpeningHours
 
 @AndroidEntryPoint
 class MapSearcherFragment : BaseFragment<FragmentMapBinding>(), OnMapReadyCallback {
@@ -37,8 +32,6 @@ class MapSearcherFragment : BaseFragment<FragmentMapBinding>(), OnMapReadyCallba
     private val activityViewModel: AppViewModel by activityViewModels()
 
     private val viewModel: MapSearcherViewModel by viewModels()
-
-    override fun getStatusBarType(): StatusBarType = StatusBarType.LIGHT
 
     private var googleMap: GoogleMap? = null
 
@@ -161,7 +154,7 @@ class MapSearcherFragment : BaseFragment<FragmentMapBinding>(), OnMapReadyCallba
         print(placeDetailsItem.openingHours)
         with(binding) {
             excavationSiteDetailsCard.visibility = View.VISIBLE
-            storesAddressTxt.text = placeDetailsItem.formattedΑddress
+            storesAddressTxt.text = placeDetailsItem.formattedAddress
             storesNameLabelTxt.text = placeDetailsItem.name
             ratingTxt.text = placeDetailsItem.rating.toString() + "/5.0"
             statusTxt.text = placeDetailsItem.openingHours
@@ -177,14 +170,6 @@ class MapSearcherFragment : BaseFragment<FragmentMapBinding>(), OnMapReadyCallba
         }
     }
 
-    /*private fun showCurrentLocation(locationPair: Pair<MapPinCoordinates?, Float?>) {
-        val cameraBuild = CameraPosition.builder().apply {
-            target(locationPair.first?.let { LatLng(it.latitude, it.longitude) } ?: INITIAL_LOCATION)
-            zoom(locationPair.second ?: INITIAL_ZOOM)
-        }.build()
-        googleMap?.animateCamera(CameraUpdateFactory.newCameraPosition(cameraBuild))
-    }*/
-
     private fun showUserLocationOnMapUI(location: UserLocation) {
         val cameraBuild = CameraPosition.builder().apply {
             target(LatLng(location.latitude, location.longitude))
@@ -193,17 +178,7 @@ class MapSearcherFragment : BaseFragment<FragmentMapBinding>(), OnMapReadyCallba
         googleMap?.animateCamera(CameraUpdateFactory.newCameraPosition(cameraBuild))
     }
 
-    /*
-    * Navigation
-    */
-    private fun navigateUI(directions: NavDirections) {
-        findNavController().safeNavigate(directions, R.id.mapSearcherFragment)
-    }
-
-
     companion object {
-        private val INITIAL_LOCATION = LatLng(40.63713547036048, 22.946366871423827)
-        private const val INITIAL_ZOOM = 11.5f
         private const val USER_LOCATION_ZOOM = 13f
         private const val CLUSTER_ITEM_WIDTH_PERCENT = 0.1
     }

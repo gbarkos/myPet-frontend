@@ -16,7 +16,6 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ActivityRetainedComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-
 import com.example.mypet.googlemaps.data.*
 import com.example.mypet.googlemaps.util.ConnectivityInterceptor
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -46,10 +45,6 @@ object MapModule {
             .writeTimeout(30, TimeUnit.SECONDS)
             .readTimeout(30, TimeUnit.SECONDS)
             .connectionSpecs(listOf(connectionSpec))
-
-     /*   if (BuildConfig.DEBUG) {
-            okHttpClient.addNetworkInterceptor(httpLoggingInterceptor)
-        }*/
 
         return okHttpClient.build()
     }
@@ -93,10 +88,8 @@ object MapModule {
 @Module
 @InstallIn(ActivityRetainedComponent::class)
 interface MapBindsModule {
-
     @Binds
     fun bindMapSearcherDataSource(dataSource: MapSearcherDataSourceImpl): MapSearcherDataSource
-
     @Binds
     fun bindMapSearcherRepository(repository: MapSearcherRepositoryImpl): MapSearcherRepository
 }

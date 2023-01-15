@@ -16,7 +16,7 @@ data class GooglePlacesResponse(
 @JsonClass(generateAdapter = true)
 data class GooglePlacesDetailsResponse(
     @Json(name = "formatted_address")
-    val formattedΑddress: String?,
+    val formattedAddress: String?,
     @Json(name = "rating")
     val rating: Float?,
     @Json(name = "name")
@@ -51,7 +51,7 @@ data class GooglePlaceDetailsGenericResponse(
 @JsonClass(generateAdapter = true)
 data class GooglePlaceDetailsResponse(
     @Json(name = "formatted_address")
-    val formattedΑddress: String?,
+    val formattedAddress: String?,
     @Json(name = "rating")
     val rating: Float?,
     @Json(name = "name")

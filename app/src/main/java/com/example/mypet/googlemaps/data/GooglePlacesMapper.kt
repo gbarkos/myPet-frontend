@@ -11,13 +11,12 @@ class GooglePlacesMapper @Inject constructor() : Mapper {
         response.candidates?.forEach {
             googlePlacesList.add(
                 MapClusterItem(
-                    formattedΑddress = it.formattedΑddress ?: "",
+                    formattedAddress = it.formattedAddress ?: "",
                     rating = it.rating ?: 0.0f,
                     name = it.name ?: "",
                     id = it.placeId ?: "",
                     latitude = it.geometry?.location?.lat ?: (0).toDouble(),
                     longitude = it.geometry?.location?.lng ?: (0).toDouble()
-
                 )
             )
         }
@@ -27,7 +26,7 @@ class GooglePlacesMapper @Inject constructor() : Mapper {
     operator fun invoke(response: GooglePlaceDetailsGenericResponse): PlaceDetailsItem {
         return response.candidates.let{
             PlaceDetailsItem(
-                    formattedΑddress = it?.formattedΑddress ?: "",
+                    formattedAddress = it?.formattedAddress ?: "",
                     rating = it?.rating ?: 0.0f,
                     name = it?.name ?: "",
                     id = it?.placeId ?: "",

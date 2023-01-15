@@ -5,7 +5,7 @@ import com.google.maps.android.clustering.ClusterItem
 import java.io.Serializable
 
 data class MapClusterItem(
-    val formattedΑddress: String,
+    val formattedAddress: String,
     val rating: Float,
     val name: String,
     val id: String,
@@ -20,7 +20,7 @@ data class MapClusterItem(
 }
 
 data class PlaceDetailsItem(
-    val formattedΑddress: String = "",
+    val formattedAddress: String = "",
     val rating: Float = 0.0f,
     val name: String = "",
     val id: String = "",

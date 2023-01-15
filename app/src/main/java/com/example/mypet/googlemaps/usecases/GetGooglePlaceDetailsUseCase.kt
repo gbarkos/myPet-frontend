@@ -1,7 +1,6 @@
 package com.example.mypet.googlemaps.usecases
 
 import com.example.mypet.googlemaps.data.MapSearcherRepository
-import com.example.mypet.googlemaps.model.GooglePlaces
 import com.example.mypet.googlemaps.model.PlaceDetailsItem
 import javax.inject.Inject
 

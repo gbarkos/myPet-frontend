@@ -10,7 +10,6 @@ import androidx.navigation.Navigation
 import dagger.hilt.android.AndroidEntryPoint
 import com.example.mypet.R
 import com.example.mypet.databinding.ActivityAppBinding
-import com.example.mypet.databinding.ActivityMainBinding.inflate
 import com.example.mypet.googlemaps.util.*
 
 @AndroidEntryPoint
@@ -24,7 +23,7 @@ class AppActivity : BaseActivity<ActivityAppBinding>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // attach to Presenter
+
         handleIntent(intent)
         when (navigationId) {
             0 -> {
@@ -43,7 +42,6 @@ class AppActivity : BaseActivity<ActivityAppBinding>() {
             R.id.nav_host_fragment
         )
 
-        // navigation issue - unknown destination during restore
         try {
             navController.setGraph(navigationId, Bundle())
         } catch (e: Exception) {
@@ -61,9 +59,6 @@ class AppActivity : BaseActivity<ActivityAppBinding>() {
     }
 
     fun handleLocationPermissions() {
-        /*
-        * Permissions for indoor beacon tracking and outdoor location Geofences
-        */
         when {
             Build.VERSION.SDK_INT >= Build.VERSION_CODES.R -> {
                 if (hasPermissions(FOREGROUND_LOCATION_PERMISSIONS + BACKGROUND_LOCATION_PERMISSIONS)) {
@@ -92,9 +87,6 @@ class AppActivity : BaseActivity<ActivityAppBinding>() {
         }
     }
 
-    /*
-    * Permissions for indoor beacon tracking and outdoor location Geofences
-    */
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,

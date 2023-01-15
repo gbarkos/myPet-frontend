@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.viewbinding.ViewBinding
 import com.google.android.material.snackbar.Snackbar
 import com.example.mypet.googlemaps.util.ConnectivityStatus
-import com.example.mypet.R
 
 abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
 

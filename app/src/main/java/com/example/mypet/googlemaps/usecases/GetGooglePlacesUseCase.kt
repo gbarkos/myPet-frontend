@@ -11,7 +11,6 @@ class GetGooglePlacesUseCase @Inject constructor(
         return try {
             repository.getGooglePlaces(location, query)
         } catch (ex: Exception) {
-
             GooglePlaces()
         }
     }

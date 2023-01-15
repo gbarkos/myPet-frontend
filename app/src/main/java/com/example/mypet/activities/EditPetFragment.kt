@@ -51,26 +51,6 @@ class EditPetFragment : Fragment(R.layout.fragment_edit_pet), ResponseFunctions 
             observer.selectImage()
             observer.getUri().observeOnce(viewLifecycleOwner){
                 if(it != null){
-                    /*var bitmap: Bitmap? = null
-                    try {
-                        bitmap = if (Build.VERSION.SDK_INT < 28) {
-                            MediaStore.Images.Media.getBitmap(requireContext().contentResolver, it)
-                        } else {
-                            val source: ImageDecoder.Source =
-                                ImageDecoder.createSource(requireContext().contentResolver, it)
-                            ImageDecoder.decodeBitmap(source)
-                        }
-                    } catch (e: Exception) {
-                        e.printStackTrace()
-                    }
-
-                    val outputStream = ByteArrayOutputStream()
-                    bitmap!!.compress(Bitmap.CompressFormat.PNG, 100, outputStream)
-                    val byteArray: ByteArray = outputStream.toByteArray()
-
-                    encodedString = Base64.encodeToString(byteArray, Base64.DEFAULT)
-                    Log.d("Encoded", encodedString)*/
-                    Log.d("uri", it.toString())
                     uri = it
 
                     var contentResolver = requireContext().contentResolver

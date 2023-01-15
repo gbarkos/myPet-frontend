@@ -3,7 +3,6 @@ package com.example.mypet.googlemaps.ui
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mypet.R
-import com.example.mypet.googlemaps.*
 import com.example.mypet.googlemaps.util.*
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -13,8 +12,6 @@ abstract class BaseViewModel : ViewModel() {
 
     @Inject
     lateinit var errorLiveData: ErrorLiveData
-
-    val connectivityUI = SingleLiveEvent<ConnectivityStatus>()
 
     protected fun launch(delayValue: Long = 0, function: suspend () -> Unit) {
         viewModelScope.launch {

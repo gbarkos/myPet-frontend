@@ -61,8 +61,6 @@ interface MyPetApi {
                   @Part("height") height: RequestBody?,
                   @Path("id") _id: String?): Call<PetGetResponse>
 
-
-
     //Medical Record
     @PATCH("records/{id}")
     fun addVaccination(@Body body: VaccinationPostRequest,
@@ -98,5 +96,4 @@ interface MyPetApi {
 
     @POST("reminders/{id}")
     fun deleteReminder(@Path("id") id: String) : Call<RemindersGetResponse>
-
 }

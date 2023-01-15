@@ -1,12 +1,8 @@
 package com.example.mypet.googlemaps.data
 
-import android.annotation.SuppressLint
-import com.google.android.gms.location.FusedLocationProviderClient
 import com.example.mypet.googlemaps.model.GooglePlaces
-import com.example.mypet.googlemaps.model.GooglePlacesResponse
 import com.example.mypet.googlemaps.model.PlaceDetailsItem
 import com.example.mypet.googlemaps.model.UserLocation
-import com.example.mypet.googlemaps.util.suspended
 import javax.inject.Inject
 
 interface MapSearcherRepository {
