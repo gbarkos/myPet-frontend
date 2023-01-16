@@ -41,14 +41,10 @@ class NewDiagnosticTestFragment : Fragment(R.layout.fragment_new_diagnostic_test
         dialog = LoadingCircleDialog()
         adjustViewForVet()
 
-        var calendarConstraint  = CalendarConstraints.Builder().setValidator(
-            DateValidatorPointBackward.now()).build()
-
         //Surgery Date Picker
         val datePicker =
             MaterialDatePicker.Builder.datePicker()
                 .setTitleText("Select date")
-                .setCalendarConstraints(calendarConstraint)
                 .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
                 .build()
 

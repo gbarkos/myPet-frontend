@@ -47,11 +47,9 @@ class NewVaccinationFragment : Fragment(R.layout.fragment_new_vaccination), Resp
         dialog = LoadingCircleDialog()
 
         //Vaccination Date Picker
-        var calendarConstraint  = CalendarConstraints.Builder().setValidator(DateValidatorPointBackward.now()).build()
         val vaccinationDatePicker =
             MaterialDatePicker.Builder.datePicker()
                 .setTitleText("Select date")
-                .setCalendarConstraints(calendarConstraint)
                 .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
                 .build()
 
@@ -69,7 +67,6 @@ class NewVaccinationFragment : Fragment(R.layout.fragment_new_vaccination), Resp
         val validUntilPicker =
             MaterialDatePicker.Builder.datePicker()
                 .setTitleText("Select date")
-                .setCalendarConstraints(calendarConstraint)
                 .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
                 .build()
 
@@ -86,7 +83,6 @@ class NewVaccinationFragment : Fragment(R.layout.fragment_new_vaccination), Resp
         val expirationDatePicker =
             MaterialDatePicker.Builder.datePicker()
                 .setTitleText("Select date")
-                .setCalendarConstraints(calendarConstraint)
                 .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
                 .build()
 

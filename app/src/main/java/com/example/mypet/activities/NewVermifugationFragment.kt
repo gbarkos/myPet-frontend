@@ -42,12 +42,9 @@ class NewVermifugationFragment : Fragment(R.layout.fragment_new_vermifugation), 
         dialog = LoadingCircleDialog()
 
         // Vermifugation Date Picker
-        var calendarConstraint  = CalendarConstraints.Builder().setValidator(
-            DateValidatorPointBackward.now()).build()
         val vermifugationDatePicker =
             MaterialDatePicker.Builder.datePicker()
                 .setTitleText("Select date")
-                .setCalendarConstraints(calendarConstraint)
                 .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
                 .build()
 
@@ -64,7 +61,6 @@ class NewVermifugationFragment : Fragment(R.layout.fragment_new_vermifugation), 
         val validUntilPicker =
             MaterialDatePicker.Builder.datePicker()
                 .setTitleText("Select date")
-                .setCalendarConstraints(calendarConstraint)
                 .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
                 .build()
 
@@ -81,7 +77,6 @@ class NewVermifugationFragment : Fragment(R.layout.fragment_new_vermifugation), 
         val expirationDatePicker =
             MaterialDatePicker.Builder.datePicker()
                 .setTitleText("Select date")
-                .setCalendarConstraints(calendarConstraint)
                 .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
                 .build()
 

@@ -48,10 +48,9 @@ class NewReminderFragment : Fragment(R.layout.fragment_new_reminder), ResponseFu
                 .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
                 .build()
         datePicker.addOnPositiveButtonClickListener () {
-
             binding.newReminderScheduledDate.text = getShortDate(datePicker.selection).trim().toEditable()
-            Toast.makeText(context,  getShortDate(datePicker.selection), Toast.LENGTH_LONG).show()
         }
+
         binding.newReminderScheduledDate.setOnClickListener(){
             datePicker.show(childFragmentManager , "datepicker")
         }
@@ -68,7 +67,6 @@ class NewReminderFragment : Fragment(R.layout.fragment_new_reminder), ResponseFu
         timePicker.addOnPositiveButtonClickListener(){
             var value = timePicker.hour.toString() + ":" + timePicker.minute
             binding.newReminderScheduledTime.text = value.toEditable()
-            Toast.makeText(context, value, Toast.LENGTH_LONG).show()
         }
         binding.newReminderScheduledTime.setOnClickListener {
             timePicker.show(childFragmentManager, "timepicker")

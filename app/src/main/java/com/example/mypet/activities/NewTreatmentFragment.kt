@@ -41,14 +41,10 @@ class NewTreatmentFragment : Fragment(R.layout.fragment_new_treatment), Response
         dialog = LoadingCircleDialog()
         adjustViewForVet()
 
-        var calendarConstraint  = CalendarConstraints.Builder().setValidator(
-            DateValidatorPointBackward.now()).build()
-
         //Vermifugation Date Picker
         val startDateDatePicker =
             MaterialDatePicker.Builder.datePicker()
                 .setTitleText("Select date")
-                .setCalendarConstraints(calendarConstraint)
                 .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
                 .build()
 
@@ -65,7 +61,6 @@ class NewTreatmentFragment : Fragment(R.layout.fragment_new_treatment), Response
         val endDatePicker =
             MaterialDatePicker.Builder.datePicker()
                 .setTitleText("Select date")
-                .setCalendarConstraints(calendarConstraint)
                 .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
                 .build()
 
