@@ -12,16 +12,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mypet.R
-import com.example.mypet.adapters.VaccinationsAdapter
 import com.example.mypet.adapters.VermifugationsAdapter
-import com.example.mypet.databinding.FragmentVaccinationsBinding
 import com.example.mypet.databinding.FragmentVermifugationsBinding
-import com.example.mypet.models.Vaccination
 import com.example.mypet.models.Vermifugation
-import com.example.mypet.models.Vet
 import com.example.mypet.utils.SharedPreferencesUtil
 import com.example.mypet.viewmodels.PetsViewModel
-import com.google.gson.Gson
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 

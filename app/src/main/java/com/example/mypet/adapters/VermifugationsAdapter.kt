@@ -5,9 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mypet.R
-import com.example.mypet.databinding.VaccinationItemBinding
 import com.example.mypet.databinding.VermifugationItemBinding
-import com.example.mypet.models.Vaccination
 import com.example.mypet.models.Vermifugation
 import com.example.mypet.utils.MongoDateAdapter
 import kotlinx.coroutines.CoroutineScope

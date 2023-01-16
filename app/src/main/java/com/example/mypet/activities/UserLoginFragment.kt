@@ -1,7 +1,6 @@
 package com.example.mypet.activities
 
 import android.app.Activity
-import android.content.ContentValues
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -16,8 +15,6 @@ import com.example.mypet.databinding.FragmentLoginUserBinding
 import com.example.mypet.utils.ResponseFunctions
 import com.example.mypet.utils.SharedPreferencesUtil
 import com.example.mypet.viewmodels.UserViewModel
-import com.google.android.gms.tasks.OnCompleteListener
-import com.google.firebase.messaging.FirebaseMessaging
 
 class UserLoginFragment: Fragment(R.layout.fragment_login_user), ResponseFunctions {
     private lateinit var binding: FragmentLoginUserBinding;
@@ -27,15 +24,15 @@ class UserLoginFragment: Fragment(R.layout.fragment_login_user), ResponseFunctio
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?){
         super.onViewCreated(view, savedInstanceState);
-        binding = FragmentLoginUserBinding.bind(view); //viewbinding
+        binding = FragmentLoginUserBinding.bind(view);
         viewmodel = ViewModelProvider(this)[UserViewModel::class.java];
         sharedPreferences = requireActivity().getSharedPreferences(
             requireActivity().packageName,
             Activity.MODE_PRIVATE
         )
 
-        binding.userloginviewmodel = viewmodel //databinding
-        viewmodel.responseListener = this   //assign responseListener
+        binding.userloginviewmodel = viewmodel
+        viewmodel.responseListener = this
         dialog = LoadingCircleDialog()
 
         viewmodel.getStatusFromLoginValidation().observe(viewLifecycleOwner) {
@@ -65,7 +62,6 @@ class UserLoginFragment: Fragment(R.layout.fragment_login_user), ResponseFunctio
         binding.textViewError.visibility = View.INVISIBLE
         Log.d("Login fragment", "Logging in...")
         dialog.show(parentFragmentManager, "")
-        //Toast.makeText(context, "Login", Toast.LENGTH_LONG).show()
     }
 
     override fun OnSuccess() {
@@ -87,7 +83,6 @@ class UserLoginFragment: Fragment(R.layout.fragment_login_user), ResponseFunctio
         Log.d("Login fragment", "Wrong username or password")
         binding.textViewError.visibility = View.VISIBLE
         Toast.makeText(context, errorMsg, Toast.LENGTH_LONG).show()
-        //binding.textViewError.setText(errorMsg)
         dialog.dismiss()
     }
 }

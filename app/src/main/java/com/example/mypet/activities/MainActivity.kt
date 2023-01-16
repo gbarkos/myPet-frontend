@@ -4,7 +4,7 @@ import android.content.ContentValues.TAG
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
+
 import androidx.lifecycle.ViewModelProvider
 import com.example.mypet.R
 import com.example.mypet.utils.ResponseFunctions
@@ -28,7 +28,6 @@ class MainActivity : AppCompatActivity(), ResponseFunctions {
                 Log.w(TAG, "Fetching FCM registration token failed", task.exception)
                 return@OnCompleteListener
             }
-
             // Get new FCM registration token
             val token = task.result
 
@@ -40,7 +39,6 @@ class MainActivity : AppCompatActivity(), ResponseFunctions {
 
     override fun onDestroy() {
         super.onDestroy()
-        //SharedPreferencesUtil.clearPreferences()
     }
 
     override fun OnStarted() {

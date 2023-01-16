@@ -8,7 +8,6 @@ import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.mypet.utils.ResponseFunctions
-import com.example.mypet.viewmodels.PetsViewModel
 import com.example.mypet.viewmodels.RemindersViewModel
 
 class ConfirmReminderDeleteDialog : DialogFragment(), ResponseFunctions {
@@ -27,7 +26,6 @@ class ConfirmReminderDeleteDialog : DialogFragment(), ResponseFunctions {
         viewmodel.responseListener = this
 
         return activity?.let {
-            // Use the Builder class for convenient dialog construction
             val builder = AlertDialog.Builder(it)
             builder.setMessage("Είστε σίγουροι ότι θέλετε να διαγράψετε αυτήν την υπνεθύμιση;")
                 .setPositiveButton("Ναι",

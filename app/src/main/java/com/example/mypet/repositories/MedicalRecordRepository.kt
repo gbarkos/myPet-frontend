@@ -44,7 +44,6 @@ object MedicalRecordRepository {
                 ){
                     if (response.isSuccessful && response.body() != null){
                         medicalRecordUpdateResponse.postValue(response.body())
-                        //_loadState.value = Event(NetworkLoadingState.OnSuccess)
                         statusFromUpdateRecord=""
                         callback()
                     }else{
@@ -62,13 +61,10 @@ object MedicalRecordRepository {
                     }
                 }
                 override fun onFailure(call: Call<MedicalRecordPatchResponse>, t: Throwable){
-                    //_loadState.value = Event(NetworkLoadingState.OnError(t.message.toString()))
                     callback()
                 }
             })
     }
-
-
 
     fun addVermifugation(medicalRecordId : String?, manufacturer : String, name : String, expirationDate : String?,
                        vermifugationDate : String, validUntil : String, vet : Vet? = null, callback: () -> Unit) {
@@ -82,7 +78,6 @@ object MedicalRecordRepository {
                 ){
                     if (response.isSuccessful && response.body() != null){
                         medicalRecordUpdateResponse.postValue(response.body())
-                        //_loadState.value = Event(NetworkLoadingState.OnSuccess)
                         statusFromUpdateRecord=""
                         callback()
                     }else{
@@ -117,7 +112,6 @@ object MedicalRecordRepository {
                 ){
                     if (response.isSuccessful && response.body() != null){
                         medicalRecordUpdateResponse.postValue(response.body())
-                        //_loadState.value = Event(NetworkLoadingState.OnSuccess)
                         statusFromUpdateRecord=""
                         callback()
                     }else{
@@ -151,7 +145,6 @@ object MedicalRecordRepository {
                 ){
                     if (response.isSuccessful && response.body() != null){
                         medicalRecordUpdateResponse.postValue(response.body())
-                        //_loadState.value = Event(NetworkLoadingState.OnSuccess)
                         statusFromUpdateRecord=""
                         callback()
                     }else{
@@ -186,7 +179,6 @@ object MedicalRecordRepository {
                 ){
                     if (response.isSuccessful && response.body() != null){
                         medicalRecordUpdateResponse.postValue(response.body())
-                        //_loadState.value = Event(NetworkLoadingState.OnSuccess)
                         statusFromUpdateRecord=""
                         callback()
                     }else{

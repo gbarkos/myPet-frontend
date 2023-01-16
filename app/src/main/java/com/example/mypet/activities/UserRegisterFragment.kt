@@ -22,10 +22,10 @@ class UserRegisterFragment: Fragment(R.layout.fragment_register_user), ResponseF
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?){
         super.onViewCreated(view, savedInstanceState);
-        binding = FragmentRegisterUserBinding.bind(view); //viewbinding
+        binding = FragmentRegisterUserBinding.bind(view);
         viewmodel = ViewModelProvider(this)[UserViewModel::class.java];
-        binding.userregisterviewmodel = viewmodel //databinding
-        viewmodel.responseListener = this   //assign responseListener
+        binding.userregisterviewmodel = viewmodel
+        viewmodel.responseListener = this
         loadingDialog = LoadingCircleDialog()
 
 

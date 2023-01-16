@@ -16,9 +16,6 @@ class AboutFragment : Fragment(R.layout.fragment_about){
         binding = FragmentAboutBinding.bind(view)
 
         binding.aboutReturn.setOnClickListener{
-            /*val transaction = activity?.supportFragmentManager?.beginTransaction()
-            transaction?.remove(this)
-            transaction?.commit()*/
             val intent = Intent(activity, MainContentActivity::class.java)
             startActivity(intent)
         }

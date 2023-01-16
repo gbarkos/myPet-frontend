@@ -43,6 +43,7 @@ class NewSurgeryFragment : Fragment(R.layout.fragment_new_surgery), ResponseFunc
 
         var calendarConstraint  = CalendarConstraints.Builder().setValidator(
             DateValidatorPointBackward.now()).build()
+
         //Surgery Date Picker
         val datePicker =
             MaterialDatePicker.Builder.datePicker()
@@ -60,7 +61,6 @@ class NewSurgeryFragment : Fragment(R.layout.fragment_new_surgery), ResponseFunc
             datePicker.show(childFragmentManager , "a")
         }
 
-
         // Error listeners
         binding.newSurgeryName.doOnTextChanged { text, start, before, count ->
             if(!text.isNullOrEmpty()) binding.newSurgeryNameHint.error = null
@@ -69,7 +69,6 @@ class NewSurgeryFragment : Fragment(R.layout.fragment_new_surgery), ResponseFunc
         binding.newSurgeryDate.doOnTextChanged { text, start, before, count ->
             if(!text.isNullOrEmpty()) binding.newSurgeryDateHint.error = null
         }
-
 
         // Submit button
         binding.newSurgerySubmit.setOnClickListener(){

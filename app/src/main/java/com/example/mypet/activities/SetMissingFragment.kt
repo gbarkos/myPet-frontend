@@ -7,10 +7,9 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.mypet.R
 import com.example.mypet.databinding.FragmentMissingPetBinding
 import com.example.mypet.googlemaps.ui.AppActivity
-import com.example.mypet.utils.ResponseFunctions
 import com.example.mypet.viewmodels.PetsViewModel
 
-class SetMissingFragment : Fragment(R.layout.fragment_missing_pet), ResponseFunctions {
+class SetMissingFragment : Fragment(R.layout.fragment_missing_pet){
     private lateinit var binding: FragmentMissingPetBinding
     private lateinit var viewmodel: PetsViewModel
     lateinit var dialog : LoadingCircleDialog
@@ -23,7 +22,6 @@ class SetMissingFragment : Fragment(R.layout.fragment_missing_pet), ResponseFunc
         binding = FragmentMissingPetBinding.bind(view)
         viewmodel = ViewModelProvider(requireActivity())[PetsViewModel::class.java]
         binding.petsviewmodelMissing = viewmodel
-        viewmodel.responseListener = this   //assign responseListener
         dialog = LoadingCircleDialog()
 
         binding.submitMissingBtn.setOnClickListener {
@@ -38,7 +36,6 @@ class SetMissingFragment : Fragment(R.layout.fragment_missing_pet), ResponseFunc
                 binding.errorLabel.text = "Παρακαλώ εισάγετε τουλάχιστον 1 μέσο επικοινωνίας"
 
             }else{
-
                 val contactInfo : ArrayList<String> = arrayListOf()
                 if(email != null) contactInfo.add(email)
                 if(cellphone != null) contactInfo.add(cellphone)
@@ -58,22 +55,8 @@ class SetMissingFragment : Fragment(R.layout.fragment_missing_pet), ResponseFunc
     }
 
     private fun isContactInfoFilled(email : String, cell : String, phone: String, fb: String, insta: String) : Boolean{
-
         if(email.isNullOrEmpty() && cell.isEmpty() && phone.isNullOrEmpty() && insta.isNullOrEmpty() && fb.isNullOrEmpty())
             return false
-
         return true
-    }
-
-    override fun OnStarted() {
-        TODO("Not yet implemented")
-    }
-
-    override fun OnSuccess() {
-        TODO("Not yet implemented")
-    }
-
-    override fun OnFailure(errorMsg: String?) {
-        TODO("Not yet implemented")
     }
 }

@@ -37,7 +37,6 @@ class NewVaccinationFragment : Fragment(R.layout.fragment_new_vaccination), Resp
         viewmodel = ViewModelProvider(requireActivity())[MedicalRecordViewModel::class.java]
         vetViewModel = ViewModelProvider(requireActivity())[VetViewModel::class.java]
         viewmodel.responseListener = this
-        //vetViewModel.responseListener = this
 
         sharedPreferences = requireActivity().getSharedPreferences(
             requireActivity().packageName,
@@ -47,10 +46,8 @@ class NewVaccinationFragment : Fragment(R.layout.fragment_new_vaccination), Resp
 
         dialog = LoadingCircleDialog()
 
-       // vetViewModel.getVetProfile()
-
-        var calendarConstraint  = CalendarConstraints.Builder().setValidator(DateValidatorPointBackward.now()).build()
         //Vaccination Date Picker
+        var calendarConstraint  = CalendarConstraints.Builder().setValidator(DateValidatorPointBackward.now()).build()
         val vaccinationDatePicker =
             MaterialDatePicker.Builder.datePicker()
                 .setTitleText("Select date")
@@ -102,7 +99,6 @@ class NewVaccinationFragment : Fragment(R.layout.fragment_new_vaccination), Resp
             expirationDatePicker.show(childFragmentManager , "a")
         }
 
-
         // Error listeners
         binding.newVaccinationManufacturer.doOnTextChanged { text, start, before, count ->
             if(!text.isNullOrEmpty()) binding.newVaccinationManufacturerHint.error = null
@@ -119,7 +115,6 @@ class NewVaccinationFragment : Fragment(R.layout.fragment_new_vaccination), Resp
         binding.newVaccinationValidUntil.doOnTextChanged { text, start, before, count ->
             if(!text.isNullOrEmpty()) binding.newVaccinationValidUntilHint.error = null
         }
-
 
         // Submit button
         binding.newVaccinationSubmit.setOnClickListener(){
@@ -162,19 +157,6 @@ class NewVaccinationFragment : Fragment(R.layout.fragment_new_vaccination), Resp
                     viewmodel.addVaccination(medicalRecordId, batchNumber, manufacturer, name,
                         expirationDate, vaccinationDate, validUntil)
                 }
-                /*viewmodel.getLoadStateFromRepo().observe(viewLifecycleOwner, EventObserver {
-                    when (it) {
-                        is NetworkLoadingState.OnLoading -> println("You can show loading indicator here or whatever to inform user that data is being loaded")
-                        is NetworkLoadingState.OnSuccess -> {
-                            val bundle = bundleOf("recordHasBeenUpdated" to true)
-                            vaccinationsFragment.arguments = bundle
-                            val transaction = activity?.supportFragmentManager?.beginTransaction()
-                            transaction?.replace(R.id.navigationFragmentContainer, vaccinationsFragment)
-                            transaction?.disallowAddToBackStack()
-                            transaction?.commit()
-                        }
-                        is NetworkLoadingState.OnError -> println(it.message)
-                   }})*/
             }
         }
     }

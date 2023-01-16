@@ -2,7 +2,6 @@ package com.example.mypet.activities
 
 import android.app.Activity
 import android.content.SharedPreferences
-import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment

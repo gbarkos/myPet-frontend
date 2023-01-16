@@ -36,7 +36,6 @@ class MissingPetSubmitDialog : DialogFragment(), ResponseFunctions {
         viewmodel.responseListener = this
 
         return activity?.let {
-            // Use the Builder class for convenient dialog construction
             val builder = AlertDialog.Builder(it)
             builder.setMessage("Με την υποβολή, συναινείτε στην κοινοποίηση των στοιχείων επικοινωνίας σας σε τρίτους. Θέλετε να συνεχίσετε;")
                 .setPositiveButton("Ναι",
@@ -85,7 +84,6 @@ class MissingPetSubmitDialog : DialogFragment(), ResponseFunctions {
         val transaction = activity?.supportFragmentManager?.beginTransaction()
         transaction?.replace(R.id.navigationFragmentContainer, petInfoFragment)
         transaction?.commit()
-        //Toast.makeText(context, "Καταχωρήθηκε!", Toast.LENGTH_LONG).show()
     }
 
     override fun OnFailure(errorMsg: String?) {

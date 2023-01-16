@@ -1,38 +1,22 @@
 package com.example.mypet.activities
 
-import android.annotation.SuppressLint
 import android.app.Activity
-import android.app.AlertDialog
-import android.content.Intent
 import android.content.SharedPreferences
-import android.content.res.ColorStateList
 import android.graphics.Bitmap
 import android.graphics.Color
-import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
-import android.util.Log
 import android.view.View
-import android.widget.Toast
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mypet.R
-import com.example.mypet.adapters.PetsAdapter
 import com.example.mypet.databinding.FragmentPetInfoBinding
-import com.example.mypet.models.Pet
 import com.example.mypet.models.Vet
 import com.example.mypet.models.responses.PetGetResponse
 import com.example.mypet.utils.*
 import com.example.mypet.viewmodels.PetsViewModel
 import com.google.gson.Gson
 import com.squareup.picasso.Picasso
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
-import java.io.File
 
 class PetInfoFragment: Fragment(R.layout.fragment_pet_info) {
     private lateinit var viewmodel: PetsViewModel
@@ -84,7 +68,6 @@ class PetInfoFragment: Fragment(R.layout.fragment_pet_info) {
                 dialog.show(this.parentFragmentManager, "Missing pet")
             }
         }
-
     }
 
     private fun populateViews(it: PetGetResponse){
@@ -133,14 +116,13 @@ class PetInfoFragment: Fragment(R.layout.fragment_pet_info) {
         picasso
             .load("https://drive.google.com/uc?export=download&id="+it.pet.photo)
             .config(Bitmap.Config.RGB_565)
-            /*.resize(160, 160)*/
             .error(R.drawable.palceholder_profile_pic)
             .into(binding.petInfoProfilePic)
     }
 }
 
-    private fun String.toEditable(): Editable? {
-        return Editable.Factory.getInstance().newEditable(this)
-    }
+private fun String.toEditable(): Editable? {
+    return Editable.Factory.getInstance().newEditable(this)
+}
 
 

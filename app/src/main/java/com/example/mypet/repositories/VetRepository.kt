@@ -1,14 +1,9 @@
 package com.example.mypet.repositories
 
 import android.util.Log
-import androidx.lifecycle.MutableLiveData
 import com.example.mypet.api.ServiceGenerator
 import com.example.mypet.models.ErrorResponse
-import com.example.mypet.models.requests.UserLoginPostRequest
-import com.example.mypet.models.requests.UserRegisterPostRequest
 import com.example.mypet.models.requests.VetLoginPostRequest
-import com.example.mypet.models.responses.UserGetResponse
-import com.example.mypet.models.responses.UserLoginRegisterPostResponse
 import com.example.mypet.models.responses.VetGetResponse
 import com.example.mypet.models.responses.VetLoginRegisterPostResponse
 import com.example.mypet.utils.SingleLiveEvent

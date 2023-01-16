@@ -6,25 +6,11 @@ import android.content.SharedPreferences
 import android.content.res.ColorStateList
 import android.os.Bundle
 import android.util.Log
-import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.os.bundleOf
-import androidx.databinding.DataBindingUtil.setContentView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.NavController
-import androidx.navigation.Navigation
-import androidx.navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.setupWithNavController
 import com.example.mypet.R
 import com.example.mypet.databinding.ActivityPetDetailsBinding
-
-import com.example.mypet.databinding.FragmentPetInfoBinding
-import com.example.mypet.models.Pet
-import com.example.mypet.models.Vaccination
 import com.example.mypet.utils.SharedPreferencesUtil
 import com.example.mypet.viewmodels.PetsViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -104,7 +90,6 @@ class PetDetailsActivity: AppCompatActivity() {
         if(fragment != null){
             val transaction = supportFragmentManager.beginTransaction()
             transaction.replace(R.id.navigationFragmentContainer, fragment)
-//          transaction.addToBackStack(null)
             transaction.commit()
         }
     }

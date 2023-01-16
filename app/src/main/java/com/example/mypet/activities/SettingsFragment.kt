@@ -23,7 +23,7 @@ class SettingsFragment: Fragment(R.layout.fragment_settings), ResponseFunctions 
         binding = FragmentSettingsBinding.bind(view)
         viewmodel = ViewModelProvider(requireActivity())[UserViewModel::class.java]
         binding.userviewmodel = viewmodel
-        viewmodel.responseListener = this   //assign responseListener
+        viewmodel.responseListener = this
         dialog = LoadingCircleDialog()
 
         viewmodel.getProfile()

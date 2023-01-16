@@ -41,9 +41,9 @@ class NewVermifugationFragment : Fragment(R.layout.fragment_new_vermifugation), 
         adjustViewForVet()
         dialog = LoadingCircleDialog()
 
+        // Vermifugation Date Picker
         var calendarConstraint  = CalendarConstraints.Builder().setValidator(
             DateValidatorPointBackward.now()).build()
-        //Vermifugation Date Picker
         val vermifugationDatePicker =
             MaterialDatePicker.Builder.datePicker()
                 .setTitleText("Select date")
@@ -94,7 +94,6 @@ class NewVermifugationFragment : Fragment(R.layout.fragment_new_vermifugation), 
             expirationDatePicker.show(childFragmentManager , "a")
         }
 
-
         // Error listeners
         binding.newVermifugationName.doOnTextChanged { text, start, before, count ->
             if(!text.isNullOrEmpty()) binding.newVermifugationNameHint.error = null
@@ -111,7 +110,6 @@ class NewVermifugationFragment : Fragment(R.layout.fragment_new_vermifugation), 
         binding.newVermifugationValidUntil.doOnTextChanged { text, start, before, count ->
             if(!text.isNullOrEmpty()) binding.newVermifugationValidUntilHint.error = null
         }
-
 
         // Submit button
         binding.newVaccinationSubmit.setOnClickListener(){

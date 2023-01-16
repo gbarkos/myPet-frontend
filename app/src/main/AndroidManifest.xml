@@ -26,10 +26,6 @@
         android:usesCleartextTraffic="true"
         android:theme="@style/Theme.MyPet"
         tools:ignore="Instantiatable">
-<!--        tools:ignore="GoogleAppIndexingWarning">-->
-<!--        <uses-library-->
-<!--            android:name="org.apache.http.legacy"-->
-<!--            android:required="false" />-->
 
         <activity
             android:name=".activities.MainActivity"
@@ -62,7 +58,6 @@
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyDd6i78agEdZNiTpM4TD9wffGVUbur5Ljk" />
-           <!-- android:value="AIzaSyAxdaDkuLvnbcZTmgc5BfnIrDiqNlskQuY" />-->
 
         <service
             android:name=".firebase.FirebaseService"

@@ -46,7 +46,6 @@ class PetsFragment : Fragment(R.layout.fragment_pets) {
         super.onCreate(savedInstanceState)
 
         var shouldExit : Boolean = false
-        // This callback will only be called when MyFragment is at least Started.
         val callback = requireActivity().onBackPressedDispatcher.addCallback(this) {
             if(shouldExit){
                 activity?.moveTaskToBack(true);
@@ -57,8 +56,6 @@ class PetsFragment : Fragment(R.layout.fragment_pets) {
                 shouldExit = true
             }
         }
-
-        // The callback can be enabled or disabled here or in the lambda
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?){
@@ -115,8 +112,6 @@ class PetsFragment : Fragment(R.layout.fragment_pets) {
                 }
                 R.id.nearby_vets -> {
                     AppActivity.show(this.requireActivity(), R.navigation.nav_graph)
-                    /*val intent = Intent(activity, AppActivity::class.java)
-                    startActivity(intent)*/
                     return@setOnMenuItemClickListener true
                 }
                 R.id.settings -> {

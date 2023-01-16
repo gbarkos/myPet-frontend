@@ -26,13 +26,13 @@ class NewPetFragment : Fragment(R.layout.fragment_new_pet), ResponseFunctions {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentNewPetBinding.bind(view)
         viewmodel = ViewModelProvider(requireActivity())[PetsViewModel::class.java]
-        //binding.petsviewmodel = viewmodel
         dialog = LoadingCircleDialog()
         viewmodel.responseListener = this
 
         var calendarConstraint  = CalendarConstraints.Builder().setValidator(
             DateValidatorPointBackward.now()).build()
-        //Date Picker
+
+        // Date Picker
         val datePicker =
             MaterialDatePicker.Builder.datePicker()
                 .setTitleText("Select date")
@@ -50,7 +50,7 @@ class NewPetFragment : Fragment(R.layout.fragment_new_pet), ResponseFunctions {
             datePicker.show(childFragmentManager , "a")
         }
 
-        //Sex selection
+        // Sex selection
         val adapter = ArrayAdapter(
             requireContext(), android.R.layout.simple_spinner_dropdown_item, listOf("Αρσενικό", "Θηλυκό")
         )
@@ -150,8 +150,6 @@ class NewPetFragment : Fragment(R.layout.fragment_new_pet), ResponseFunctions {
 
     }
 }
-
-
 
 private fun String?.toEditable(): Editable? {
     return Editable.Factory.getInstance().newEditable(this)

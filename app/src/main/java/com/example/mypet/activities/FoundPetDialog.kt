@@ -29,7 +29,6 @@ class FoundPetDialog : DialogFragment(), ResponseFunctions{
         viewmodel.responseListener = this
 
         return activity?.let {
-            // Use the Builder class for convenient dialog construction
             val builder = AlertDialog.Builder(it)
             builder.setMessage("Πρόκειται να δηλώσετε πως το κατοικίδιό σας έχει βρεθεί. Είστε σίγουροι;")
                 .setPositiveButton("Ναι",

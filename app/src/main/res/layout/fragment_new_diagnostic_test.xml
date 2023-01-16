@@ -30,7 +30,7 @@
                     style="@style/Widget.MaterialComponents.Toolbar.Primary"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
-                    app:title="Προσθήκη Εγχείρισης" />
+                    app:title="Προσθήκη Ελέγχου" />
 
             </com.google.android.material.appbar.AppBarLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -35,11 +35,6 @@ class MedicalRecordViewModel : ViewModel() {
         medicalRecordRepository.getStatusFromUpdateRecord()
     }
 
-    /*fun addVaccination (medicalRecordId : String?, batchNumber : String?, manufacturer : String, name : String, expirationDate : String?,
-    vaccinationDate : String, validUntil : String, vet : Vet? = null) {
-        medicalRecordRepository.addVaccination(medicalRecordId, batchNumber, manufacturer, name, expirationDate, vaccinationDate, validUntil, vet)
-    }*/
-
     fun addVaccination (medicalRecordId : String?, batchNumber : String?, manufacturer : String, name : String, expirationDate : String?,
                          vaccinationDate : String, validUntil : String, vet : Vet? = null){
         responseListener?.OnStarted()

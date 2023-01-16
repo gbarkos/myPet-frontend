@@ -30,7 +30,7 @@
                     style="@style/Widget.MaterialComponents.Toolbar.Primary"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
-                    app:title="Στοιχεία θεραπείας" />
+                    app:title="Στοιχεία Θεραπείας" />
 
             </com.google.android.material.appbar.AppBarLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -166,7 +166,7 @@
                                 android:id="@+id/petTreatmentFrequencyHint"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:hint="Συχνότητα Αγωγής"
+                                android:hint="Συχνότητα Αγωγής (ανά ημέρα)"
                                 android:minWidth="130dp"
                                 app:boxBackgroundColor="@color/white"
                                 app:boxStrokeWidth="0dp"

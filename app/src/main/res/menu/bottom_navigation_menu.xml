@@ -16,12 +16,4 @@
         android:icon="@drawable/ic_baseline_more_horiz"
         android:title="@string/title_more"
         android:id="@+id/navigation_menu_more"/>
-<!--    <item-->
-<!--        android:icon="@drawable/ic_surgery"-->
-<!--        android:title="@string/title_surgeries"-->
-<!--        android:id="@+id/navigation_menu_surgeries"/>-->
-<!--    <item-->
-<!--        android:icon="@drawable/ic_diagnostic_test"-->
-<!--        android:title="@string/title_diagnosticTests"-->
-<!--        android:id="@+id/navigation_menu_diagnostic_tests"/>-->
 </menu>

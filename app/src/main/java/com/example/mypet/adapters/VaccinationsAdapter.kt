@@ -5,12 +5,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mypet.R
-import com.example.mypet.databinding.PetItemBinding
 import com.example.mypet.databinding.VaccinationItemBinding
-import com.example.mypet.models.Pet
 import com.example.mypet.models.Vaccination
 import com.example.mypet.utils.MongoDateAdapter
-import com.squareup.picasso.Picasso
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow

@@ -8,7 +8,6 @@ import android.os.Looper
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
@@ -19,9 +18,7 @@ import com.budiyev.android.codescanner.DecodeCallback
 import com.budiyev.android.codescanner.ErrorCallback
 import com.budiyev.android.codescanner.ScanMode
 import com.example.mypet.R
-import com.example.mypet.databinding.FragmentPetsBinding
 import com.example.mypet.databinding.FragmentQrCodeScannerBinding
-import java.util.jar.Manifest
 
 class QrCodeScannerFragment : Fragment(R.layout.fragment_qr_code_scanner){
 
@@ -51,7 +48,6 @@ class QrCodeScannerFragment : Fragment(R.layout.fragment_qr_code_scanner){
         codeScanner.isFlashEnabled = false
 
         codeScanner.decodeCallback = DecodeCallback {
-            //TODO
             Handler(Looper.getMainLooper()).post {
                 val intent = Intent (getActivity(), PetDetailsActivity::class.java)
                 val bundle = bundleOf("petID" to it.text)
@@ -62,7 +58,6 @@ class QrCodeScannerFragment : Fragment(R.layout.fragment_qr_code_scanner){
         }
 
         codeScanner.errorCallback = ErrorCallback {
-         //TODO
             Toast.makeText(requireContext(), "${it.message}", Toast.LENGTH_SHORT).show()
         }
 
@@ -91,6 +86,4 @@ class QrCodeScannerFragment : Fragment(R.layout.fragment_qr_code_scanner){
                 startScanning()
             }
         }
-
-
 }

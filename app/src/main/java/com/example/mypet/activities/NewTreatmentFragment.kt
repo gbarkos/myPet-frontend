@@ -21,10 +21,10 @@ import com.google.android.material.datepicker.DateValidatorPointBackward
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.gson.Gson
 
-class NewTreatmentFragment : Fragment(R.layout.fragment_new_treatment), ResponseFunctions { //TODO
+class NewTreatmentFragment : Fragment(R.layout.fragment_new_treatment), ResponseFunctions {
 
     private lateinit var viewmodel: MedicalRecordViewModel
-    private lateinit var binding: FragmentNewTreatmentBinding //TODO
+    private lateinit var binding: FragmentNewTreatmentBinding
     private val treatmentsFragment = TreatmentsFragment()
     lateinit var dialog : LoadingCircleDialog
     private lateinit var sharedPreferences: SharedPreferences
@@ -35,7 +35,7 @@ class NewTreatmentFragment : Fragment(R.layout.fragment_new_treatment), Response
             requireActivity().packageName,
             Activity.MODE_PRIVATE
         )
-        binding = FragmentNewTreatmentBinding.bind(view) //TODO
+        binding = FragmentNewTreatmentBinding.bind(view)
         viewmodel = ViewModelProvider(requireActivity())[MedicalRecordViewModel::class.java]
         viewmodel.responseListener = this
         dialog = LoadingCircleDialog()
@@ -43,6 +43,7 @@ class NewTreatmentFragment : Fragment(R.layout.fragment_new_treatment), Response
 
         var calendarConstraint  = CalendarConstraints.Builder().setValidator(
             DateValidatorPointBackward.now()).build()
+
         //Vermifugation Date Picker
         val startDateDatePicker =
             MaterialDatePicker.Builder.datePicker()
@@ -53,10 +54,10 @@ class NewTreatmentFragment : Fragment(R.layout.fragment_new_treatment), Response
 
         startDateDatePicker.addOnPositiveButtonClickListener () {
             getShortDate(startDateDatePicker.selection)
-            binding.newTreatmentStartDate.text = getShortDate(startDateDatePicker.selection).trim().toEditable() //TODO
+            binding.newTreatmentStartDate.text = getShortDate(startDateDatePicker.selection).trim().toEditable()
         }
 
-        binding.newTreatmentStartDate.setOnClickListener(){ //TODO
+        binding.newTreatmentStartDate.setOnClickListener(){
             startDateDatePicker.show(childFragmentManager , "a")
         }
 
@@ -70,13 +71,12 @@ class NewTreatmentFragment : Fragment(R.layout.fragment_new_treatment), Response
 
         endDatePicker.addOnPositiveButtonClickListener () {
             getShortDate(endDatePicker.selection)
-            binding.newTreatmentEndDate.text = getShortDate(endDatePicker.selection).trim().toEditable() //TODO
+            binding.newTreatmentEndDate.text = getShortDate(endDatePicker.selection).trim().toEditable()
         }
 
-        binding.newTreatmentEndDate.setOnClickListener(){ //TODO
+        binding.newTreatmentEndDate.setOnClickListener(){
             endDatePicker.show(childFragmentManager , "a")
         }
-
 
         // Error listeners
         binding.newTreatmentDisease.doOnTextChanged { text, start, before, count ->

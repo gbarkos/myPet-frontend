@@ -60,7 +60,6 @@ class EditPetFragment : Fragment(R.layout.fragment_edit_pet), ResponseFunctions 
                     val file = File(filePath)
                     try {
                         val inputStream: InputStream? = contentResolver.openInputStream(uri!!)
-                        //if (inputStream == null) return null
                         val outputStream: OutputStream = FileOutputStream(file)
                         val buf = ByteArray(1024)
                         var len: Int

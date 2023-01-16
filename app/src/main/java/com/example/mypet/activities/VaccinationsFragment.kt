@@ -10,19 +10,13 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mypet.R
-import com.example.mypet.adapters.PetsAdapter
 import com.example.mypet.adapters.VaccinationsAdapter
-import com.example.mypet.databinding.FragmentPetsBinding
 import com.example.mypet.databinding.FragmentVaccinationsBinding
-import com.example.mypet.models.Pet
 import com.example.mypet.models.Vaccination
-import com.example.mypet.models.Vet
 import com.example.mypet.utils.SharedPreferencesUtil
 import com.example.mypet.viewmodels.PetsViewModel
-import com.google.gson.Gson
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
@@ -69,7 +63,6 @@ class VaccinationsFragment : Fragment(R.layout.fragment_vaccinations){
                 vaccinationInfoFragment.arguments = bundleOf("vaccinationID" to it._id)
                 val transaction = requireActivity().supportFragmentManager.beginTransaction()
                 transaction.replace(this.id, vaccinationInfoFragment)
-                //transaction.addToBackStack("null")
                 transaction.commit()
 
             }.launchIn(lifecycleScope)

@@ -4,14 +4,11 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.mypet.models.responses.PetsLimitedGetResponse
 import com.example.mypet.models.responses.RemindersGetResponse
 import com.example.mypet.models.responses.SingleReminderGetResponse
-import com.example.mypet.repositories.PetsRepository
 import com.example.mypet.repositories.RemindersRepository
 import com.example.mypet.utils.ResponseFunctions
 import kotlinx.coroutines.launch
-import java.util.*
 
 class RemindersViewModel: ViewModel()  {
     var responseListener: ResponseFunctions? = null

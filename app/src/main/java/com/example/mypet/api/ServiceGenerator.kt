@@ -15,9 +15,8 @@ object ServiceGenerator {
     private var headerInterceptor = HeaderInterceptor()
 
     val client = OkHttpClient.Builder()
-            .addInterceptor(interceptor.setLevel(HttpLoggingInterceptor.Level.BODY)) //log the body
-            //.addInterceptor(interceptor.setLevel(HttpLoggingInterceptor.Level.HEADERS)) //log the headers
-            .addInterceptor(headerInterceptor) //add Authorization header
+            .addInterceptor(interceptor.setLevel(HttpLoggingInterceptor.Level.BODY)) // log the body
+            .addInterceptor(headerInterceptor) // add Authorization header
             .build()
 
     private val retrofitBuilder = Retrofit.Builder()

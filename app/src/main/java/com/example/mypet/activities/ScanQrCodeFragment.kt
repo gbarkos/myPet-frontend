@@ -21,7 +21,7 @@ class ScanQrCodeFragment: Fragment(R.layout.fragment_scan_qr_code), ResponseFunc
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?){
         super.onViewCreated(view, savedInstanceState);
-        binding = FragmentScanQrCodeBinding.bind(view); //viewbinding
+        binding = FragmentScanQrCodeBinding.bind(view);
         viewmodel = ViewModelProvider(requireActivity())[VetViewModel::class.java]
         viewmodel.responseListener = this
         sharedPreferences = requireActivity().getSharedPreferences(

@@ -29,7 +29,7 @@
                     style="@style/Widget.MaterialComponents.Toolbar.Primary"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
-                    app:title="Στοιχεία Εμβολιασμού" />
+                    app:title="Στοιχεία Θεραπείας" />
 
             </com.google.android.material.appbar.AppBarLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -18,12 +18,6 @@
     <dimen name="text_xxxlarge_48sp">48sp</dimen>
     <dimen name="huge_text">64sp</dimen>
 
-    <!-- Vector sizes -->
-    <dimen name="vector_small">24dp</dimen>
-    <dimen name="vector_medium">32dp</dimen>
-    <dimen name="vector_normal">48dp</dimen>
-    <dimen name="vector_large">64dp</dimen>
-
     <!-- Zero -->
     <dimen name="margin_minus_double_half_24dp">-24dp</dimen>
 
@@ -40,17 +34,4 @@
     <dimen name="margin_half_8dp">8dp</dimen>
     <dimen name="margin_quarter_4dp">4dp</dimen>
     <dimen name="margin_eighth_2dp">2dp</dimen>
-
-    <!-- OnBoarding -->
-    <dimen name="onboarding_input_height">35dp</dimen>
-    <dimen name="onboarding_button_height">48dp</dimen>
-
-    <!-- GridLayoutManager -->
-    <!-- inter spacing between RecyclerView's Item-->
-    <dimen name="item_collections_recommended_title">1dp</dimen>
-    <dimen name="item_beacon_exhibits_spacing">4dp</dimen>
-    <dimen name="item_profile_details_spacing">2dp</dimen>
-
-    <!-- Outdoor Area Title -->
-    <dimen name="outdoor_area_text_size">36sp</dimen>
 </resources>

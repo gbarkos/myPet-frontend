@@ -9,14 +9,11 @@ import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.navigation.NavDirections
-import androidx.navigation.fragment.findNavController
 import com.example.mypet.R
 import com.example.mypet.databinding.FragmentPointBinding
 import com.example.mypet.googlemaps.model.UserLocation
 import com.example.mypet.googlemaps.ui.*
 import com.example.mypet.googlemaps.util.getStatusBarHeight
-import com.example.mypet.googlemaps.util.safeNavigate
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -25,18 +22,12 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import dagger.hilt.android.AndroidEntryPoint
 
-
 @AndroidEntryPoint
 class PointFinderFragment : BaseFragment<FragmentPointBinding>(), OnMapReadyCallback {
 
     override fun getViewBinding(): FragmentPointBinding = FragmentPointBinding.inflate(layoutInflater)
-
     private val activityViewModel: AppViewModel by activityViewModels()
-
     private val viewModel: MapSearcherViewModel by viewModels()
-
-    /*override fun getStatusBarType(): StatusBarType = StatusBarType.LIGHT*/
-
     private var googleMap: GoogleMap? = null
 
     private var lat = 0.0
@@ -139,7 +130,6 @@ class PointFinderFragment : BaseFragment<FragmentPointBinding>(), OnMapReadyCall
         intent.putExtra("Long", long)
 
         (this.requireActivity() as AppActivity).setResult(10, intent) //The data you want to send back
-
         (this.requireActivity() as AppActivity).finish()
     }
 
@@ -151,18 +141,7 @@ class PointFinderFragment : BaseFragment<FragmentPointBinding>(), OnMapReadyCall
         googleMap?.animateCamera(CameraUpdateFactory.newCameraPosition(cameraBuild))
     }
 
-    /*
-    * Navigation
-    */
-    private fun navigateUI(directions: NavDirections) {
-        findNavController().safeNavigate(directions, R.id.mapSearcherFragment)
-    }
-
-
     companion object {
-        private val INITIAL_LOCATION = LatLng(40.63713547036048, 22.946366871423827)
-        private const val INITIAL_ZOOM = 11.5f
         private const val USER_LOCATION_ZOOM = 13f
-        private const val CLUSTER_ITEM_WIDTH_PERCENT = 0.1
     }
 }

@@ -13,14 +13,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mypet.R
 import com.example.mypet.adapters.SurgeriesAdapter
-import com.example.mypet.adapters.TreatmentsAdapter
-import com.example.mypet.adapters.VermifugationsAdapter
 import com.example.mypet.databinding.FragmentSurgeriesBinding
-import com.example.mypet.databinding.FragmentTreatmentsBinding
-import com.example.mypet.databinding.FragmentVermifugationsBinding
 import com.example.mypet.models.Surgery
-import com.example.mypet.models.Treatment
-import com.example.mypet.models.Vermifugation
 import com.example.mypet.utils.SharedPreferencesUtil
 import com.example.mypet.viewmodels.PetsViewModel
 import kotlinx.coroutines.flow.launchIn
@@ -67,7 +61,6 @@ class SurgeriesFragment : Fragment(R.layout.fragment_surgeries){
                 surgeryInfoFragment.arguments = bundleOf("treatmentID" to it._id)
                 val transaction = requireActivity().supportFragmentManager.beginTransaction()
                 transaction.replace(this.id, surgeryInfoFragment)
-                //transaction.addToBackStack("null")
                 transaction.commit()
 
             }.launchIn(lifecycleScope)

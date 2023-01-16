@@ -1,7 +1,6 @@
 package com.example.mypet.repositories
 
 import android.util.Log
-import androidx.lifecycle.MutableLiveData
 import com.example.mypet.api.ServiceGenerator
 import com.example.mypet.models.ErrorResponse
 import com.example.mypet.models.requests.UserChangeEmailPreferencesRequest

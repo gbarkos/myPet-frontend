@@ -6,13 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mypet.R
 import com.example.mypet.databinding.DiagnosticTestItemBinding
-import com.example.mypet.databinding.SurgeryItemBinding
-import com.example.mypet.databinding.TreatmentItemBinding
-import com.example.mypet.databinding.VermifugationItemBinding
 import com.example.mypet.models.DiagnosticTest
-import com.example.mypet.models.Surgery
-import com.example.mypet.models.Treatment
-import com.example.mypet.models.Vermifugation
 import com.example.mypet.utils.MongoDateAdapter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.channels.Channel

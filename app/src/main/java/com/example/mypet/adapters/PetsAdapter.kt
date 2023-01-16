@@ -1,22 +1,18 @@
 package com.example.mypet.adapters
 
 import android.graphics.Bitmap
-import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.example.mypet.R
 import com.example.mypet.databinding.PetItemBinding
-import com.example.mypet.models.Pet
 import com.example.mypet.models.PetLimited
 import com.squareup.picasso.Picasso
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.receiveAsFlow
-import java.io.File
 
 class PetsAdapter(private val pets: List<PetLimited>, private val coroutineScope: CoroutineScope) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 

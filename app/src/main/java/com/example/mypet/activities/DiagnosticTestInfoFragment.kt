@@ -2,7 +2,6 @@ package com.example.mypet.activities
 
 import android.app.Activity
 import android.content.SharedPreferences
-import android.content.res.ColorStateList
 import android.os.Bundle
 import android.text.Editable
 import android.util.Log
@@ -11,13 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.mypet.R
 import com.example.mypet.databinding.FragmentPetDiagnosticTestBinding
-import com.example.mypet.databinding.FragmentPetSurgeryBinding
-import com.example.mypet.databinding.FragmentPetTreatmentBinding
-import com.example.mypet.databinding.FragmentPetVermifugationBinding
 import com.example.mypet.models.DiagnosticTest
-import com.example.mypet.models.Surgery
-import com.example.mypet.models.Treatment
-import com.example.mypet.models.Vermifugation
 import com.example.mypet.utils.MongoDateAdapter
 import com.example.mypet.utils.SharedPreferencesUtil
 import com.example.mypet.viewmodels.PetsViewModel
@@ -39,8 +32,6 @@ class DiagnosticTestInfoFragment  : Fragment(R.layout.fragment_pet_diagnostic_te
         binding.petsViewmodelDiagnosticTest= viewmodel
         val id = arguments?.getString("treatmentID")
         adjustViewForVet()
-        //val petID = viewmodel._id;
-        //Toast.makeText(context, "$petID", Toast.LENGTH_LONG).show()
 
         viewmodel.getPetDataFromRepo().observe(viewLifecycleOwner, {
             Log.d("Pet!!!",it.pet.toString())

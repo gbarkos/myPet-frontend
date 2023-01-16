@@ -24,15 +24,15 @@ class VetLoginFragment: Fragment(R.layout.fragment_login_vet), ResponseFunctions
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?){
         super.onViewCreated(view, savedInstanceState);
-        binding = FragmentLoginVetBinding.bind(view); //viewbinding
+        binding = FragmentLoginVetBinding.bind(view);
         viewmodel = ViewModelProvider(this)[VetViewModel::class.java];
         dialog = LoadingCircleDialog()
         sharedPreferences = requireActivity().getSharedPreferences(
             requireActivity().packageName,
             Activity.MODE_PRIVATE
         )
-        binding.vetloginviewmodel = viewmodel //databinding
-        viewmodel.responseListener = this   //assign responseListener
+        binding.vetloginviewmodel = viewmodel
+        viewmodel.responseListener = this
 
         binding.textViewGoToUserLogin.setOnClickListener() {
             navRegister()
@@ -46,7 +46,6 @@ class VetLoginFragment: Fragment(R.layout.fragment_login_vet), ResponseFunctions
     override fun OnStarted() {
         dialog.show(parentFragmentManager, "")
         binding.textViewError.visibility = View.INVISIBLE
-        //Toast.makeText(context, "Login", Toast.LENGTH_LONG).show()
     }
 
     override fun OnSuccess() {
@@ -65,7 +64,6 @@ class VetLoginFragment: Fragment(R.layout.fragment_login_vet), ResponseFunctions
         Log.d("Login fragment", "Wrong username or password")
         binding.textViewError.visibility = View.VISIBLE
         binding.textViewError.setText("Λάθος όνομα χρήστη ή κωδικός πρόσβασης")
-        //Toast.makeText(context, "Wrong username or password...", Toast.LENGTH_LONG).show()
     }
 
 }

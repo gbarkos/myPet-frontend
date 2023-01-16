@@ -1,6 +1,5 @@
 package com.example.mypet.activities
 
-import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.view.View
@@ -8,22 +7,18 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import com.example.mypet.R
-import com.example.mypet.databinding.FragmentNewPetBinding
 import com.example.mypet.databinding.FragmentNewReminderBinding
 import com.example.mypet.utils.ResponseFunctions
 import com.example.mypet.utils.getShortDate
 import com.example.mypet.viewmodels.PetsViewModel
 import com.example.mypet.viewmodels.RemindersViewModel
 import com.google.android.material.datepicker.CalendarConstraints
-import com.google.android.material.datepicker.DateValidatorPointBackward
 import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
 import java.util.*
-import kotlin.collections.LinkedHashMap
 
 class NewReminderFragment : Fragment(R.layout.fragment_new_reminder), ResponseFunctions {
 
@@ -142,14 +137,11 @@ class NewReminderFragment : Fragment(R.layout.fragment_new_reminder), ResponseFu
 
     override fun OnSuccess() {
         loadingDialog.dismiss()
-        //Toast.makeText(context, "Επιτυχής προσθήκη!", Toast.LENGTH_LONG).show()
         remindersFragment = RemindersFragment()
         val transaction = activity?.supportFragmentManager?.beginTransaction()
         transaction?.replace(this.id, remindersFragment)
         transaction?.disallowAddToBackStack()
         transaction?.commit()
-        //findNavController().navigate(R.id.action_newReminderFragment_to_remindersFragment)
-
     }
 
     override fun OnFailure(errorMsg: String?) {
@@ -160,5 +152,4 @@ class NewReminderFragment : Fragment(R.layout.fragment_new_reminder), ResponseFu
     private fun String?.toEditable(): Editable? {
         return Editable.Factory.getInstance().newEditable(this)
     }
-
 }

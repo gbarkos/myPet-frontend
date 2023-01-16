@@ -363,29 +363,3 @@
     </LinearLayout>
 
 </layout>
-
-
-
-<!--        <Button-->
-<!--            android:id="@+id/newPetCalendar"-->
-<!--            android:layout_width="50dp"-->
-<!--            android:layout_height="50dp"-->
-
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toEndOf="@+id/newPetBirthdateHint"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/newPetNameHint"-->
-<!--            android:drawableTop="@drawable/ic_baseline_calendar_today_24"/>-->
-
-<!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
-
-<!--    </androidx.cardview.widget.CardView>-->
-
-
-
-<!--        &lt;!&ndash;<LinearLayout-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:orientation="vertical" />&ndash;&gt;-->
-
-<!--</androidx.constraintlayout.widget.ConstraintLayout>-->
-<!--    </ScrollView>-->

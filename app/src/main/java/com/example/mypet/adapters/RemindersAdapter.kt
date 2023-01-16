@@ -6,9 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mypet.R
 import com.example.mypet.databinding.ReminderItemBinding
-import com.example.mypet.models.PetLimited
 import com.example.mypet.models.Reminder
-import com.example.mypet.models.enums.ReminderTypes
 import com.example.mypet.utils.MongoDateAdapter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.channels.Channel

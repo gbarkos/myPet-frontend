@@ -177,7 +177,7 @@
                                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:hint="Συχνότητα Αγωγής*"
+                                android:hint="Συχνότητα Αγωγής (ανά ημέρα)*"
                                 app:boxBackgroundColor="@color/white"
                                 app:boxStrokeColor="@color/black"
                                 app:boxStrokeWidth="1dp"

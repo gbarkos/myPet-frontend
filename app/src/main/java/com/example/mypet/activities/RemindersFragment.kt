@@ -2,24 +2,17 @@ package com.example.mypet.activities
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
-import androidx.core.os.bundleOf
-import androidx.core.view.children
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mypet.R
-import com.example.mypet.adapters.PetsAdapter
 import com.example.mypet.adapters.RemindersAdapter
 import com.example.mypet.databinding.FragmentRemindersBinding
-import com.example.mypet.models.PetLimited
 import com.example.mypet.models.Reminder
 import com.example.mypet.utils.ResponseFunctions
-import com.example.mypet.viewmodels.PetsViewModel
 import com.example.mypet.viewmodels.RemindersViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach

@@ -21,9 +21,4 @@
         app:frameThickness="2dp">
 
     </com.budiyev.android.codescanner.CodeScannerView>
-
-
-
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,12 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import com.example.mypet.api.ServiceGenerator
 import com.example.mypet.models.ErrorResponse
 import com.example.mypet.models.requests.NewReminder
-import com.example.mypet.models.responses.BarebonesResponse
-import com.example.mypet.models.responses.PetsLimitedGetResponse
 import com.example.mypet.models.responses.RemindersGetResponse
 import com.example.mypet.models.responses.SingleReminderGetResponse
-import com.example.mypet.utils.Event
-import com.example.mypet.utils.NetworkLoadingState
 import com.google.gson.Gson
 import retrofit2.Call
 import retrofit2.Callback
