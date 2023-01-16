@@ -116,6 +116,7 @@ class PetInfoFragment: Fragment(R.layout.fragment_pet_info) {
         picasso
             .load("https://drive.google.com/uc?export=download&id="+it.pet.photo)
             .config(Bitmap.Config.RGB_565)
+            .rotate(90F)
             .error(R.drawable.palceholder_profile_pic)
             .into(binding.petInfoProfilePic)
     }

@@ -57,7 +57,7 @@ class PetsAdapter(private val pets: List<PetLimited>, private val coroutineScope
             picasso
                 .load("https://drive.google.com/uc?export=download&id="+pet.photo)
                 .config(Bitmap.Config.RGB_565)
-                .resize(160, 160)
+                .rotate(90F)
                 .error(R.drawable.palceholder_profile_pic)
                 .into(binding.petProfilePic)
 
